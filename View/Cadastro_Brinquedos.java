@@ -164,7 +164,6 @@ public class Cadastro_Brinquedos {
         janela.add(adicionarComponentes(), gbc);
         janela.pack();
         janela.setVisible(true);
-
     }
 
     public static void main(String[] args) {
