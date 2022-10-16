@@ -1,4 +1,4 @@
-package Swing.Veterinaria.View;
+package veterinaria.View;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;

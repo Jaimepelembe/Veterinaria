@@ -1,3 +1,5 @@
+package veterinaria.View;
+
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
