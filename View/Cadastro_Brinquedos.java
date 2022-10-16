@@ -15,17 +15,20 @@ import java.awt.Color;
 import java.awt.Container;
 
 public class Cadastro_Brinquedos {
-    private JLabel lNome, lUnidade, lMaterial, lCor;
+    private JLabel lNome, lUnidade, lMaterial, lCor, lPreco_Aquisicao;
     private JButton bSalvar, bLimpar, bCancelar;
     private JFrame janela;
     private JSpinner spUnidades;
     private JPanel pPrincipal;
     private JRadioButton rbPlastico, rbPano;
     private ButtonGroup botoes;
+    private JTextField tfPreco_Aquisicao;
     private JComboBox cbNome, cbCor;
+    private float Preco_Aquisicao;
+    private GridBagConstraints gbc = new GridBagConstraints();
+
     private String[] listaNome = { "Corda", "Bolinhas", "Frisbee", "Ossinho" };
     private String[] listaCores = { "Preto", "Azul", "Vermelho", "Verde" };
-    private GridBagConstraints gbc = new GridBagConstraints();
 
     public Cadastro_Brinquedos() {
         createWindow();
@@ -33,14 +36,15 @@ public class Cadastro_Brinquedos {
 
     public Container adicionarComponentes() {
         pPrincipal = new JPanel(new GridBagLayout());
+        pPrincipal.setBackground(Color.white);
 
         // Nome
-        lNome = new JLabel("Nome:");
+        lNome = new JLabel("Nome");
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, 5, 0, 0);
+        gbc.insets = new Insets(35, 15, 0, 0);// Insets de Label
         pPrincipal.add(lNome, gbc);
 
         cbNome = new JComboBox(listaNome);
@@ -48,16 +52,18 @@ public class Cadastro_Brinquedos {
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, 15, 5, 0);
+        gbc.ipadx = 35;
+        gbc.ipady = 5;
+        gbc.insets = new Insets(35, 5, 0, 10);// Insets e Field,RadioButton, Combobox
         pPrincipal.add(cbNome, gbc);
 
         // Cor
-        lCor = new JLabel("Cor:");
+        lCor = new JLabel("Cor");
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, 5, 0, 0);
+        gbc.insets = new Insets(35, 15, 0, 0);// Insets de Label
         pPrincipal.add(lCor, gbc);
 
         cbCor = new JComboBox(listaCores);
@@ -65,16 +71,34 @@ public class Cadastro_Brinquedos {
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, 15, 5, 0);
+        gbc.insets = new Insets(35, 5, 0, 10);// Insets e Field,RadioButton, Combobox
         pPrincipal.add(cbCor, gbc);
 
-        // Unidade
-        lUnidade = new JLabel("Unidades:");
+        // Preco Aquisicao
+        lPreco_Aquisicao = new JLabel("Preco Aquisição");
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, 5, 0, 0);
+        gbc.insets = new Insets(35, 15, 0, 0);// Insets de Label
+        pPrincipal.add(lPreco_Aquisicao, gbc);
+
+        tfPreco_Aquisicao = new JTextField();
+        tfPreco_Aquisicao.setToolTipText("Insira o valor pelo qual adiquiriu o produto");
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        gbc.insets = new Insets(35, 5, 0, 10);// Insets e Field,RadioButton, Combobox
+        pPrincipal.add(tfPreco_Aquisicao, gbc);
+
+        // Unidade
+        lUnidade = new JLabel("Unidades");
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 1;
+        gbc.insets = new Insets(35, 15, 0, 0);// Insets de Label
         pPrincipal.add(lUnidade, gbc);
 
         spUnidades = new JSpinner();
@@ -83,85 +107,56 @@ public class Cadastro_Brinquedos {
         spUnidades.setToolTipText("Indique a quantidade de unidades");
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 1;
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, 15, 5, 0);
+        gbc.insets = new Insets(35, 5, 0, 10);// Insets e Field,RadioButton, Combobox
         pPrincipal.add(spUnidades, gbc);
 
         // Radio Buttons
-        lMaterial = new JLabel("Tipo de material:");
+        lMaterial = new JLabel("Tipo de material");
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, 5, 0, 0);
+        gbc.insets = new Insets(35, 15, 0, 0);// Insets de Label
         pPrincipal.add(lMaterial, gbc);
         botoes = new ButtonGroup();
         rbPlastico = new JRadioButton("Plastico");
+        rbPlastico.setBackground(Color.WHITE);
         rbPano = new JRadioButton("Pano");
+        rbPano.setBackground(Color.WHITE);
 
         botoes.add(rbPlastico);
         botoes.add(rbPano);
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 1;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, 15, 5, 0);
+        gbc.insets = new Insets(35, 5, 0, 10);// Insets e Field,RadioButton, Combobox
         pPrincipal.add(rbPlastico, gbc);
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 2;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, 15, 5, 0);
+        gbc.insets = new Insets(35, 5, 0, 10);// Insets e Field,RadioButton, Combobox
         pPrincipal.add(rbPano, gbc);
 
-        // Botoes
-
-        // Salvar
-        bSalvar = new JButton("Salvar");
-        bSalvar.setForeground(Color.BLUE);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, 0, 5, 0);
-        pPrincipal.add(bSalvar, gbc);
-
-        // limpar
-        bLimpar = new JButton("Limpar");
-        bLimpar.setForeground(Color.ORANGE);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx = 1;
-        gbc.gridy = 4;
-        gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, 15, 5, 0);
-        pPrincipal.add(bLimpar, gbc);
-        // Cancelar
-        bCancelar = new JButton("Cancelar");
-        bCancelar.setForeground(Color.RED);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx = 2;
-        gbc.gridy = 4;
-        gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, 15, 5, 0);
-        pPrincipal.add(bCancelar, gbc);
+       
 
         return pPrincipal;
     }
 
     public void createWindow() {
-        janela = new JFrame();
-        janela.setLayout(new GridBagLayout());
+        janela = new JFrame("CADASTRO DE BRINQUEDO");
+        // janela.setLayout(new GridBagLayout());
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         janela.setLocationRelativeTo(null);
+        janela.setBackground(Color.WHITE);
         // Adicicao dos componentes a janela
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        // gbc.gridwidth = 1;
-        janela.add(adicionarComponentes(), gbc);
+
+        janela.add(adicionarComponentes());
         janela.pack();
         janela.setVisible(true);
     }

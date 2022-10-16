@@ -1,8 +1,9 @@
 package Veterinaria.Model;
 
 public class Cliente {
-    private int id;
+    private int id_cliente;
     private String nome,
-            telefone, distrito;
+            telefone, morada;
+    private int nrAnimais;
 
 }
