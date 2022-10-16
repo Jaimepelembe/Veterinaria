@@ -1,3 +1,5 @@
+package Swing.Veterinaria.View;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
