@@ -76,7 +76,7 @@ public class Cadastro_Funcionario {
         // Label distrito
         gbc.insets = new Insets(35, 15, 40, 0);
         gbc.gridy = 2;
-        morada = new JLabel("Distrito | Bairro");
+        morada = new JLabel("Morada");
         gbc.gridx = 0;
         painel.add(morada, gbc);
 
@@ -89,14 +89,7 @@ public class Cadastro_Funcionario {
         gbc.gridwidth = 1;
         painel.add(cDistrito, gbc);
         
-         // Box bairros
-        gbc.insets = new Insets(35, 5, 40, 20);
-        gbc.ipady = 5;
-        String[] matola = { "Matola A", "Matola B", "Matola C", "Matola D", "Matola F", "Matola G", "Matola H", "Matola J", "Fomento" };
-        cBairro = new JComboBox(matola);
-        gbc.gridx = 2;
-        gbc.gridwidth = 1;
-        painel.add(cBairro, gbc);
+         
         
           // Salario do funcionario
           gbc.insets = new Insets(35, 15, 20, 0);
