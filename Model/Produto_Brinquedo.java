@@ -1,4 +1,4 @@
-package Veterinaria.Model;
+package Model;
 
 public class Produto_Brinquedo {
     private String nome, tipo_material, Cor;// tipo_material(Plastico ou Pano)

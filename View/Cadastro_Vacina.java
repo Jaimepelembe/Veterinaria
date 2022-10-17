@@ -1,4 +1,4 @@
-package veterinaria.View;
+package View;
 
 
 import javax.swing.JButton;

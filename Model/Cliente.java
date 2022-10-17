@@ -1,4 +1,4 @@
-package Veterinaria.Model;
+package Model;
 
 public class Cliente {
     private int id_cliente;

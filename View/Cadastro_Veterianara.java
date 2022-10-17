@@ -1,4 +1,4 @@
-package veterinaria.View;
+package View;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -13,103 +13,101 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Cadastro_Veterianara {
+public class Cadastro_Veterianara  implements ActionListener{
     private JLabel lab;
     private JButton bSalvar, bLimpar, bCancelar;
-    private JTextField fNome, fLocalizacao, fNumeroFunci, fProprietario, fNomeProprietario;
-    private JSpinner spFuncionario;
+    private JTextField fNome, fLocalizacao;
     private JFrame frame;
     private JPanel painel;
+    
     private GridBagConstraints gbc = new GridBagConstraints();
 
     public Cadastro_Veterianara() {
         criarJanela();
     }
+    
+    public void inicializarComponentes(){
+    //Field Nome
+    fNome = new JTextField();
+    
+    //Field Localizacao
+    fLocalizacao = new JTextField(5);
+    fLocalizacao.setColumns(10);
+    
+    //Botoes Salvar, Limpar e cancelar
+    //Botao salvar
+     bSalvar = new JButton("Salvar");
+     bSalvar.setForeground(Color.white);
+    bSalvar.setBackground(Color.green);
+    
+    //Limpar
+    bLimpar = new JButton("Limpar");
+    bLimpar.setForeground(Color.white);
+    bLimpar.setBackground(Color.blue);
+    bLimpar.addActionListener(this);
+    
+    //Cancelar
+    bCancelar = new JButton("Cancelar");
+    bCancelar.setForeground(Color.white);
+    bCancelar.setBackground(Color.red);
+   }
 
     public Container componentes() {
+        inicializarComponentes();
         JPanel painel = new JPanel();
         painel.setBackground(Color.white);
         painel.setLayout(new GridBagLayout());
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         // nome
-        gbc.insets = new Insets(35, 15, 0, 0);// Insets de Label
+         lab = new JLabel("Nome");
         gbc.ipadx = 35;
         gbc.ipady = 5;
         gbc.gridy = 0;
-        lab = new JLabel("Nome ");
         gbc.gridx = 0;
+        gbc.insets = new Insets(35, 15, 0, 0);// Insets de Label
         painel.add(lab, gbc);
 
-        // ComboBox nome
+        // Field nome
         gbc.insets = new Insets(35, 5, 0, 10);// Insets e Field,RadioButton, Combobox
-        fNome = new JTextField();
         gbc.gridx = 1;
-        gbc.gridwidth = 3;
+        gbc.gridwidth =2 ;
+         gbc.ipadx = 35;
+        gbc.ipady = 5;
         painel.add(fNome, gbc);
 
         // Label Localizacao
+        lab = new JLabel("Localizacao");
         gbc.insets = new Insets(35, 15, 0, 0);// Insets de Label
         gbc.gridy = 1;
-        lab = new JLabel("Localizacao");
         gbc.gridx = 0;
         painel.add(lab, gbc);
 
         // FIELD Localizacao
-        gbc.insets = new Insets(35, 5, 0, 10);// Insets e Field,RadioButton, Combobox
-        fLocalizacao = new JTextField(5);
-        fLocalizacao.setColumns(10);
         gbc.gridx = 1;
-        gbc.gridwidth = 1;
+        gbc.gridwidth = 2;
+        gbc.ipadx = 35;
+        gbc.ipady = 5;
+        gbc.insets = new Insets(35, 5, 0, 10);// Insets e Field,RadioButton, Combobox
         painel.add(fLocalizacao, gbc);
 
-        // Nome do Proprietario
-        gbc.insets = new Insets(35, 15, 0, 0);// Insets de Label
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        lab = new JLabel("Nome do Proprietario");
-
-        painel.add(lab, gbc);
-        fNomeProprietario = new JTextField();
-        gbc.insets = new Insets(35, 5, 0, 10);// Insets e Field,RadioButton, Combobox
-        gbc.gridx = 1;
-        gbc.gridy = 2;
-        painel.add(fNomeProprietario, gbc);
-
-        // Numero de funcionarios
-        gbc.insets = new Insets(35, 15, 0, 0);// Insets de Label
-        lab = new JLabel("Numero de  funcionarios");
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        painel.add(lab, gbc);
-
-        gbc.insets = new Insets(35, 5, 0, 10);// Insets e Field,RadioButton, Combobox
-        spFuncionario = new JSpinner();
-        spFuncionario.setValue(1);
-        gbc.gridx = 1;
-        painel.add(spFuncionario, gbc);
-
         // Butoes de baixo
+        
+        //Botao salvar   
         gbc.insets = new Insets(35, 5, 40, 10);
-        // gbc.ipadx = 35;
-        gbc.ipady = 5;
-        gbc.gridy = 4;
-        bSalvar = new JButton("Salvar");
+        gbc.gridy = 2;
         gbc.gridx = 1;
-        bSalvar.setForeground(Color.white);
-        bSalvar.setBackground(Color.green);
+        gbc.gridwidth =1 ;
         painel.add(bSalvar, gbc);
 
-        bCancelar = new JButton("Cancelar");
+        //Botao cancelar
         gbc.gridx = 3;
-        bCancelar.setForeground(Color.white);
-        bCancelar.setBackground(Color.red);
         painel.add(bCancelar, gbc);
-
-        bLimpar = new JButton("Limpar");
-        bLimpar.setForeground(Color.white);
-        bLimpar.setBackground(Color.blue);
+        
+        //Botao limpar
         gbc.gridx = 2;
         painel.add(bLimpar, gbc);
 
@@ -130,5 +128,16 @@ public class Cadastro_Veterianara {
         new Cadastro_Veterianara();
 
     }
+
+    public void Limpar(){
+        fNome.setText("");
+        fLocalizacao.setText("");
+        fNome.requestFocus();}
+  
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource()==bLimpar){
+        Limpar();}
+        
+         }
 
 }

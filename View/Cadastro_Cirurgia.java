@@ -13,22 +13,55 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Cadastro_Cirurgia {
+public class Cadastro_Cirurgia implements ActionListener {
+
     private JLabel lab;
     private JButton bSalvar, bLimpar, bCancelar;
-    private JTextField fNomeVet, fPreco, fData;
+    private JTextField fPreco, fData;
     private JComboBox cbNome;
-    private String[] nomes = {"Castração", "Remoção de corpos estranhos", "Remoção de pedras na bexiga","Correção de fraturas"}; 
+    private String[] nomes = {"Castração", "Remoção de corpos estranhos", "Remoção de pedras na bexiga", "Correção de fraturas"};
     private JFrame frame;
     private JPanel painel;
     private GridBagConstraints gbc = new GridBagConstraints();
-    
-    public Cadastro_Cirurgia(){
+
+    public Cadastro_Cirurgia() {
         criarJanela();
     }
-      
-    public Container componentes(){
+
+    public void inicializarComponentes() {
+        //Informacoes do nome
+        cbNome = new JComboBox(nomes);
+        cbNome.setSelectedIndex(-1);
+
+        //TextField do preco da consulta
+        fPreco = new JTextField(5);
+        fPreco.setColumns(10);
+
+        //TextFild data da cirurgia
+        fData = new JTextField(5);
+        fData.setColumns(10);
+
+        //Botoes salvar,Sair e cancelar
+        bSalvar = new JButton("Salvar");
+        bSalvar.setForeground(Color.white);
+        bSalvar.setBackground(Color.green);
+
+        bCancelar = new JButton("Cancelar");
+        bCancelar.setForeground(Color.white);
+        bCancelar.setBackground(Color.red);
+
+        bLimpar = new JButton("Limpar");
+        bLimpar.setForeground(Color.white);
+        bLimpar.setBackground(Color.blue);
+        bLimpar.addActionListener(this);
+
+    }
+
+    public Container componentes() {
+        inicializarComponentes();
         JPanel painel = new JPanel();
         painel.setBackground(Color.white);
         painel.setLayout(new GridBagLayout());
@@ -39,92 +72,72 @@ public class Cadastro_Cirurgia {
         gbc.ipadx = 35;
         gbc.ipady = 5;
         gbc.gridy = 0;
-        lab = new JLabel("Nome ");
+        lab = new JLabel("Nome");
         gbc.gridx = 0;
         painel.add(lab, gbc);
 
         // ComboBox nome
         gbc.insets = new Insets(35, 5, 0, 10);
-        cbNome = new JComboBox(nomes);
         gbc.gridx = 1;
-        gbc.gridwidth = 3;
+        gbc.gridwidth = 1;
         painel.add(cbNome, gbc);
 
-          // NOME VETERINARIO
-          gbc.insets = new Insets(35, 15, 20, 0);
-          gbc.gridy = 1;
-          lab = new JLabel("Nome do Veterinario ");
-          gbc.gridx = 0;
-          painel.add(lab, gbc);
-         // FIELD VETERINARIO
-          gbc.insets = new Insets(35, 5, 20, 20);
-          fNomeVet = new JTextField(5);
-          fNomeVet.setColumns(10);
-          gbc.gridx = 1;
-          gbc.gridwidth = 1;
-          painel.add(fNomeVet, gbc);
+        // Preco consulta
+        gbc.insets = new Insets(35, 15, 20, 0);
+        gbc.gridy = 1;
+        lab = new JLabel("Preco da Cirurgia");
+        gbc.gridx = 0;
+        painel.add(lab, gbc);
+        //TexteField do preco da consulta
+        gbc.insets = new Insets(35, 5, 20, 20);
+        gbc.gridx = 1;
+        gbc.gridwidth = 1;
+        painel.add(fPreco, gbc);
 
-          // Preco consulta
-          gbc.insets = new Insets(35, 15, 20, 0);
-          gbc.gridy = 2;
-          lab = new JLabel("Preco da consulta ");
-          gbc.gridx = 0;
-          painel.add(lab, gbc);
-  
-          gbc.insets = new Insets(35, 5, 20, 20);
-          fPreco = new JTextField(5);
-          fPreco.setColumns(10);
-          gbc.gridx = 1;
-          gbc.gridwidth = 1;
-          painel.add(fPreco, gbc);
-          // label kg
-          lab = new JLabel("MZN");
-          gbc.gridx = 2;
-          gbc.gridwidth = 1;
-          painel.add(lab, gbc);
+        // label kg
+        lab = new JLabel("MZN");
+        gbc.gridx = 2;
+        gbc.gridwidth = 1;
+        painel.add(lab, gbc);
 
-             // Data Real
-             gbc.insets = new Insets(35, 15, 20, 0);
-             gbc.gridy = 3;
-             lab = new JLabel("Data da consulta ");
-             gbc.gridx = 0;
-             painel.add(lab, gbc);
-            //field
-             gbc.insets = new Insets(35, 5, 20, 20);
-             fPreco = new JTextField(5);
-             fPreco.setColumns(10);
-             gbc.gridx = 1;
-             gbc.gridwidth = 1;
-             painel.add(fPreco, gbc);
-      // Butoes de baixo
-      gbc.insets = new Insets(35, 5, 40, 10);
-      // gbc.ipadx = 35;
-      gbc.ipady = 5;
-      gbc.gridy = 4;
-      bSalvar = new JButton("Salvar");
-      gbc.gridx = 1;
-      bSalvar.setForeground(Color.white);
-      bSalvar.setBackground(Color.green);
-      painel.add(bSalvar, gbc);
+        // Data da Cirurgia
+        gbc.insets = new Insets(35, 15, 20, 0);
+        gbc.gridy = 2;
+        lab = new JLabel("Data da cirurgia");
+        gbc.gridx = 0;
+        painel.add(lab, gbc);
 
-      bCancelar = new JButton("Cancelar");
-      gbc.gridx = 3;
-      bCancelar.setForeground(Color.white);
-      bCancelar.setBackground(Color.red);
-      painel.add(bCancelar, gbc);
+        //field data cirurgia
+        gbc.insets = new Insets(35, 5, 20, 20);
+        gbc.gridx = 1;
+        gbc.ipadx = 5;
+        painel.add(fData, gbc);
 
-      bLimpar = new JButton("Limpar");
-      bLimpar.setForeground(Color.white);
-      bLimpar.setBackground(Color.blue);
-      gbc.gridx = 2;
-      painel.add(bLimpar, gbc);
+        // Butoes salvar,limpar e cancelar
+        //Botao salvar
+        gbc.insets = new Insets(35, 5, 40, 10);
+        gbc.ipady = 5;
+        gbc.ipadx = 5;
+        gbc.gridy = 3;
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        painel.add(bSalvar, gbc);
 
-   
-return painel;
+        //Botao cancelar
+        gbc.gridx = 3;
+        gbc.ipadx = 5;
+        painel.add(bCancelar, gbc);
+
+        //Botao limpar
+        gbc.gridx = 2;
+        gbc.ipadx = 5;
+        painel.add(bLimpar, gbc);
+
+        return painel;
     }
-    
+
     public void criarJanela() {
-        frame = new JFrame("CADASTRO DE CLIENTE");
+        frame = new JFrame("CADASTRO DA CIRURGIA");
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(700, 500);
@@ -134,10 +147,22 @@ return painel;
     }
 
     public static void main(String[] args) {
-     new Cadastro_Cirurgia();
-        
-        
+        new Cadastro_Cirurgia();
+
     }
 
-    
+    public void Limpar() {
+        cbNome.setSelectedIndex(-1);
+        fPreco.setText("");
+        fData.setText("");
+        cbNome.requestFocus();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == bLimpar) {
+            Limpar();
+        }
+    }
+
 }
