@@ -1,0 +1,7 @@
+Funcionario com animal
+1. Adicionar u m animal novo.
+2.Eliminar um animal da veterinaria
+3.Actualizar os dados do animal
+4.Vacinar o animal
+5.Examinar o animal
+6.Fazer uma cirurgia ao animal.
