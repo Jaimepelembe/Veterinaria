@@ -17,7 +17,7 @@ import java.awt.Container;
 public class Cadastro_Vacina {
     private JLabel lab;
     private JButton bSalvar, bLimpar, bCancelar;
-    private JTextField tfMarca, tfNome, tfQuantidade, tfPreco_Aquisicao, tfValidade, tfTemperatura;
+    private JTextField  tfNome, tfQuantidade, tfPreco_Aquisicao, tfValidade, tfTemperatura;
     private JComboBox cbMarca, cbNome;
     private String[] listaMarca = { "Zoetis", "Boehringer ingelheim", "VANGUARD ", "SERUM INSTITUTE OF INDIA PVT" };
     private String[] Vacinas_Caes = { "Polivalente (V10)", "Antirrábica", "Contra a gripe", "contra Giárdia", "Esgana",
@@ -51,7 +51,7 @@ public class Cadastro_Vacina {
         gbc.gridy = 0;
         gbc.gridwidth = 3;
         gbc.insets = new Insets(0, 15, 5, 0);
-        pPrincipal.add(tfMarca, gbc);
+       // pPrincipal.add(tfMarca, gbc);
 
         // informacoes nome
         lab = new JLabel("Nome:");
@@ -68,7 +68,7 @@ public class Cadastro_Vacina {
         gbc.gridy = 1;
         gbc.gridwidth = 3;
         gbc.insets = new Insets(0, 15, 5, 0);
-        pPrincipal.add(tfNome, gbc);
+//        pPrincipal.add(tfNome, gbc);
 
         // Informacoes Quandidade
         lab = new JLabel("Quantidade:");
