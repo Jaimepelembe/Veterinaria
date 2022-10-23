@@ -1,6 +1,13 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package View;
 
-
+/**
+ *
+ * @author multi
+ */
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -14,26 +21,73 @@ import java.awt.Insets;
 import java.awt.Color;
 import java.awt.Container;
 
-public class Cadastro_Vacina {
+public class Resultado_Vacina {
     private JLabel lab;
-    private JButton bSalvar, bLimpar, bCancelar;
+    private JButton bSalvar, bEliminar, bCancelar;
     private JTextField  tfNome, tfQuantidade, tfPreco_Aquisicao, tfValidade, tfTemperatura;
     private JComboBox cbMarca, cbNome;
     private String[] listaMarca = { "Zoetis", "Boehringer ingelheim", "VANGUARD ", "SERUM INSTITUTE OF INDIA PVT" };
     private String[] Vacinas_Caes = { "Polivalente (V10)", "Antirrábica", "Contra a gripe", "contra Giárdia", "Esgana",
             "Parvovirose" };
     private String[] Vacinas_Gatos = { "Panleucopénia felina", "Antirrábica", "RinoTranquete" };
-    private JPanel pPrincipal;
-
+    private JPanel pPrincipal;   
+  
     private JFrame janela;
-    private JSpinner spQuantidade, spUnidades;
-   private  GridBagConstraints gbc = new GridBagConstraints();
+    private JSpinner spQuantidade;
+    GridBagConstraints gbc = new GridBagConstraints();   
 
-    public Cadastro_Vacina() {
+    public Resultado_Vacina() {
         createWindow();
     }
-
+    
+    public void inicializarComponentes(){
+    //Informacoes da marca
+    //Combobox
+     cbMarca = new JComboBox<>(listaMarca);
+     cbMarca.setSelectedIndex(-1);
+     
+      // informacoes nome
+      //Combobox dos nomes
+      cbNome = new JComboBox<>();
+      cbNome.setSelectedIndex(-1);
+      
+      //Spinner Quantidade de vacinas
+       spQuantidade = new JSpinner();
+       spQuantidade.setValue(0.5);
+       spQuantidade.setToolTipText("Indique a quantidade");
+       
+       //Informacoes do preco de aquisicao
+       tfPreco_Aquisicao= new JTextField();
+       
+       //TextField da temperatura
+       tfTemperatura = new JTextField();
+       tfTemperatura.setColumns(10);
+       
+       //TextField data
+        tfValidade = new JTextField();
+        tfValidade.setColumns(10);
+           
+     //Botoes 
+     //Salvar
+       bSalvar = new JButton("Salvar");
+       bSalvar.setForeground(Color.white);
+       bSalvar.setBackground(Color.green);
+       
+      //Eliminar
+       bEliminar = new JButton("Eliminar");
+       bEliminar.setForeground(Color.white);
+       bEliminar.setBackground(Color.ORANGE);
+       
+       //Cancelar
+        bCancelar = new JButton("Cancelar");
+        bCancelar .setForeground(Color.white);
+        bCancelar .setBackground(Color.red);
+    
+    }
+    
+    
     public Container AdicionarComponentes() {
+        inicializarComponentes();
         JPanel pPrincipal = new JPanel(new GridBagLayout());
 
         // informacoes Marca
@@ -45,32 +99,31 @@ public class Cadastro_Vacina {
         gbc.insets = new Insets(0, 5, 0, 0);
         pPrincipal.add(lab, gbc);
 
-        cbMarca = new JComboBox<>(listaMarca);
+       //ComboBox marca
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 1;
         gbc.gridy = 0;
-        gbc.gridwidth = 3;
-        gbc.insets = new Insets(0, 15, 5, 0);
-       // pPrincipal.add(tfMarca, gbc);
+        gbc.insets = new Insets(0, 15, 10, 0);
+        pPrincipal.add(cbMarca, gbc);
 
         // informacoes nome
+        //Label
         lab = new JLabel("Nome:");
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
         gbc.gridy = 1;
-        gbc.gridwidth = 1;
         gbc.insets = new Insets(0, 5, 0, 0);
         pPrincipal.add(lab, gbc);
 
-        cbNome = new JComboBox<>();
+        //Combobox nome
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 1;
         gbc.gridy = 1;
-        gbc.gridwidth = 3;
-        gbc.insets = new Insets(0, 15, 5, 0);
-//        pPrincipal.add(tfNome, gbc);
+        gbc.gridwidth = 1;
+        gbc.insets = new Insets(0, 15, 10, 0);
+        pPrincipal.add(cbNome, gbc);
 
-        // Informacoes Quandidade
+        // Informacoes da Quandidade
         lab = new JLabel("Quantidade:");
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
@@ -79,44 +132,39 @@ public class Cadastro_Vacina {
         gbc.insets = new Insets(0, 5, 0, 0);
         pPrincipal.add(lab, gbc);
 
-        spQuantidade = new JSpinner();
-        spQuantidade.setValue(1);
-
-        // spQuantidade.setSize(1, 0);
-        spQuantidade.setToolTipText("Indique a quantidade");
+       //Spinner quantidade de vacinas
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 1;
-        gbc.gridy = 2;
         gbc.gridwidth = 1;
-        // gbc.weightx = 0.5;
         gbc.ipadx = 1;
-        gbc.insets = new Insets(0, 15, 5, 0);
+        gbc.ipady=5;
+        gbc.insets = new Insets(0, 15, 10, 0);
         pPrincipal.add(spQuantidade, gbc);
-        // KG
+        //label ml
         lab = new JLabel("ml");
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 2;
-        gbc.gridy = 1;
         gbc.gridwidth = 1;
         gbc.insets = new Insets(0, 5, 5, 0);
         pPrincipal.add(lab, gbc);
 
-        // Preco Aquisicao
+        // Informacoes do Preco Aquisicao
         lab = new JLabel("Preco Aquisição:");
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
         gbc.gridy = 3;
+        gbc.ipadx=1;
+        gbc.ipady=5;
         gbc.gridwidth = 1;
         gbc.insets = new Insets(0, 5, 0, 0);
         pPrincipal.add(lab, gbc);
-
-        tfPreco_Aquisicao = new JTextField();
-        tfPreco_Aquisicao.setToolTipText("Insira o valor pelo qual adiquiriu o produto");
+        
+        //TextField preco de aquisicao
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 1;
         gbc.gridy = 3;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, 15, 0, 0);
+        gbc.insets = new Insets(0, 15, 10, 0);
         pPrincipal.add(tfPreco_Aquisicao, gbc);
 
         // Temperatura Conservacao
@@ -128,16 +176,15 @@ public class Cadastro_Vacina {
         gbc.insets = new Insets(0, 5, 0, 0);
         pPrincipal.add(lab, gbc);
 
-        tfTemperatura = new JTextField();
-        tfTemperatura.setColumns(10);
+        //TextField de temperatura 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 1;
         gbc.gridy = 4;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, 15, 5, 0);
+        gbc.insets = new Insets(0, 15, 10, 0);
         pPrincipal.add(tfTemperatura, gbc);
 
-        // Validade
+        // informacoes da data de validade Validade
         lab = new JLabel("Data validade:");
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
@@ -145,71 +192,55 @@ public class Cadastro_Vacina {
         gbc.gridwidth = 1;
         gbc.insets = new Insets(0, 5, 0, 0);
         pPrincipal.add(lab, gbc);
-
-        tfValidade = new JTextField();
-        tfValidade.setColumns(10);
+        
+        //TextField da data 
+        gbc.insets = new Insets(0, 15, 10, 0);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 1;
         gbc.gridy = 5;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, 15, 5, 0);
+       
         pPrincipal.add(tfValidade, gbc);
-
-        // Unidade
-        lab = new JLabel("Unidades:");
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx = 0;
-        gbc.gridy = 6;
-        gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, 5, 0, 0);
-        pPrincipal.add(lab, gbc);
-
-        spUnidades = new JSpinner();
-        spUnidades.setValue(1);
-        // spQuantidade.setSize(1, 0);
-        spUnidades.setToolTipText("Indique a quantidade de unidades");
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx = 1;
-        gbc.gridy = 6;
-        gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, 15, 5, 0);
-        pPrincipal.add(spUnidades, gbc);
+        
+    
 
         // Botoes
         // Salvar
-        bSalvar = new JButton("Salvar");
-        bSalvar.setForeground(Color.BLUE);
+        gbc.insets = new Insets(35, 5, 40, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.ipadx=10;
         gbc.gridx = 0;
         gbc.gridy = 7;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, 0, 5, 0);
+       
         pPrincipal.add(bSalvar, gbc);
 
-        // limpar
-        bLimpar = new JButton("Limpar");
-        bLimpar.setForeground(Color.ORANGE);
+        // Eliminar
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 1;
         gbc.gridy = 7;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, 15, 5, 0);
-        pPrincipal.add(bLimpar, gbc);
+          gbc.ipadx=10;
+          gbc.ipady=5;
+        gbc.weightx=0;
+        gbc.insets = new Insets(35, 45, 40, 60);
+        pPrincipal.add(bEliminar, gbc);
+        
+        
         // Cancelar
-        bCancelar = new JButton("Cancelar");
-        bCancelar.setForeground(Color.RED);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 2;
         gbc.gridy = 7;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, 15, 5, 0);
+        gbc.ipadx=10;
+        gbc.insets = new Insets(35, 5, 40, 1);
         pPrincipal.add(bCancelar, gbc);
 
         return pPrincipal;
     }
 
     public void createWindow() {
-        janela = new JFrame("CADASTRO DA VACINA");
+        janela = new JFrame("RESULTADO DA CONSULTA DA VACINA");
         janela.setLayout(new GridBagLayout());
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         janela.setLocationRelativeTo(null);
@@ -223,8 +254,7 @@ public class Cadastro_Vacina {
         janela.setVisible(true);
 
     }
-
     public static void main(String[] args) {
-        new Cadastro_Vacina();
+        new Resultado_Vacina();
     }
 }

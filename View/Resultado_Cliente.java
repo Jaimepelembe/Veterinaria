@@ -1,5 +1,13 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package View;
 
+/**
+ *
+ * @author multi
+ */
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,18 +22,17 @@ import java.awt.Color;
 import java.awt.Container;
 import javax.swing.JComboBox;
 
-public class Cadastro_Cliente {
+public class Resultado_Cliente {
     private JLabel nome, tel, morada;
-    private JButton bSalvar, bCancelar, bLimpar;
+    private JButton bSalvar, bCancelar, bEliminar,bAnimal;
     private JTextField fNome, fTel;
     private JFrame frame;
     private JComboBox cDistrito;
     GridBagConstraints gbc = new GridBagConstraints();
 
-    public Cadastro_Cliente(){
-    criarJanela();
+    public Resultado_Cliente() {
+        criarJanela();
     }
-
     
     public void inicializarComponentes(){
     //Informacoes do nome
@@ -58,10 +65,15 @@ public class Cadastro_Cliente {
        bSalvar.setForeground(Color.white);
        bSalvar.setBackground(Color.green);
        
+       //Adicionar Animal
+       bAnimal= new JButton("Adicionar Animal");
+       bAnimal.setForeground(Color.white);
+       bAnimal.setBackground(Color.blue);
+       
       //Eliminar
-       bLimpar = new JButton("Limpar");
-       bLimpar.setForeground(Color.white);
-       bLimpar.setBackground(Color.blue);
+       bEliminar = new JButton("Eliminar");
+       bEliminar.setForeground(Color.white);
+       bEliminar.setBackground(Color.ORANGE);
        
        //Cancelar
         bCancelar = new JButton("Cancelar");
@@ -69,7 +81,7 @@ public class Cadastro_Cliente {
         bCancelar .setBackground(Color.red);
   
     }
-    
+
     public Container adicionarComponentes() {
         inicializarComponentes();
         JPanel painel = new JPanel();
@@ -77,14 +89,17 @@ public class Cadastro_Cliente {
         painel.setLayout(new GridBagLayout());
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // Informacoes d o nome
+        // Componentes da primeira fila
         // nome
         gbc.insets = new Insets(35, 15, 0, 0);
         gbc.ipadx = 35;
         gbc.ipady = 5;
         gbc.gridy = 0;
+        
+        //Label nome
         gbc.gridx = 0;
         painel.add(nome, gbc);
+
         // Field nome
         gbc.insets = new Insets(35, 5, 0, 10);
         gbc.gridx = 1;
@@ -105,44 +120,48 @@ public class Cadastro_Cliente {
         painel.add(fTel, gbc);
 
         // terceira
-        // Label distrito
+        // Label morada
         gbc.insets = new Insets(35, 15, 40, 0);
         gbc.gridy = 2;
+        
         gbc.gridx = 0;
         painel.add(morada, gbc);
 
-        // Box distrito
+        // ComboBox morada
         gbc.insets = new Insets(35, 5, 40, 20);
         gbc.ipady = 5;
         gbc.gridx = 1;
         gbc.gridwidth = 1;
         painel.add(cDistrito, gbc);
 
-        // Butoes de baixo
+        // Botoes de baixo
+       
+        //Botao Salvar
         gbc.insets = new Insets(35, 5, 40, 10);
-        // gbc.ipadx = 35;
-        
-        //Botao salvar
         gbc.ipady = 5;
+        gbc.ipadx = 35;
         gbc.gridy = 3;
         gbc.gridx = 0;
         painel.add(bSalvar, gbc);
-        
-      //Botao Limpar
-        gbc.gridx = 1;
-        painel.add(bLimpar, gbc);
-        
-        //Cancelar
-        gbc.gridx = 2;
-        painel.add(bCancelar, gbc);
 
+        //Adicionar animal
+        gbc.gridx = 1;
+        painel.add(bAnimal, gbc);
+        
+        //Eliminar
+        gbc.gridx=2;
+        painel.add(bEliminar,gbc);
+        
+       //Cancelar
+        gbc.gridx = 3;
+       painel.add( bCancelar , gbc);
 
         return painel;
 
     }
 
     public void criarJanela() {
-        frame = new JFrame("CADASTRO DE CLIENTE");
+        frame = new JFrame("RESULTADO DA PESQUISA DO CLIENTE");
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(700, 500);
@@ -150,12 +169,9 @@ public class Cadastro_Cliente {
         frame.pack();
 
     }
-
+    
     public static void main(String[] args) {
-     new Cadastro_Cliente();
-     
-        
-        
+        new Resultado_Cliente ();
     }
-
 }
+
