@@ -51,8 +51,9 @@ private GridBagConstraints gbc = new GridBagConstraints();
         
         //Tabela
         tabela= new JTable(dados,colunas);
-        scrool = new JScrollPane(tabela);
         tabela.setFillsViewportHeight(true);
+        scrool = new JScrollPane(tabela);
+        
         
         //Definir o comprimento das colunas
         TableColumn column=null;
@@ -70,11 +71,9 @@ private GridBagConstraints gbc = new GridBagConstraints();
     
     public Container adicionarComponentes(){
         inicializarComponentes();
-    painel= new JPanel(new BorderLayout());//Usei Border Layout para auxiliar
+    painel= new JPanel(new GridBagLayout());
     painel.setBackground(Color.white);
-    
-    Pauxiliar= new JPanel(new GridBagLayout());
-    Pauxiliar.setBackground(Color.white);
+  
    
     
     //Informacoes do nome do cliente
@@ -83,9 +82,8 @@ private GridBagConstraints gbc = new GridBagConstraints();
     lab.setFont(new java.awt.Font("Calibri", 0, 22));
     gbc.gridx=0;
     gbc.gridy=0;
-    gbc.insets= new Insets(0, 5, 10, 0);
-    painel.add(lab);
-    Pauxiliar.add(lab,gbc);
+    gbc.insets= new Insets(0, 35, 10, 0);
+    painel.add(lab,gbc);
     
     //Label nome cliente
     gbc.gridx=1;
@@ -94,17 +92,21 @@ private GridBagConstraints gbc = new GridBagConstraints();
     gbc.gridwidth=1;
     gbc.insets= new Insets(0, 35, 10, 0);
     lbnomeClie.setFont(new java.awt.Font("Calibri",1,22));
-    painel.add(lbnomeClie);
-    Pauxiliar.add(lbnomeClie,gbc);
-    painel.add(Pauxiliar,BorderLayout.PAGE_START);
+    painel.add(lbnomeClie,gbc);
     
     //Adicionar o scroll
     gbc.gridx=0;
     gbc.gridy=1;
+    gbc.gridwidth=3;
+    //gbc.insets= new Insets(0, 0, 0, 30);
+   painel.add(scrool,gbc);
+
+   //Adicionar o botao voltar
+    gbc.gridx=0;
+    gbc.gridy=2;
     gbc.gridwidth=2;
-    painel.add(scrool,BorderLayout.CENTER);
-    //Pauxiliar.add(scrool,gbc);
-   
+    gbc.insets= new Insets(0, 0, 10, 55);
+    painel.add(bVoltar,gbc);
  
     
     //painel.add(Pauxiliar);
