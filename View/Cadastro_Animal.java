@@ -26,9 +26,10 @@ public class Cadastro_Animal implements  ActionListener{
     private JComboBox cRaca, cCor;
     private ButtonGroup botoes;
     private JRadioButton rbcao, rbgato;
-    private String[] racas_caes = {"Pastor Alem", "Pitbull", "Pastor Belga", "Chiuaua","Husky siberiano","Chow chow","Doberman","outro"};
+    private String[] racas_caes = {"Pastor Alemao", "Pitbull", "Pastor Belga", "Chiuaua","Husky siberiano","Chow chow","Doberman","outro"};
     private String [] racas_gatos={"Persa","Sphynx","British Shorthair","Maine Coon","Bengal","Ragdoll","Munchkin","outro"};
-     private String[] cores = {"Branco", "Cizento", "Azul", "Amarelo"};
+    private String[] cores = {"Branco", "Cizento", "Azul", "Amarelo"};
+    //Teste de GitHub 
     GridBagConstraints gbc = new GridBagConstraints();
 
     public Cadastro_Animal() {
