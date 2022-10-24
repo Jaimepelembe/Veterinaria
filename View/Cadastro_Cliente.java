@@ -64,7 +64,7 @@ public class Cadastro_Cliente {
         
      //Botoes 
      //Salvar
-       bSalvar = new JButton("Salvar");
+       bSalvar = new JButton("       Salvar       ");
        bSalvar.setForeground(Color.white);
        bSalvar.setBackground(Color.green);
        bSalvar.setBorderPainted(false);
@@ -74,7 +74,6 @@ public class Cadastro_Cliente {
        bLimpar.setForeground(Color.white);
        bLimpar.setBackground(Color.blue);
        bLimpar.setBorderPainted(false);
-    //  bLimpar.addActionListener(this);
        
        //Cancelar
         bCancelar = new JButton("Cancelar");
@@ -143,6 +142,7 @@ public Container adicionarBotoes() {
         pBotoes.setBackground(Color.white);
        pBotoes.setLayout(new GridBagLayout());
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.ipady = 2;
         // add buttons to the panel
         gbc.gridy=0;
         gbc.gridx = 1;
@@ -161,7 +161,7 @@ public Container adicionarImagens() {
         ImageIcon imageIcon;
         
         JLabel label = new JLabel();
-        label.setIcon(new ImageIcon("cliente.jpg"));
+        label.setIcon(new ImageIcon("C:/Users/Valter Boa/Documents/NetBeansProject/veterinaria/src/Imagens/cliente.jpg"));
         pImagens.add(label);
         pImagens.setBackground(Color.white);
         
@@ -177,11 +177,11 @@ public Container adicionarImagens() {
         frame = new JFrame("CADASTRO DE CLIENTE");
         frame.setBackground(Color.white);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(730, 650);
+        frame.setSize(630, 650);
         frame.add(adicionarImagens(), BorderLayout.NORTH);
         frame.add(adicionarComponentes(), BorderLayout.CENTER);
          frame.add(adicionarBotoes(), BorderLayout.SOUTH);
-        ImageIcon img = new ImageIcon("icon.jpg");
+        ImageIcon img = new ImageIcon("C:/Users/Valter Boa/Documents/NetBeansProject/veterinaria/src/Imagens/icon.jpg");
         frame.setIconImage(img.getImage());
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
@@ -193,17 +193,7 @@ public Container adicionarImagens() {
      new Cadastro_Cliente ();
         
     }
-    
-    public void Limpar(){
-     fNome.setText("");
-     fTel.setText("");
-     cDistrito.setSelectedIndex(-1);
-     fNome.requestFocus();
-     
- }
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==bLimpar){
-        Limpar();}
-        }
+    }
 
-}
+   
+
