@@ -19,23 +19,29 @@ import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
 
 public class Cadastro_Vacina implements  ActionListener {
     private JLabel nome, marca, quant,preco, dtVal ;
     private JButton bSalvar, bCancelar, bLimpar;
-    private JTextField fNome, fPreco, fDtVal;
+    private JTextField fNome, fPreco;
+    private JFormattedTextField  fDtVal;
     private JFrame frame;
     private JComboBox cMarca;
     private JSpinner spQuant;
-    private String[] listaMarca = { "Zoetis", "Boehringer ingelheim", "VANGUARD ", "SERUM INSTITUTE OF INDIA PVT","Outro" };
+     private String[] listaMarca = { "Zoetis", "Boehringer ingelheim", "VANGUARD ", "SERUM INSTITUTE OF INDIA PVT","Outro" };
     GridBagConstraints gbc = new GridBagConstraints();
 
     public Cadastro_Vacina() {
 
     criarJanela();
     }
+    
 
     
     public void inicializarComponentes(){
@@ -79,8 +85,9 @@ public class Cadastro_Vacina implements  ActionListener {
     dtVal.setForeground(Color.gray);
     
    //TextField
-    fDtVal = new JTextField(5);
+    fDtVal = new JFormattedTextField();
     fDtVal.setColumns(20);
+    formatarCampo(fDtVal);
 
         
         
@@ -105,6 +112,20 @@ public class Cadastro_Vacina implements  ActionListener {
   
     }
     
+       private  void formatarCampo(JTextField campoTexto){
+         try {
+             MaskFormatter mascara = new MaskFormatter();
+              if(campoTexto==fDtVal){
+              mascara.setMask("##/##/####");
+             mascara.install( fDtVal);
+           }
+               
+         } catch (ParseException ex) {
+             JOptionPane.showMessageDialog(null, "Erro ao formatar Campo de texto");
+         }
+    
+    }
+       
     public Container adicionarComponentes() {
         inicializarComponentes();
         JPanel painel = new JPanel();
@@ -209,8 +230,8 @@ public Container adicionarBotoes() {
        pBotoes.setLayout(new GridBagLayout());
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(1, -5, 50, 15);
-        gbc.ipady = 4;
         // add buttons to the panel
+         gbc.ipady = 4;
         gbc.gridy=0;
         gbc.gridx = 0;
         pBotoes.add(bSalvar,gbc);
@@ -228,7 +249,7 @@ public Container adicionarImagens() {
         ImageIcon imageIcon;
         
         JLabel label = new JLabel();
-       label.setIcon(new ImageIcon("C:/Users/Valter Boa/Documents/NetBeansProject/veterinaria/src/Imagens/vacina.png"));
+      label.setIcon(new ImageIcon("C:/Users/Valter Boa/Documents/NetBeansProject/veterinaria/src/Imagens/vacina.png"));
         pImagens.add(label);
         pImagens.setBackground(Color.white);
         

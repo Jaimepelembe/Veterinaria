@@ -15,12 +15,17 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
+
 
 public class Cadastro_Cirurgia implements ActionListener {
 
     private JLabel lab;
     private JButton bSalvar, bLimpar, bCancelar;
-    private JTextField fPreco, fData;
+    private JFormattedTextField fPreco, fData;
     private JComboBox cbNome;
     private String[] nomes = {"Castração", "Remoção de corpos estranhos", "Remoção de pedras na bexiga", "Correção de fraturas"};
     private JFrame frame;
@@ -37,12 +42,14 @@ public class Cadastro_Cirurgia implements ActionListener {
         cbNome.setSelectedIndex(-1);
 
         //TextField do preco da consulta
-        fPreco = new JTextField(5);
+        fPreco = new JFormattedTextField();
         fPreco.setColumns(10);
+        formatarCampo(fPreco);
 
         //TextFild data da cirurgia
-        fData = new JTextField(5);
+        fData = new JFormattedTextField();
         fData.setColumns(10);
+        formatarCampo(fData);
 
         //Botoes salvar,Sair e cancelar
         bSalvar = new JButton("Salvar");
@@ -60,6 +67,24 @@ public class Cadastro_Cirurgia implements ActionListener {
 
     }
 
+private  void formatarCampo(JTextField campoTexto){
+         try {
+             MaskFormatter mascara = new MaskFormatter();
+              if(campoTexto==fData){
+              mascara.setMask("##/##/####");
+             mascara.install( fData);
+           }
+              if(campoTexto==fPreco){
+             mascara.setMask("####");
+             mascara.install(fPreco);
+              }
+               
+         } catch (ParseException ex) {
+             JOptionPane.showMessageDialog(null, "Erro ao formatar Campo de texto");
+         }
+    
+    }    
+    
     public Container componentes() {
         inicializarComponentes();
         JPanel painel = new JPanel();
