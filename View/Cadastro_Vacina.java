@@ -27,7 +27,7 @@ public class Cadastro_Vacina {
 
     private JFrame janela;
     private JSpinner spQuantidade, spUnidades;
-   private  GridBagConstraints gbc = new GridBagConstraints();
+    GridBagConstraints gbc = new GridBagConstraints();
 
     public Cadastro_Vacina() {
         createWindow();
@@ -176,6 +176,7 @@ public class Cadastro_Vacina {
         pPrincipal.add(spUnidades, gbc);
 
         // Botoes
+
         // Salvar
         bSalvar = new JButton("Salvar");
         bSalvar.setForeground(Color.BLUE);
