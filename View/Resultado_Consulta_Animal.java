@@ -23,12 +23,19 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
+import javax.swing.text.MaskFormatter;
 public class Resultado_Consulta_Animal {
      private JLabel nome, especie, raca, cor, dtNascimento, peso, kg;
     private JButton bSalvar, bCancelar, bEliminar,bHistorico;
-    private JTextField fNome, fPeso, fDtNascimento;
+    private JTextField fNome;// fDtNascimento;
+    private JFormattedTextField fDtNascimento,fPeso;
     private JFrame frame;
     private JComboBox cRaca, cCor;
     private ButtonGroup botoes;
@@ -38,12 +45,12 @@ public class Resultado_Consulta_Animal {
      private String[] cores = {"Branco", "Cizento", "Azul", "Amarelo"};
     GridBagConstraints gbc = new GridBagConstraints();
 
-    public Resultado_Consulta_Animal() {
+    public Resultado_Consulta_Animal() throws ParseException {
         criarJanela();
     }
    
     
-      public void inicializarComponentes() {
+      public void inicializarComponentes() throws ParseException {
         //Nome
         nome = new JLabel("Nome ");
         fNome = new JTextField(5);
@@ -71,13 +78,15 @@ public class Resultado_Consulta_Animal {
         cRaca.setSelectedIndex(-1);
         //Data de nascimento
         dtNascimento = new JLabel("Data de nascimento ");
-        fDtNascimento = new JTextField(5);
+        fDtNascimento = new JFormattedTextField();
         fDtNascimento.setColumns(10);
+        formatarCampo(fDtNascimento);
         
         //Peso
         peso = new JLabel("Peso ");
-        fPeso = new JTextField(5);
+        fPeso = new JFormattedTextField();
         fPeso.setColumns(10);
+        formatarCampo(fPeso);
         
         //Botoes Salvar,Limpar e cancelar
         //Botao salvar
@@ -100,9 +109,25 @@ public class Resultado_Consulta_Animal {
         bCancelar.setForeground(Color.white);
         bCancelar.setBackground(Color.red);
     } 
+    private  void formatarCampo(JTextField campoTexto){
+         try {
+             MaskFormatter mascara = new MaskFormatter();
+              if(campoTexto==fDtNascimento){
+              mascara.setMask("##/##/####");
+             mascara.install( fDtNascimento);
+           }
+              if(campoTexto==fPeso){
+             mascara.setMask("###");
+             mascara.install(fPeso);
+              }
+               
+         } catch (ParseException ex) {
+             JOptionPane.showMessageDialog(null, "Erro ao formatar Campo de texto");
+         }
+    
+    }
       
-      
-    public Container adicionarComponentes() {
+    public Container adicionarComponentes() throws ParseException {
         inicializarComponentes();
         JPanel painel = new JPanel();
         painel.setBackground(Color.white);
@@ -230,7 +255,7 @@ public class Resultado_Consulta_Animal {
 
     }
     
-   public void criarJanela() {
+   public void criarJanela() throws ParseException {
         frame = new JFrame("Resultado Consulta Animal");
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -239,7 +264,7 @@ public class Resultado_Consulta_Animal {
         frame.pack();
 
     }  
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         new Resultado_Consulta_Animal();
     }
 }

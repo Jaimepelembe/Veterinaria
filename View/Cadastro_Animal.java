@@ -14,14 +14,19 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
+import javax.swing.text.MaskFormatter;
 
 public class Cadastro_Animal implements  ActionListener{
 
     private JLabel nome, especie, raca, cor, dtNascimento, peso, kg;
     private JButton salvar, cancelar, limpar;
-    private JTextField fNome, fPeso, fDtNascimento;
+    private JTextField fNome;
+    private JFormattedTextField fPeso, fDtNascimento;
     private JFrame frame;
     private JComboBox cRaca, cCor;
     private ButtonGroup botoes;
@@ -64,13 +69,15 @@ public class Cadastro_Animal implements  ActionListener{
         cRaca.setSelectedIndex(-1);
         //Data de nascimento
         dtNascimento = new JLabel("Data de nascimento ");
-        fDtNascimento = new JTextField(5);
+        fDtNascimento = new JFormattedTextField();
         fDtNascimento.setColumns(10);
+        formatarCampo(fDtNascimento);
         
         //Peso
         peso = new JLabel("Peso ");
-        fPeso = new JTextField(5);
+        fPeso = new JFormattedTextField();
         fPeso.setColumns(10);
+        formatarCampo(fPeso);
         
         //Botoes Salvar,Limpar e cancelar
         //Botao salvar
@@ -92,7 +99,25 @@ public class Cadastro_Animal implements  ActionListener{
         
 
     }
-
+    
+   private  void formatarCampo(JTextField campoTexto){
+         try {
+             MaskFormatter mascara = new MaskFormatter();
+              if(campoTexto==fDtNascimento){
+              mascara.setMask("##/##/####");
+             mascara.install( fDtNascimento);
+           }
+              if(campoTexto==fPeso){
+             mascara.setMask("###");
+             mascara.install(fPeso);
+              }
+               
+         } catch (ParseException ex) {
+             JOptionPane.showMessageDialog(null, "Erro ao formatar Campo de texto");
+         }
+    
+    }
+   
     public Container componentes() {
         inicializarComponentes();
         JPanel painel = new JPanel();

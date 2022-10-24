@@ -16,13 +16,18 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
 
 public class Cadastro_Cliente {
       private JLabel nome, tel, morada,lab;
     private JButton bSalvar, bCancelar, bLimpar;
-    private JTextField fNome, fTel;
+    private JTextField fNome;
+    private JFormattedTextField fTel;
     private JFrame frame;
     private JComboBox cDistrito;
     GridBagConstraints gbc = new GridBagConstraints();
@@ -43,14 +48,14 @@ public class Cadastro_Cliente {
     fNome = new JTextField(5);
     fNome.setColumns(25);
     
-    
     //informacoes do telefone
     //Label
      tel = new JLabel("Telefone ");
      //TextField
-     fTel = new JTextField();
+     fTel = new JFormattedTextField();
      fTel.setColumns(25);
      tel.setForeground(Color.gray);
+        formatarCampo(fTel);
      
      //Informacoes da morada
      //Label
@@ -83,6 +88,22 @@ public class Cadastro_Cliente {
         bCancelar.setBorderPainted(false);
   
     }
+   
+   
+private  void formatarCampo(JTextField campoTexto){
+         try {
+             MaskFormatter mascara = new MaskFormatter();
+              if(campoTexto==fTel){
+             mascara.setMask("#########");
+             mascara.install(fTel);
+              }
+               
+         } catch (ParseException ex) {
+             JOptionPane.showMessageDialog(null, "Erro ao formatar Campo de texto");
+         }
+    
+    }    
+     
     
     public Container adicionarComponentes() {
         inicializarComponentes();
