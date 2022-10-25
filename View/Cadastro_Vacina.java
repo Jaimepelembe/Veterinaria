@@ -262,7 +262,7 @@ public Container adicionarImagens() {
     
 
     public void criarJanela() {
-        frame = new JFrame("CADASTRO DE CLIENTE");
+        frame = new JFrame("CADASTRO DE VACINA");
         frame.setBackground(Color.white);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(730, 690);
