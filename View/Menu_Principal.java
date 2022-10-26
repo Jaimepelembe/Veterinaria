@@ -12,6 +12,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,7 +24,7 @@ import javax.swing.JPanel;
  *
  * @author Valter Boa 53
  */
-public class Menu_Principal{
+public class Menu_Principal implements ActionListener{
    private JFrame frame;
    private GridBagConstraints gbc = new GridBagConstraints();
    private JButton cliente, animal, servicos, produtos,historico, tema;
@@ -37,13 +39,14 @@ public Menu_Principal(){
 public void inicializarComponentes(){
         
         Color cor = new Color(0.0f,0.4f,0.8f,1f);
-        Font fonte = new Font("Helvetica",Font.TRUETYPE_FONT,21);
+        Font fonte = new Font("Helvetica",Font.TRUETYPE_FONT,20);
         //BUTAO CLIENTE
         cliente = new JButton("Clientes "); 
         cliente.setBackground(cor);
         cliente.setForeground(Color.WHITE);
         cliente.setBorderPainted(false);
         cliente.setFont(fonte);
+        cliente.addActionListener(this);
         
         //BUTAO ANIMAL
         animal = new JButton("Animais "); 
@@ -66,6 +69,7 @@ public void inicializarComponentes(){
         servicos.setForeground(Color.WHITE);
         servicos.setBorderPainted(false);
         servicos.setFont(fonte);
+        servicos.addActionListener(this);
         
           //BUTAO historico
         historico = new JButton(" Historico "); 
@@ -197,29 +201,65 @@ public Container lateral() {
         
     return pLateral;
 }
+public void cadastro_Cliente(){
+        Cadastro_Cliente cCliente = new Cadastro_Cliente();
+        frame.add(cCliente.pPrincipal(), BorderLayout.CENTER);
+}
 
+public void cadastro_Consulta(){
+        Cadastro_Consulta cConsulta = new Cadastro_Consulta();
+        frame.add(cConsulta.pPrincipal(), BorderLayout.CENTER);
+        
+      
+}
 
 
   
     
     public void criarJanela() {
+       
         frame = new JFrame("MENU") ;
         frame.setLayout(new BorderLayout());
         frame.setBackground(Color.white);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(810, 650);
          ImageIcon img = new ImageIcon("src/Imagens/Menu/menu.jpg");
-        frame.setIconImage(img.getImage());
-        
-        frame.setLocationRelativeTo(null);
-        frame.add(componentes());
+        frame.setIconImage(img.getImage());    frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
+       // frame.add(componentes());
         frame.add(lateral(), BorderLayout.WEST);
-        frame.setVisible(true); }
+       
+        //cadastro_Consulta();
+        
+        
+        
+        frame.setVisible(true); 
+        //cadastro_Cliente();
+        //frame.setVisible(true);
+        
+}
     
     
 
     public static void main(String[] args) {
      new Menu_Principal();
         
-    }}
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
+        if(e.getSource()==cliente){
+        cadastro_Cliente();
+        frame.setVisible(true);
+        
+        }
+        
+        if(e.getSource()== servicos){
+        cadastro_Consulta();
+        frame.setVisible(true);
+        
+        }
+    }
+}
 
