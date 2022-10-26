@@ -134,6 +134,7 @@ public class Cadastro_Vacina implements  ActionListener {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         // Informacoes d o nome
+        
         // nome
         gbc.insets = new Insets(35, 15, -27, 0);
         gbc.gridy = 0;
