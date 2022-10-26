@@ -202,7 +202,7 @@ public Container adicionarImagens() {
         frame.add(adicionarImagens(), BorderLayout.NORTH);
         frame.add(adicionarComponentes(), BorderLayout.CENTER);
          frame.add(adicionarBotoes(), BorderLayout.SOUTH);
-        ImageIcon img = new ImageIcon("C:/Users/Valter Boa/Documents/NetBeansProject/veterinaria/src/Imagens/icon.jpg");
+        ImageIcon img = new ImageIcon("src/Imagens/Entidades/icon.jpg");
         frame.setIconImage(img.getImage());
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);

@@ -5,10 +5,28 @@ package Model;
  * @author multi
  */
 public class Veterinaria {
+    private int idVeterinaria;
     private String nome,localizacao;
-    private int id;
-    private float gasto_material,lucro_total;
+   
+    private float investimento_material,valor_ganho,lucro_total;
+    private int nr_cliente,nr_vacina,nr_animais; //nr=numero de...
 
+    public Veterinaria() {
+    }
+
+    public Veterinaria(int idVeterinaria, String nome, String localizacao, float investimento_material, float valor_ganho, float lucro_total, int nr_cliente, int nr_vacina, int nr_animais) {
+        this.idVeterinaria = idVeterinaria;
+        this.nome = nome;
+        this.localizacao = localizacao;
+        this.investimento_material = investimento_material;
+        this.valor_ganho = valor_ganho;
+        this.lucro_total = lucro_total;
+        this.nr_cliente = nr_cliente;
+        this.nr_vacina = nr_vacina;
+        this.nr_animais = nr_animais;
+    }
+
+    
     public String getNome() {
         return nome;
     }
@@ -25,21 +43,8 @@ public class Veterinaria {
         this.localizacao = localizacao;
     }
 
-    public int getId() {
-        return id;
-    }
+  
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public float getGasto_material() {
-        return gasto_material;
-    }
-
-    public void setGasto_material(float gasto_material) {
-        this.gasto_material = gasto_material;
-    }
 
     public float getLucro_total() {
         return lucro_total;

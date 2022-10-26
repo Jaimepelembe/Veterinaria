@@ -91,13 +91,13 @@ public void inicializarComponentes(){
         iAnimal = new JLabel();
         iHistorico = new JLabel();
         iTema = new JLabel();
-        label.setIcon(new ImageIcon("C:/Users/Valter Boa/Documents/NetBeansProject/veterinaria/src/Imagens/ImagensMenu/logo.png"));
-        iAnimal.setIcon(new ImageIcon("C:/Users/Valter Boa/Documents/NetBeansProject/veterinaria/src/Imagens/ImagensMenu/animal.png"));
-        iCliente.setIcon(new ImageIcon("C:/Users/Valter Boa/Documents/NetBeansProject/veterinaria/src/Imagens/ImagensMenu/cliente.png"));
-        iProduto.setIcon(new ImageIcon("C:/Users/Valter Boa/Documents/NetBeansProject/veterinaria/src/Imagens/ImagensMenu/produto.png"));
-        iServico.setIcon(new ImageIcon("C:/Users/Valter Boa/Documents/NetBeansProject/veterinaria/src/Imagens/ImagensMenu/servico.png"));
-        iHistorico.setIcon(new ImageIcon("C:/Users/Valter Boa/Documents/NetBeansProject/veterinaria/src/Imagens/ImagensMenu/historico.png"));
-        iTema.setIcon(new ImageIcon("C:/Users/Valter Boa/Documents/NetBeansProject/veterinaria/src/Imagens/ImagensMenu/tema.png"));
+        label.setIcon(new ImageIcon("src/Imagens/Menu/logo.png"));
+        iAnimal.setIcon(new ImageIcon("src/Imagens/Menu/animal.png"));
+        iCliente.setIcon(new ImageIcon("src/Imagens/Menu/cliente.png"));
+        iProduto.setIcon(new ImageIcon("src/Imagens/Menu/produto.png"));
+        iServico.setIcon(new ImageIcon("src/Imagens/Menu/servico.png"));
+        iHistorico.setIcon(new ImageIcon("src/Imagens/Menu/historico.png"));
+        iTema.setIcon(new ImageIcon("src/Imagens/Menu/tema.png"));
 };
 
     public Container componentes() {
@@ -208,18 +208,13 @@ public Container lateral() {
         frame.setBackground(Color.white);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(810, 650);
-         ImageIcon img = new ImageIcon("C:/Users/Valter Boa/Documents/NetBeansProject/veterinaria/src/Imagens/ImagensMenu/menu.jpg");
+         ImageIcon img = new ImageIcon("src/Imagens/Menu/menu.jpg");
         frame.setIconImage(img.getImage());
         
-        
-        
-        
-        
-        
         frame.setLocationRelativeTo(null);
-     frame.add(componentes());
-       frame.add(lateral(), BorderLayout.WEST);
-   frame.setVisible(true); }
+        frame.add(componentes());
+        frame.add(lateral(), BorderLayout.WEST);
+        frame.setVisible(true); }
     
     
 
