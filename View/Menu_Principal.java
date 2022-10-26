@@ -26,6 +26,7 @@ import javax.swing.JPanel;
  */
 public class Menu_Principal implements ActionListener{
    private JFrame frame;
+   private Container cadastro_cliente,cadastro_consul;
    private GridBagConstraints gbc = new GridBagConstraints();
    private JButton cliente, animal, servicos, produtos,historico, tema;
    private JLabel label, iCliente, iAnimal, iProduto, iServico, iHistorico,iTema;
@@ -203,18 +204,17 @@ public Container lateral() {
 }
 public void cadastro_Cliente(){
         Cadastro_Cliente cCliente = new Cadastro_Cliente();
-        frame.add(cCliente.pPrincipal(), BorderLayout.CENTER);
+        cadastro_cliente=cCliente.pPrincipal();
+        frame.add(cadastro_cliente, BorderLayout.CENTER);
 }
 
 public void cadastro_Consulta(){
         Cadastro_Consulta cConsulta = new Cadastro_Consulta();
-        frame.add(cConsulta.pPrincipal(), BorderLayout.CENTER);
+        cadastro_consul=cConsulta.pPrincipal();
+        frame.add(cadastro_consul, BorderLayout.CENTER);
         
       
 }
-
-
-  
     
     public void criarJanela() {
        
@@ -230,9 +230,7 @@ public void cadastro_Consulta(){
         frame.add(lateral(), BorderLayout.WEST);
        
         //cadastro_Consulta();
-        
-        
-        
+
         frame.setVisible(true); 
         //cadastro_Cliente();
         //frame.setVisible(true);
@@ -250,12 +248,19 @@ public void cadastro_Consulta(){
     public void actionPerformed(ActionEvent e) {
         
         if(e.getSource()==cliente){
+            if(cadastro_consul!=null){
+                frame.remove(cadastro_consul);
+            }
+        
         cadastro_Cliente();
         frame.setVisible(true);
         
         }
         
         if(e.getSource()== servicos){
+            if(cadastro_cliente!=null){
+            frame.remove(cadastro_cliente);
+            }
         cadastro_Consulta();
         frame.setVisible(true);
         

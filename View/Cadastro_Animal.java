@@ -51,9 +51,9 @@ public class Cadastro_Animal implements  ActionListener{
         //Especie
         especie = new JLabel("Especie ");
         botoes = new ButtonGroup();
-        rbcao = new JRadioButton("Canino");
+        rbcao = new JRadioButton("Canina");
         rbcao.setBackground(Color.WHITE);
-        rbgato = new JRadioButton("Felino");
+        rbgato = new JRadioButton("Felina");
         rbgato.setBackground(Color.WHITE);
         botoes.add(rbcao);
         botoes.add(rbgato);
