@@ -34,7 +34,7 @@ public class Cadastro_Cliente {
 
     public Cadastro_Cliente () {
 
-    criarJanela();
+    //criarJanela();
     }
 
     
@@ -182,15 +182,28 @@ public Container adicionarImagens() {
         ImageIcon imageIcon;
         
         JLabel label = new JLabel();
-        label.setIcon(new ImageIcon("C:/Users/Valter Boa/Documents/NetBeansProject/veterinaria/src/Imagens/cliente.jpg"));
+        label.setIcon(new ImageIcon("src/Imagens/Entidades/cliente.jpg"));
         pImagens.add(label);
         pImagens.setBackground(Color.white);
-        
-   
-    
 
     return pImagens;
 }
+public Container pPrincipal() {
+      
+        inicializarComponentes();
+        JPanel pPrincipal = new JPanel();
+        ImageIcon imageIcon;
+        
+        JLabel label = new JLabel();
+        label.setIcon(new ImageIcon("src/Imagens/Entidades/cliente.jpg"));
+        pPrincipal.add(adicionarImagens(), BorderLayout.NORTH);
+        pPrincipal.add(adicionarComponentes(), BorderLayout.CENTER);
+        pPrincipal.add(adicionarBotoes(), BorderLayout.SOUTH);
+        pPrincipal.setBackground(Color.white);
+
+    return pPrincipal;
+}
+
 
     
 
@@ -199,9 +212,7 @@ public Container adicionarImagens() {
         frame.setBackground(Color.white);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(630, 650);
-        frame.add(adicionarImagens(), BorderLayout.NORTH);
-        frame.add(adicionarComponentes(), BorderLayout.CENTER);
-         frame.add(adicionarBotoes(), BorderLayout.SOUTH);
+         frame.add(pPrincipal());
         ImageIcon img = new ImageIcon("src/Imagens/Entidades/icon.jpg");
         frame.setIconImage(img.getImage());
         frame.setVisible(true);
