@@ -12,6 +12,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -126,120 +127,129 @@ public class Cadastro_Animal implements  ActionListener{
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         // Componentes da primeira fila
-        // nome
-        gbc.insets = new Insets(35, 15, 0, 0);//Insets de Label
+        //Label Nome
+        gbc.insets = new Insets(35, 15, -27, 0);//Insets de Label
         gbc.ipadx = 35;
         gbc.ipady = 5;
+        gbc.gridx = 2;
         gbc.gridy = 0;
-        //Label Nome
-        gbc.gridx = 0;
         painel.add(nome, gbc);
+        
+        //Label vazia
+        Label vazia = new Label("");
+        gbc.insets = new Insets(35, 15, -27, 0);//Insets de Label
+        gbc.ipadx = 35;
+        gbc.ipady = 5;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        painel.add(vazia, gbc);
 
         // Field nome
         gbc.insets = new Insets(35, 5, 0, 10);//Insets e Field,RadioButton, Combobox
-
-        gbc.gridx = 1;
-        gbc.gridwidth = 3;
+        gbc.ipadx = 150;
+        gbc.ipady = 10;
+        gbc.gridx = 2;
+        gbc.gridy=1;
+        gbc.gridwidth = 2;
         painel.add(fNome, gbc);
 
         // SEGUNDA FILA --Especie
         // Label especie
-        gbc.insets = new Insets(35, 15, 0, 0);
-        gbc.gridy = 1;
-        gbc.gridx = 0;
+         gbc.insets = new Insets(35, 15, -27, 0);//Insets de Label
+        gbc.gridy = 2;
+        gbc.gridx = 2;
         painel.add(especie, gbc);
 
         // Radios
-        gbc.insets = new Insets(35, 5, 0, 10);
-        gbc.gridx = 1;
+        gbc.insets = new Insets(35, -10, -27, 0);//Insets e Field,RadioButton, Combobox
+        gbc.gridx = 3;
         gbc.gridwidth = 1;
         painel.add(rbcao, gbc);
 
-        gbc.insets = new Insets(35, 5, 0, 10);
-        gbc.gridx = 2;
+        gbc.insets = new Insets(35, -4, -27, 0);
+        gbc.gridx = 4;
         gbc.gridwidth = 1;
         painel.add(rbgato, gbc);
 
         // terceira --Raca
-         // raca
+         // label raca
         gbc.insets = new Insets(35, 15, 0, 0);
-        gbc.gridy = 2;
-        gbc.gridx = 0;
+        gbc.gridx = 2;
+        gbc.gridy = 3;
         painel.add(raca, gbc);
 
         // box racas
-        gbc.insets = new Insets(35, 5, 0, 20);
-        gbc.ipady = 5;
-        gbc.gridx = 1;
+        gbc.insets = new Insets(5, 5, 0, 10);//Insets e Field,RadioButton, Combobox
+        gbc.ipadx=80;
+        gbc.ipady=10;
+        gbc.gridx = 2;
+        gbc.gridy=4;
         gbc.gridwidth = 1;
         painel.add(cRaca, gbc);
         
-        // cores
-        gbc.insets = new Insets(35, 15, 0, 0);
-        gbc.gridy = 3;
-        //Label
-        gbc.gridx = 0;
+        //Label cores
+        gbc.insets = new Insets(35, 15, -27, 0);//Insets de Label
+        gbc.gridx = 2;
+        gbc.gridy = 5;
         painel.add(cor, gbc);
 
         // Combobox cores
-        gbc.insets = new Insets(35, 5, 0, 20);
-        gbc.ipady = 5;
-        gbc.gridx = 1;
+        gbc.insets = new Insets(35, 5, 0, 10);//Insets e Field,RadioButton, Combobox
+        gbc.ipadx=80;
+        gbc.ipady=10;
+        gbc.gridx = 2;
+        gbc.gridy = 6;
         gbc.gridwidth = 1;
         painel.add(cCor, gbc);
 
           // PESO DO ANIMAL
-        gbc.insets = new Insets(35, 15, 20, 0);
-        gbc.gridy = 4;
+      
         //Label do peso
-        gbc.gridx = 0;
+        gbc.gridx = 2;
+        gbc.insets = new Insets(35, 15, -27, 0);//Insets de Label
+        gbc.gridy = 7;
         painel.add(peso, gbc);
-
-        gbc.insets = new Insets(35, 5, 20, 20);
-        gbc.gridx = 1;
+        
+        //TextField do peso
+        gbc.insets = new Insets(35, 5, 0, 10);//Insets e Field,RadioButton, Combobox
+        gbc.gridx = 2;
+        gbc.gridy=8;
         gbc.gridwidth = 1;
         painel.add(fPeso, gbc);
-        // label kg
-        kg = new JLabel("KG");
-        gbc.gridx = 2;
-        gbc.gridwidth = 1;
-        painel.add(kg, gbc);
-       
 
         // DATA DE NASCIMENTO
-        gbc.insets = new Insets(35, 15, 0, 0);
-        gbc.gridy = 5;
-
         //Label data de nascimento
-        gbc.gridx = 0;
+        gbc.gridx = 2;
+        gbc.gridy = 9;
+        gbc.insets = new Insets(35, 15, -27, 0);//Insets de Label
         painel.add(dtNascimento, gbc);
-          //TextField
-        gbc.insets = new Insets(35, 5, 0, 20);
-        
-        gbc.gridx = 1;
+          
+        //TextField
+         gbc.insets = new Insets(35, 5, 0, 10);//Insets e Field,RadioButton, Combobox
+        gbc.gridx = 2;
+        gbc.gridy=10;
         gbc.gridwidth = 1;
         painel.add(fDtNascimento, gbc);
-
-      
-
-        gbc.gridwidth = 1;
         
         // Butoes de salvar,Cancelar e limpar
         //Botao salvar
-        gbc.insets = new Insets(35, 5, 10, 10);
-        // gbc.ipadx = 35;
+        gbc.fill=GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(35, 5, 40, 0);
+        gbc.ipadx = 10;
         gbc.ipady = 5;
-        gbc.gridy = 6;
-        gbc.gridx = 1;
+        gbc.gridx = 2;
+        gbc.gridy = 11;
         painel.add(salvar, gbc);
-
-      //Botao cancelar
+        
+        //Botao limpar
         gbc.gridx = 3;
+        painel.add(limpar, gbc);
+
+       //Botao cancelar
+        gbc.gridx = 4;
         painel.add(cancelar, gbc);
 
-        //Botao limpar
-        gbc.gridx = 2;
-        painel.add(limpar, gbc);
+        
 
         return painel;
 

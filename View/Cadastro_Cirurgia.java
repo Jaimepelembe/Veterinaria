@@ -1,5 +1,6 @@
 package View;
 
+import Controller.Datas;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -16,16 +17,18 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 
 
-public class Cadastro_Cirurgia implements ActionListener {
+public class Cadastro_Cirurgia implements ActionListener, Datas {
 
-    private JLabel lab;
+    private JLabel lab,preco,data;
     private JButton bSalvar, bLimpar, bCancelar;
-    private JFormattedTextField fPreco, fData;
+    //private JFormattedTextField fPreco, fData;
     private JComboBox cbNome;
     private String[] nomes = {"Castração", "Remoção de corpos estranhos", "Remoção de pedras na bexiga", "Correção de fraturas"};
     private JFrame frame;
@@ -41,15 +44,12 @@ public class Cadastro_Cirurgia implements ActionListener {
         cbNome = new JComboBox(nomes);
         cbNome.setSelectedIndex(-1);
 
-        //TextField do preco da consulta
-        fPreco = new JFormattedTextField();
-        fPreco.setColumns(10);
-        formatarCampo(fPreco);
+        //Label do preco da consulta
+        preco = new JLabel("000");//Preco da consulta
 
-        //TextFild data da cirurgia
-        fData = new JFormattedTextField();
-        fData.setColumns(10);
-        formatarCampo(fData);
+        //Label da data da cirurgia
+        data= new JLabel();
+        data.setText(dataActual());
 
         //Botoes salvar,Sair e cancelar
         bSalvar = new JButton("Salvar");
@@ -67,25 +67,7 @@ public class Cadastro_Cirurgia implements ActionListener {
 
     }
 
-private  void formatarCampo(JTextField campoTexto){
-         try {
-             MaskFormatter mascara = new MaskFormatter();
-              if(campoTexto==fData){
-              mascara.setMask("##/##/####");
-             mascara.install( fData);
-           }
-              if(campoTexto==fPreco){
-             mascara.setMask("####");
-             mascara.install(fPreco);
-              }
-               
-         } catch (ParseException ex) {
-             JOptionPane.showMessageDialog(null, "Erro ao formatar Campo de texto");
-         }
-    
-    }    
-    
-    public Container componentes() {
+    public Container adicionarComponentes() {
         inicializarComponentes();
         JPanel painel = new JPanel();
         painel.setBackground(Color.white);
@@ -110,20 +92,15 @@ private  void formatarCampo(JTextField campoTexto){
         // Preco consulta
         gbc.insets = new Insets(35, 15, 20, 0);
         gbc.gridy = 1;
-        lab = new JLabel("Preco da Cirurgia");
+        lab = new JLabel("Preco da Cirurgia [MZN]");
         gbc.gridx = 0;
         painel.add(lab, gbc);
-        //TexteField do preco da consulta
+        
+        //Labeldo preco da consulta
         gbc.insets = new Insets(35, 5, 20, 20);
         gbc.gridx = 1;
         gbc.gridwidth = 1;
-        painel.add(fPreco, gbc);
-
-        // label kg
-        lab = new JLabel("MZN");
-        gbc.gridx = 2;
-        gbc.gridwidth = 1;
-        painel.add(lab, gbc);
+        painel.add(preco, gbc);
 
         // Data da Cirurgia
         gbc.insets = new Insets(35, 15, 20, 0);
@@ -136,7 +113,7 @@ private  void formatarCampo(JTextField campoTexto){
         gbc.insets = new Insets(35, 5, 20, 20);
         gbc.gridx = 1;
         gbc.ipadx = 5;
-        painel.add(fData, gbc);
+        painel.add(data, gbc);
 
         // Butoes salvar,limpar e cancelar
         //Botao salvar
@@ -144,17 +121,17 @@ private  void formatarCampo(JTextField campoTexto){
         gbc.ipady = 5;
         gbc.ipadx = 5;
         gbc.gridy = 3;
-        gbc.gridx = 1;
+        gbc.gridx = 0;
         gbc.weightx = 1;
         painel.add(bSalvar, gbc);
 
         //Botao cancelar
-        gbc.gridx = 3;
+        gbc.gridx = 2;
         gbc.ipadx = 5;
         painel.add(bCancelar, gbc);
 
         //Botao limpar
-        gbc.gridx = 2;
+        gbc.gridx = 1;
         gbc.ipadx = 5;
         painel.add(bLimpar, gbc);
 
@@ -166,7 +143,7 @@ private  void formatarCampo(JTextField campoTexto){
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(700, 500);
-        frame.add(componentes());
+        frame.add(adicionarComponentes());
         frame.pack();
 
     }
@@ -178,16 +155,25 @@ private  void formatarCampo(JTextField campoTexto){
 
     public void Limpar() {
         cbNome.setSelectedIndex(-1);
-        fPreco.setText("");
-        fData.setText("");
+        preco.setText("");
+        data.setText("");
         cbNome.requestFocus();
     }
 
+  public String dataActual() {
+    String data="";
+    LocalDateTime date= LocalDateTime.now();
+    DateTimeFormatter dtf= DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    data=""+dtf.format(date);
+     return data;}  
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == bLimpar) {
             Limpar();
         }
     }
+
+    
 
 }
