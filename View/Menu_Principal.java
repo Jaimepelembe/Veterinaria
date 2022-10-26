@@ -7,6 +7,7 @@ package View;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import static java.awt.Component.RIGHT_ALIGNMENT;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -14,11 +15,15 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 
 /**
  *
@@ -29,6 +34,9 @@ public class Menu_Principal implements ActionListener{
    private GridBagConstraints gbc = new GridBagConstraints();
    private JButton cliente, animal, servicos, produtos,historico, tema;
    private JLabel label, iCliente, iAnimal, iProduto, iServico, iHistorico,iTema;
+   private JPopupMenu popMenu;
+   private JMenuItem mCadCliente, mConsCliente;
+   
 
 public Menu_Principal(){
         criarJanela();
@@ -85,6 +93,15 @@ public void inicializarComponentes(){
         tema.setBorderPainted(false);
         tema.setFont(fonte);
         
+        
+        //POP MENUS
+        //Cliente pops
+        popMenu = new JPopupMenu();
+        mCadCliente = new JMenuItem("Cadastrar"); 
+        mCadCliente.setBackground(Color.white);
+        mCadCliente.addActionListener(this);
+        mConsCliente = new JMenuItem("Consultar");
+        mConsCliente.setBackground(Color.white);
         
         
         ////------------------IMAGENS--------
@@ -213,6 +230,23 @@ public void cadastro_Consulta(){
       
 }
 
+public void Menu_Cliente(){
+        
+        popMenu.add(mCadCliente);
+        popMenu.add(mConsCliente);
+        popMenu.setBackground(Color.WHITE);
+        cliente.setAlignmentX(RIGHT_ALIGNMENT);
+        cliente.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println(e.getX());//52 para meio
+                System.out.println(e.getY());
+                popMenu.show(e.getComponent(), 100, 0);
+            }
+        });
+
+
+}
 
   
     
@@ -230,9 +264,6 @@ public void cadastro_Consulta(){
         frame.add(lateral(), BorderLayout.WEST);
        
         //cadastro_Consulta();
-        
-        
-        
         frame.setVisible(true); 
         //cadastro_Cliente();
         //frame.setVisible(true);
@@ -248,9 +279,9 @@ public void cadastro_Consulta(){
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+       
         if(e.getSource()==cliente){
-        cadastro_Cliente();
+        Menu_Cliente();
         frame.setVisible(true);
         
         }
@@ -259,6 +290,11 @@ public void cadastro_Consulta(){
         cadastro_Consulta();
         frame.setVisible(true);
         
+        }
+        if(e.getSource()==mCadCliente){
+        cadastro_Cliente();
+        Menu_Cliente();
+        frame.setVisible(true);
         }
     }
 }
