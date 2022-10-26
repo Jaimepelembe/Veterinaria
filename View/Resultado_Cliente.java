@@ -167,6 +167,7 @@ public class Resultado_Cliente {
         frame.setSize(700, 500);
         frame.add(adicionarComponentes());
         frame.pack();
+       
 
     }
     

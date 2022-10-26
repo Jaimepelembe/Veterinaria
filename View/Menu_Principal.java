@@ -29,82 +29,78 @@ import javax.swing.JPopupMenu;
  *
  * @author Valter Boa 53
  */
-public class Menu_Principal implements ActionListener{
-   private JFrame frame;
-   private GridBagConstraints gbc = new GridBagConstraints();
-   private JButton cliente, animal, servicos, produtos,historico, tema;
-   private JLabel label, iCliente, iAnimal, iProduto, iServico, iHistorico,iTema;
-   private JPopupMenu popMenu;
-   private JMenuItem mCadCliente, mConsCliente;
-   
+public class Menu_Principal implements ActionListener {
+    private JFrame frame;
+    private Container cadastro_cliente, cadastro_consul;
+    private GridBagConstraints gbc = new GridBagConstraints();
+    private JButton cliente, animal, servicos, produtos, historico, tema;
+    private JLabel label, iCliente, iAnimal, iProduto, iServico, iHistorico, iTema;
+    private JPopupMenu popMenu;
+    private JMenuItem mCadCliente, mConsCliente;
 
-public Menu_Principal(){
+    public Menu_Principal() {
         criarJanela();
-        
 
-}
+    }
 
-public void inicializarComponentes(){
-        
-        Color cor = new Color(0.0f,0.4f,0.8f,1f);
-        Font fonte = new Font("Helvetica",Font.TRUETYPE_FONT,20);
-        //BUTAO CLIENTE
-        cliente = new JButton("Clientes "); 
+    public void inicializarComponentes() {
+
+        Color cor = new Color(0.0f, 0.4f, 0.8f, 1f);
+        Font fonte = new Font("Helvetica", Font.TRUETYPE_FONT, 20);
+        // BUTAO CLIENTE
+        cliente = new JButton("Clientes ");
         cliente.setBackground(cor);
         cliente.setForeground(Color.WHITE);
         cliente.setBorderPainted(false);
         cliente.setFont(fonte);
         cliente.addActionListener(this);
-        
-        //BUTAO ANIMAL
-        animal = new JButton("Animais "); 
+
+        // BUTAO ANIMAL
+        animal = new JButton("Animais ");
         animal.setBackground(cor);
         animal.setForeground(Color.WHITE);
         animal.setBorderPainted(false);
         animal.setFont(fonte);
-        
-           //BUTAO produtos
-        produtos = new JButton(" Vacinas "); 
+
+        // BUTAO produtos
+        produtos = new JButton(" Vacinas ");
         produtos.setBackground(cor);
         produtos.setForeground(Color.WHITE);
         produtos.setBorderPainted(false);
         produtos.setFont(fonte);
-        
-        
-          //BUTAO serviços
-        servicos = new JButton(" Servicos "); 
+
+        // BUTAO serviços
+        servicos = new JButton(" Servicos ");
         servicos.setBackground(cor);
         servicos.setForeground(Color.WHITE);
         servicos.setBorderPainted(false);
         servicos.setFont(fonte);
         servicos.addActionListener(this);
-        
-          //BUTAO historico
-        historico = new JButton(" Historico "); 
+
+        // BUTAO historico
+        historico = new JButton(" Historico ");
         historico.setBackground(cor);
         historico.setForeground(Color.WHITE);
         historico.setBorderPainted(false);
         historico.setFont(fonte);
-        
-          //BUTAO configuracao
-        tema = new JButton(" Tema "); 
+
+        // BUTAO configuracao
+        tema = new JButton(" Tema ");
         tema.setBackground(cor);
         tema.setForeground(Color.WHITE);
         tema.setBorderPainted(false);
         tema.setFont(fonte);
-        
-        
-        //POP MENUS
-        //Cliente pops
+
+        // POP MENUS
+        // Cliente pops
         popMenu = new JPopupMenu();
-        mCadCliente = new JMenuItem("Cadastrar"); 
+        mCadCliente = new JMenuItem("Cadastrar");
         mCadCliente.setBackground(Color.white);
         mCadCliente.addActionListener(this);
         mConsCliente = new JMenuItem("Consultar");
         mConsCliente.setBackground(Color.white);
-        
-        
-        ////------------------IMAGENS--------
+
+        //// ------------------IMAGENS--------
         iProduto = new JLabel();
         iServico = new JLabel();
         label = new JLabel();
@@ -119,119 +115,119 @@ public void inicializarComponentes(){
         iServico.setIcon(new ImageIcon("src/Imagens/Menu/servico.png"));
         iHistorico.setIcon(new ImageIcon("src/Imagens/Menu/historico.png"));
         iTema.setIcon(new ImageIcon("src/Imagens/Menu/tema.png"));
-};
+    };
 
     public Container componentes() {
-        
+
         inicializarComponentes();
         JPanel painel = new JPanel();
         painel.setBackground(Color.white);
-    return painel;
+        return painel;
     }
-  
 
-    //PAINEL lateral esquerdo
-public Container lateral() {
-        Color cor = new Color(0.0f,0.4f,0.8f,1f);
+    // PAINEL lateral esquerdo
+    public Container lateral() {
+        Color cor = new Color(0.0f, 0.4f, 0.8f, 1f);
 
         inicializarComponentes();
         JPanel pLateral = new JPanel();
         pLateral.setBackground(cor);
-        
+
         pLateral.setBounds(0, 0, 0, 0);
-       
+
         pLateral.setLayout(new GridBagLayout());
-        
-        //IMAGEM ANIMAL
+
+        // IMAGEM ANIMAL
         gbc.insets = new Insets(5, 5, 0, 0);
         gbc.gridx = 1;
-        gbc.gridy=0;
-         pLateral.add(label,gbc);
-        
-         gbc.insets = new Insets(0, 5, 0, 0);
-         
-        //clente
+        gbc.gridy = 0;
+        pLateral.add(label, gbc);
+
+        gbc.insets = new Insets(0, 5, 0, 0);
+
+        // clente
         gbc.gridx = 1;
-        gbc.gridy=2;
-        pLateral.add(cliente,gbc);
-        //icon cliente
+        gbc.gridy = 2;
+        pLateral.add(cliente, gbc);
+        // icon cliente
         gbc.insets = new Insets(0, 12, 0, -67);
         gbc.gridx = 0;
-        gbc.gridy=2;
-        pLateral.add(iCliente,gbc);
-        
+        gbc.gridy = 2;
+        pLateral.add(iCliente, gbc);
+
         gbc.insets = new Insets(30, 5, 0, 0);
-        //animal
+        // animal
         gbc.gridx = 1;
-        gbc.gridy=3;
-        pLateral.add(animal,gbc);
-        //icon animal
+        gbc.gridy = 3;
+        pLateral.add(animal, gbc);
+        // icon animal
         gbc.insets = new Insets(30, 12, 0, -67);
         gbc.gridx = 0;
-        gbc.gridy=3;
-        pLateral.add(iAnimal,gbc);
-        
-        
-       gbc.insets = new Insets(30, 5, 0, 0);
-        //produtos
+        gbc.gridy = 3;
+        pLateral.add(iAnimal, gbc);
+
+        gbc.insets = new Insets(30, 5, 0, 0);
+        // produtos
         gbc.gridx = 1;
-        gbc.gridy=4;
-        pLateral.add(produtos,gbc);
-        //icon produto
+        gbc.gridy = 4;
+        pLateral.add(produtos, gbc);
+        // icon produto
         gbc.insets = new Insets(30, 12, 0, -67);
         gbc.gridx = 0;
-        gbc.gridy=4;
-        pLateral.add(iProduto,gbc);
-        
-         gbc.insets = new Insets(30, 12, 0, 0);
-        //servicos
-        gbc.gridx = 1;
-        gbc.gridy=5;
-        pLateral.add(servicos,gbc);
-        //icon servico
-        gbc.insets = new Insets(30, 14, 0, -58);
-        gbc.gridx = 0;
-        gbc.gridy=5;
-        pLateral.add(iServico,gbc);
-        
+        gbc.gridy = 4;
+        pLateral.add(iProduto, gbc);
+
         gbc.insets = new Insets(30, 12, 0, 0);
-        //historico
+        // servicos
         gbc.gridx = 1;
-        gbc.gridy=6;
-        pLateral.add(historico,gbc);
-        //icon historico
+        gbc.gridy = 5;
+        pLateral.add(servicos, gbc);
+        // icon servico
         gbc.insets = new Insets(30, 14, 0, -58);
         gbc.gridx = 0;
-        gbc.gridy=6;
-        pLateral.add(iHistorico,gbc);
-        
+        gbc.gridy = 5;
+        pLateral.add(iServico, gbc);
+
+        gbc.insets = new Insets(30, 12, 0, 0);
+        // historico
+        gbc.gridx = 1;
+        gbc.gridy = 6;
+        pLateral.add(historico, gbc);
+        // icon historico
+        gbc.insets = new Insets(30, 14, 0, -58);
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        pLateral.add(iHistorico, gbc);
+
         gbc.insets = new Insets(30, 5, 0, 0);
-        //configuracoes
+        // configuracoes
         gbc.gridx = 1;
-        gbc.gridy=7;
-        pLateral.add(tema,gbc);
-        //icon tema
+        gbc.gridy = 7;
+        pLateral.add(tema, gbc);
+        // icon tema
         gbc.insets = new Insets(30, 14, 0, -58);
         gbc.gridx = 0;
-        gbc.gridy=7;
-        pLateral.add(iTema,gbc);
-        
-    return pLateral;
-}
-public void cadastro_Cliente(){
+        gbc.gridy = 7;
+        pLateral.add(iTema, gbc);
+
+        return pLateral;
+    }
+
+    public void cadastro_Cliente() {
         Cadastro_Cliente cCliente = new Cadastro_Cliente();
-        frame.add(cCliente.pPrincipal(), BorderLayout.CENTER);
-}
+        cadastro_cliente = cCliente.pPrincipal();
+        frame.add(cadastro_cliente, BorderLayout.CENTER);
+    }
 
-public void cadastro_Consulta(){
+    public void cadastro_Consulta() {
         Cadastro_Consulta cConsulta = new Cadastro_Consulta();
-        frame.add(cConsulta.pPrincipal(), BorderLayout.CENTER);
-        
-      
-}
+        cadastro_consul = cConsulta.pPrincipal();
+        frame.add(cadastro_consul, BorderLayout.CENTER);
 
-public void Menu_Cliente(){
-        
+    }
+
+    public void Menu_Cliente() {
+
         popMenu.add(mCadCliente);
         popMenu.add(mConsCliente);
         popMenu.setBackground(Color.WHITE);
@@ -239,29 +235,26 @@ public void Menu_Cliente(){
         cliente.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println(e.getX());//52 para meio
-                System.out.println(e.getY());
                 popMenu.show(e.getComponent(), 100, 0);
             }
         });
 
+    }
 
-}
-
-  
-    
     public void criarJanela() {
-       
-        frame = new JFrame("MENU") ;
+
+        frame = new JFrame("MENU");
         frame.setLayout(new BorderLayout());
         frame.setBackground(Color.white);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(810, 650);
-         ImageIcon img = new ImageIcon("src/Imagens/Menu/menu.jpg");
-        frame.setIconImage(img.getImage());    frame.setLocationRelativeTo(null);
+        ImageIcon img = new ImageIcon("src/Imagens/Menu/menu.jpg");
+        frame.setIconImage(img.getImage());
+        frame.setLocationRelativeTo(null);
         frame.setResizable(false);
-       // frame.add(componentes());
+        // frame.add(componentes());
         frame.add(lateral(), BorderLayout.WEST);
+
        
         //cadastro_Consulta();
         frame.setVisible(true); 
@@ -276,32 +269,59 @@ public void Menu_Cliente(){
  }   
  
 
+
+        // cadastro_Consulta();
+        //frame.setVisible(true);
+        // cadastro_Cliente();
+        // frame.setVisible(true);
+
+
+ 
+
+
     public static void main(String[] args) {
-     new Menu_Principal();
-        
+        new Menu_Principal();
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
        Cadastro_Cliente cCliente = new Cadastro_Cliente();
         if(e.getSource()==cliente){
         Menu_Cliente();
         frame.setVisible(true);
         
+
+        if (e.getSource() == cliente) {
+
+            if (cadastro_consul != null) {
+                frame.remove(cadastro_consul);
+            }
+            Menu_Cliente();
+
+            frame.setVisible(true);
+
+
         }
-        
-        if(e.getSource()== servicos){
-        cadastro_Consulta();
-        frame.setVisible(true);
-        
+
+        if (e.getSource() == servicos) {
+            if (cadastro_cliente != null) {
+                frame.remove(cadastro_cliente);
+            }
+            cadastro_Consulta();
+            frame.setVisible(true);
+
         }
-        if(e.getSource()==mCadCliente){
-        cadastro_Cliente();
-        Menu_Cliente();
-        frame.setVisible(true);
+        if (e.getSource() == mCadCliente) {
+            System.out.println("Ola");
+            cadastro_Cliente();
+            
+            //Menu_Cliente();
+            frame.setVisible(true);
         }
         
         
     }
+    }
 }
-
