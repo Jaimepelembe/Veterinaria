@@ -34,7 +34,7 @@ public class Cadastro_Cliente implements ActionListener{
 
     public Cadastro_Cliente () {
 
-    criarJanela();
+    //criarJanela();
     }
 
     
