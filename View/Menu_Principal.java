@@ -1,0 +1,230 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package View;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+/**
+ *
+ * @author Valter Boa 53
+ */
+public class Menu_Principal{
+   private JFrame frame;
+   private GridBagConstraints gbc = new GridBagConstraints();
+   private JButton cliente, animal, servicos, produtos,historico, tema;
+   private JLabel label, iCliente, iAnimal, iProduto, iServico, iHistorico,iTema;
+
+public Menu_Principal(){
+        criarJanela();
+        
+
+}
+
+public void inicializarComponentes(){
+        
+        Color cor = new Color(0.0f,0.4f,0.8f,1f);
+        Font fonte = new Font("Helvetica",Font.TRUETYPE_FONT,21);
+        //BUTAO CLIENTE
+        cliente = new JButton("Clientes "); 
+        cliente.setBackground(cor);
+        cliente.setForeground(Color.WHITE);
+        cliente.setBorderPainted(false);
+        cliente.setFont(fonte);
+        
+        //BUTAO ANIMAL
+        animal = new JButton("Animais "); 
+        animal.setBackground(cor);
+        animal.setForeground(Color.WHITE);
+        animal.setBorderPainted(false);
+        animal.setFont(fonte);
+        
+           //BUTAO produtos
+        produtos = new JButton(" Vacinas "); 
+        produtos.setBackground(cor);
+        produtos.setForeground(Color.WHITE);
+        produtos.setBorderPainted(false);
+        produtos.setFont(fonte);
+        
+        
+          //BUTAO serviços
+        servicos = new JButton(" Servicos "); 
+        servicos.setBackground(cor);
+        servicos.setForeground(Color.WHITE);
+        servicos.setBorderPainted(false);
+        servicos.setFont(fonte);
+        
+          //BUTAO historico
+        historico = new JButton(" Historico "); 
+        historico.setBackground(cor);
+        historico.setForeground(Color.WHITE);
+        historico.setBorderPainted(false);
+        historico.setFont(fonte);
+        
+          //BUTAO configuracao
+        tema = new JButton(" Tema "); 
+        tema.setBackground(cor);
+        tema.setForeground(Color.WHITE);
+        tema.setBorderPainted(false);
+        tema.setFont(fonte);
+        
+        
+        
+        ////------------------IMAGENS--------
+        iProduto = new JLabel();
+        iServico = new JLabel();
+        label = new JLabel();
+        iCliente = new JLabel();
+        iAnimal = new JLabel();
+        iHistorico = new JLabel();
+        iTema = new JLabel();
+        label.setIcon(new ImageIcon("C:/Users/Valter Boa/Documents/NetBeansProject/veterinaria/src/Imagens/ImagensMenu/logo.png"));
+        iAnimal.setIcon(new ImageIcon("C:/Users/Valter Boa/Documents/NetBeansProject/veterinaria/src/Imagens/ImagensMenu/animal.png"));
+        iCliente.setIcon(new ImageIcon("C:/Users/Valter Boa/Documents/NetBeansProject/veterinaria/src/Imagens/ImagensMenu/cliente.png"));
+        iProduto.setIcon(new ImageIcon("C:/Users/Valter Boa/Documents/NetBeansProject/veterinaria/src/Imagens/ImagensMenu/produto.png"));
+        iServico.setIcon(new ImageIcon("C:/Users/Valter Boa/Documents/NetBeansProject/veterinaria/src/Imagens/ImagensMenu/servico.png"));
+        iHistorico.setIcon(new ImageIcon("C:/Users/Valter Boa/Documents/NetBeansProject/veterinaria/src/Imagens/ImagensMenu/historico.png"));
+        iTema.setIcon(new ImageIcon("C:/Users/Valter Boa/Documents/NetBeansProject/veterinaria/src/Imagens/ImagensMenu/tema.png"));
+};
+
+    public Container componentes() {
+        
+        inicializarComponentes();
+        JPanel painel = new JPanel();
+        painel.setBackground(Color.white);
+    return painel;
+    }
+  
+
+    //PAINEL lateral esquerdo
+public Container lateral() {
+        Color cor = new Color(0.0f,0.4f,0.8f,1f);
+
+        inicializarComponentes();
+        JPanel pLateral = new JPanel();
+        pLateral.setBackground(cor);
+        
+        pLateral.setBounds(0, 0, 0, 0);
+       
+        pLateral.setLayout(new GridBagLayout());
+        
+        //IMAGEM ANIMAL
+        gbc.insets = new Insets(5, 5, 0, 0);
+        gbc.gridx = 1;
+        gbc.gridy=0;
+         pLateral.add(label,gbc);
+        
+         gbc.insets = new Insets(0, 5, 0, 0);
+         
+        //clente
+        gbc.gridx = 1;
+        gbc.gridy=2;
+        pLateral.add(cliente,gbc);
+        //icon cliente
+        gbc.insets = new Insets(0, 12, 0, -67);
+        gbc.gridx = 0;
+        gbc.gridy=2;
+        pLateral.add(iCliente,gbc);
+        
+        gbc.insets = new Insets(30, 5, 0, 0);
+        //animal
+        gbc.gridx = 1;
+        gbc.gridy=3;
+        pLateral.add(animal,gbc);
+        //icon animal
+        gbc.insets = new Insets(30, 12, 0, -67);
+        gbc.gridx = 0;
+        gbc.gridy=3;
+        pLateral.add(iAnimal,gbc);
+        
+        
+       gbc.insets = new Insets(30, 5, 0, 0);
+        //produtos
+        gbc.gridx = 1;
+        gbc.gridy=4;
+        pLateral.add(produtos,gbc);
+        //icon produto
+        gbc.insets = new Insets(30, 12, 0, -67);
+        gbc.gridx = 0;
+        gbc.gridy=4;
+        pLateral.add(iProduto,gbc);
+        
+         gbc.insets = new Insets(30, 12, 0, 0);
+        //servicos
+        gbc.gridx = 1;
+        gbc.gridy=5;
+        pLateral.add(servicos,gbc);
+        //icon servico
+        gbc.insets = new Insets(30, 14, 0, -58);
+        gbc.gridx = 0;
+        gbc.gridy=5;
+        pLateral.add(iServico,gbc);
+        
+        gbc.insets = new Insets(30, 12, 0, 0);
+        //historico
+        gbc.gridx = 1;
+        gbc.gridy=6;
+        pLateral.add(historico,gbc);
+        //icon historico
+        gbc.insets = new Insets(30, 14, 0, -58);
+        gbc.gridx = 0;
+        gbc.gridy=6;
+        pLateral.add(iHistorico,gbc);
+        
+        gbc.insets = new Insets(30, 5, 0, 0);
+        //configuracoes
+        gbc.gridx = 1;
+        gbc.gridy=7;
+        pLateral.add(tema,gbc);
+        //icon tema
+        gbc.insets = new Insets(30, 14, 0, -58);
+        gbc.gridx = 0;
+        gbc.gridy=7;
+        pLateral.add(iTema,gbc);
+        
+    return pLateral;
+}
+
+
+
+  
+    
+    public void criarJanela() {
+        frame = new JFrame("MENU") ;
+        frame.setLayout(new BorderLayout());
+        frame.setBackground(Color.white);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(810, 650);
+         ImageIcon img = new ImageIcon("C:/Users/Valter Boa/Documents/NetBeansProject/veterinaria/src/Imagens/ImagensMenu/menu.jpg");
+        frame.setIconImage(img.getImage());
+        
+        
+        
+        
+        
+        
+        frame.setLocationRelativeTo(null);
+     frame.add(componentes());
+       frame.add(lateral(), BorderLayout.WEST);
+   frame.setVisible(true); }
+    
+    
+
+    public static void main(String[] args) {
+     new Menu_Principal();
+        
+    }}
+
