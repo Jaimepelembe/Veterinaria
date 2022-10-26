@@ -270,7 +270,11 @@ public void Menu_Cliente(){
         
 }
     
-    
+ public void Cancelar(){
+ frame.remove(tema);
+ 
+ }   
+ 
 
     public static void main(String[] args) {
      new Menu_Principal();
@@ -279,7 +283,7 @@ public void Menu_Cliente(){
 
     @Override
     public void actionPerformed(ActionEvent e) {
-       
+       Cadastro_Cliente cCliente = new Cadastro_Cliente();
         if(e.getSource()==cliente){
         Menu_Cliente();
         frame.setVisible(true);
@@ -296,6 +300,8 @@ public void Menu_Cliente(){
         Menu_Cliente();
         frame.setVisible(true);
         }
+        
+        
     }
 }
 
