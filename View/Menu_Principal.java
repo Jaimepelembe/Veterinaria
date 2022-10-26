@@ -290,20 +290,7 @@ public class Menu_Principal implements ActionListener {
        Cadastro_Cliente cCliente = new Cadastro_Cliente();
         if(e.getSource()==cliente){
         Menu_Cliente();
-        frame.setVisible(true);
-        
-
-        if (e.getSource() == cliente) {
-
-            if (cadastro_consul != null) {
-                frame.remove(cadastro_consul);
-            }
-            Menu_Cliente();
-
-            frame.setVisible(true);
-
-
-        }
+        frame.setVisible(true);}
 
         if (e.getSource() == servicos) {
             if (cadastro_cliente != null) {
@@ -314,7 +301,6 @@ public class Menu_Principal implements ActionListener {
 
         }
         if (e.getSource() == mCadCliente) {
-            System.out.println("Ola");
             cadastro_Cliente();
             
             //Menu_Cliente();
@@ -322,6 +308,6 @@ public class Menu_Principal implements ActionListener {
         }
         
         
-    }
+    
     }
 }
