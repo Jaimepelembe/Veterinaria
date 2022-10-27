@@ -31,12 +31,12 @@ import javax.swing.JPopupMenu;
  */
 public class Menu_Principal implements ActionListener {
     private JFrame frame;
-    private Container cadastro_cliente, cadastro_consul;
+    private Container painelActual;
     private GridBagConstraints gbc = new GridBagConstraints();
     private JButton cliente, animal, servicos, produtos, historico, tema;
     private JLabel label, iCliente, iAnimal, iProduto, iServico, iHistorico, iTema;
-    private JPopupMenu popMenu;
-    private JMenuItem mCadCliente, mConsCliente;
+    private JPopupMenu popMenu,pop_Animal;
+    private JMenuItem mCadCliente, mConsCliente,mCadAnimal,mConsAnimal;
 
     public Menu_Principal() {
         criarJanela();
@@ -61,6 +61,7 @@ public class Menu_Principal implements ActionListener {
         animal.setForeground(Color.WHITE);
         animal.setBorderPainted(false);
         animal.setFont(fonte);
+        animal.addActionListener(this);
 
         // BUTAO produtos
         produtos = new JButton(" Vacinas ");
@@ -94,11 +95,25 @@ public class Menu_Principal implements ActionListener {
         // POP MENUS
         // Cliente pops
         popMenu = new JPopupMenu();
+         //MenuItem Cadastro
         mCadCliente = new JMenuItem("Cadastrar");
         mCadCliente.setBackground(Color.white);
         mCadCliente.addActionListener(this);
+        //MenuItem consulta
         mConsCliente = new JMenuItem("Consultar");
         mConsCliente.setBackground(Color.white);
+        
+        //Animal Pops
+        pop_Animal= new JPopupMenu();
+        //MenuItem cadastro
+        mCadAnimal= new JMenuItem("Cadastrar");
+        mCadAnimal.setBackground(Color.white);
+        mCadAnimal.addActionListener(this);
+        //MenuItem consulta
+        mConsAnimal= new JMenuItem("Consultar");
+        mConsAnimal.setBackground(Color.white);
+        
+        
 
         //// ------------------IMAGENS--------
         iProduto = new JLabel();
@@ -215,18 +230,30 @@ public class Menu_Principal implements ActionListener {
 
     public void cadastro_Cliente() {
         Cadastro_Cliente cCliente = new Cadastro_Cliente();
-        cadastro_cliente = cCliente.pPrincipal();
-        frame.add(cadastro_cliente, BorderLayout.CENTER);
+        //Remover o painel que esta no centro
+        removerPainelCentral();
+        painelActual = cCliente.pPrincipal();
+        frame.add(painelActual, BorderLayout.CENTER);
     }
 
     public void cadastro_Consulta() {
         Cadastro_Consulta cConsulta = new Cadastro_Consulta();
-        cadastro_consul = cConsulta.pPrincipal();
-        frame.add(cadastro_consul, BorderLayout.CENTER);
+         //Remover o painel central caso ele tenha algo
+        removerPainelCentral();
+        painelActual = cConsulta.pPrincipal();
+       
+        frame.add(painelActual, BorderLayout.CENTER);
 
     }
 
-    public void Menu_Cliente() {
+    public void cadastro_Animal(){
+    Cadastro_Animal animais = new Cadastro_Animal();
+    //Remover o painel central caso ele tenha algo
+    removerPainelCentral();
+    painelActual=animais.painelPrincipal();
+    frame.add(painelActual,BorderLayout.CENTER);
+    }
+    public void PopMenu_Cliente() {
 
         popMenu.add(mCadCliente);
         popMenu.add(mConsCliente);
@@ -240,18 +267,32 @@ public class Menu_Principal implements ActionListener {
         });
 
     }
+    
+    public void PopMenu_Animal(){
+        pop_Animal.add(mCadAnimal);
+        pop_Animal.add(mConsAnimal);
+        pop_Animal.setBackground(Color.WHITE);
+        animal.setAlignmentX(RIGHT_ALIGNMENT);
+        animal.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                pop_Animal.show(e.getComponent(), 100, 0);
+            }
+        });
+
+ 
+    }
 
     public void criarJanela() {
-
+        ImageIcon img = new ImageIcon("src/Imagens/Menu/menu.jpg");
         frame = new JFrame("MENU");
         frame.setLayout(new BorderLayout());
         frame.setBackground(Color.white);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(810, 650);
-        ImageIcon img = new ImageIcon("src/Imagens/Menu/menu.jpg");
+       
         frame.setIconImage(img.getImage());
         frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
+        frame.setResizable(true);
         // frame.add(componentes());
         frame.add(lateral(), BorderLayout.WEST);
 
@@ -263,19 +304,15 @@ public class Menu_Principal implements ActionListener {
         
 }
     
+    public void removerPainelCentral(){
+    if(painelActual!=null){
+    frame.remove(painelActual);
+    }
+    }
  public void Cancelar(){
  frame.remove(tema);
  
  }   
- 
-
-
-        // cadastro_Consulta();
-        //frame.setVisible(true);
-        // cadastro_Cliente();
-        // frame.setVisible(true);
-
-
  
 
 
@@ -287,26 +324,34 @@ public class Menu_Principal implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-       Cadastro_Cliente cCliente = new Cadastro_Cliente();
+       //##### Eventos do botao cliente #########
         if(e.getSource()==cliente){
-        Menu_Cliente();
+        PopMenu_Cliente();
         frame.setVisible(true);}
-
+        
+        if (e.getSource() == mCadCliente) {
+            cadastro_Cliente();
+            frame.setVisible(true);
+        }
+        
         if (e.getSource() == servicos) {
-            if (cadastro_cliente != null) {
-                frame.remove(cadastro_cliente);
-            }
             cadastro_Consulta();
             frame.setVisible(true);
 
         }
-        if (e.getSource() == mCadCliente) {
-            cadastro_Cliente();
-            
-            //Menu_Cliente();
-            frame.setVisible(true);
+        //######## Eventos do botao Animal #########
+        if(e.getSource()==animal){
+        PopMenu_Animal();
+        frame.setVisible(true);
         }
         
+        //Pop Menu
+        //Menuitem Cadastrar
+        if(e.getSource()==mCadAnimal){
+        cadastro_Animal();
+        frame.setVisible(true);
+        }
+        //Menuitem Consultar
         
     
     }

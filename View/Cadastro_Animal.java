@@ -1,5 +1,6 @@
 package View;
 
+import java.awt.BorderLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -30,16 +31,16 @@ public class Cadastro_Animal implements  ActionListener{
     private JFormattedTextField fPeso, fDtNascimento;
     private JFrame frame;
     private JComboBox cRaca, cCor;
+    private JPanel pPrincipal;
     private ButtonGroup botoes;
     private JRadioButton rbcao, rbgato;
     private String[] racas_caes = {"Pastor Alemao", "Pitbull", "Pastor Belga", "Chiuaua","Husky siberiano","Chow chow","Doberman","outro"};
     private String [] racas_gatos={"Persa","Sphynx","British Shorthair","Maine Coon","Bengal","Ragdoll","Munchkin","outro"};
     private String[] cores = {"Branco", "Cizento", "Azul", "Amarelo"};
-    //Teste de GitHub 
     GridBagConstraints gbc = new GridBagConstraints();
 
     public Cadastro_Animal() {
-        criarJanela();
+        //criarJanela();
     }
 
     public void inicializarComponentes() {
@@ -96,16 +97,18 @@ public class Cadastro_Animal implements  ActionListener{
         limpar.setForeground(Color.white);
         limpar.setBackground(Color.blue);
         limpar.addActionListener(this);
-        
-        
-
     }
     
+    public Container painelPrincipal(){
+    pPrincipal= new JPanel(new BorderLayout());
+    pPrincipal.add(componentes(),BorderLayout.CENTER);
+    return pPrincipal;
+    }
    private  void formatarCampo(JTextField campoTexto){
          try {
              MaskFormatter mascara = new MaskFormatter();
               if(campoTexto==fDtNascimento){
-              mascara.setMask("##/##/####");
+              mascara.setMask(" ## / ## / ####");
              mascara.install( fDtNascimento);
            }
               if(campoTexto==fPeso){
@@ -119,7 +122,7 @@ public class Cadastro_Animal implements  ActionListener{
     
     }
    
-    public Container componentes() {
+    private Container componentes() {
         inicializarComponentes();
         JPanel painel = new JPanel();
         painel.setBackground(Color.white);
@@ -255,12 +258,12 @@ public class Cadastro_Animal implements  ActionListener{
 
     }
 
-    public void criarJanela() {
+ private void criarJanela() {
         frame = new JFrame("CADASTRO ANIMAL");
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(700, 500);
-        frame.add(componentes());
+       // frame.setSize(700, 500);
+        frame.add(painelPrincipal());
         frame.pack();
 
     }
@@ -270,7 +273,7 @@ public class Cadastro_Animal implements  ActionListener{
 
     }
 
- public void Limpar(){
+ private void Limpar(){
      fNome.setText("");
      fPeso.setText("");
      fDtNascimento.setText("");
