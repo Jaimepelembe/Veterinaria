@@ -23,7 +23,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 
-public class Cadastro_Cliente {
+public class Cadastro_Cliente implements ActionListener{
       private JLabel nome, tel, morada,lab;
     private JButton bSalvar, bCancelar, bLimpar;
     private JTextField fNome;
@@ -79,6 +79,7 @@ public class Cadastro_Cliente {
        bLimpar.setForeground(Color.white);
        bLimpar.setBackground(Color.blue);
        bLimpar.setBorderPainted(false);
+       bLimpar.addActionListener(this);
        
        //Cancelar
         bCancelar = new JButton("Cancelar");
@@ -157,8 +158,6 @@ private  void formatarCampo(JTextField campoTexto){
 
     }
 public Container adicionarBotoes() {
-      
-        inicializarComponentes();
         JPanel pBotoes = new JPanel();
         pBotoes.setBackground(Color.white);
        pBotoes.setLayout(new GridBagLayout());
@@ -176,8 +175,6 @@ public Container adicionarBotoes() {
 }
 
 public Container adicionarImagens() {
-      
-        inicializarComponentes();
         JPanel pImagens = new JPanel();
         ImageIcon imageIcon;
         
@@ -189,8 +186,6 @@ public Container adicionarImagens() {
     return pImagens;
 }
 public Container pPrincipal() {
-      
-        inicializarComponentes();
         JPanel pPrincipal = new JPanel();
         ImageIcon imageIcon;
         
@@ -224,6 +219,21 @@ public Container pPrincipal() {
     public static void main(String[] args) {
      new Cadastro_Cliente ();
         
+    }
+
+    public void Limpar(){
+    this.fNome.setText("");
+    this.fTel.setText("");
+    this.cDistrito.setSelectedIndex(-1);
+    
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      if(e.getSource()==bLimpar){
+      Limpar();}
+      if(e.getSource()==bCancelar){
+      
+      }
     }
     }
 

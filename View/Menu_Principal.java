@@ -235,8 +235,6 @@ public class Menu_Principal implements ActionListener {
         cliente.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println(e.getX());// 52 para meio
-                System.out.println(e.getY());
                 popMenu.show(e.getComponent(), 100, 0);
             }
         });
@@ -257,12 +255,29 @@ public class Menu_Principal implements ActionListener {
         // frame.add(componentes());
         frame.add(lateral(), BorderLayout.WEST);
 
+       
+        //cadastro_Consulta();
+        frame.setVisible(true); 
+        //cadastro_Cliente();
+        //frame.setVisible(true);
+        
+}
+    
+ public void Cancelar(){
+ frame.remove(tema);
+ 
+ }   
+ 
+
+
         // cadastro_Consulta();
-        frame.setVisible(true);
+        //frame.setVisible(true);
         // cadastro_Cliente();
         // frame.setVisible(true);
 
-    }
+
+ 
+
 
     public static void main(String[] args) {
         new Menu_Principal();
@@ -272,19 +287,10 @@ public class Menu_Principal implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == cliente) {
-
-            if (cadastro_consul != null) {
-                frame.remove(cadastro_consul);
-            }
-
-            cadastro_Cliente();
-
-            Menu_Cliente();
-
-            frame.setVisible(true);
-
-        }
+       Cadastro_Cliente cCliente = new Cadastro_Cliente();
+        if(e.getSource()==cliente){
+        Menu_Cliente();
+        frame.setVisible(true);}
 
         if (e.getSource() == servicos) {
             if (cadastro_cliente != null) {
@@ -296,8 +302,12 @@ public class Menu_Principal implements ActionListener {
         }
         if (e.getSource() == mCadCliente) {
             cadastro_Cliente();
-            Menu_Cliente();
+            
+            //Menu_Cliente();
             frame.setVisible(true);
         }
+        
+        
+    
     }
 }
