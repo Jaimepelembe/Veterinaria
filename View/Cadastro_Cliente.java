@@ -35,9 +35,11 @@ public class Cadastro_Cliente implements ActionListener{
 
     public Cadastro_Cliente () {
 
-    //criarJanela();
+   // criarJanela();
     }
 
+    public JButton cancelar(){
+    return bCancelar;}
     
     public void inicializarComponentes(){
     //Informacoes do nome
@@ -56,7 +58,7 @@ public class Cadastro_Cliente implements ActionListener{
      fTel = new JFormattedTextField();
      fTel.setColumns(25);
      tel.setForeground(Color.gray);
-        formatarCampo(fTel);
+//        formatarCampo(fTel);
      
      //Informacoes da morada
      //Label
@@ -74,6 +76,7 @@ public class Cadastro_Cliente implements ActionListener{
        bSalvar.setForeground(Color.white);
        bSalvar.setBackground(Color.green);
        bSalvar.setBorderPainted(false);
+       bSalvar.setFocusPainted(false);
        
       //Eliminar
        bLimpar = new JButton("Limpar");
@@ -81,16 +84,18 @@ public class Cadastro_Cliente implements ActionListener{
        bLimpar.setBackground(Color.blue);
        bLimpar.setBorderPainted(false);
        bLimpar.addActionListener(this);
+       bLimpar.setFocusPainted(false);
        
        //Cancelar
         bCancelar = new JButton("Cancelar");
         bCancelar .setForeground(Color.white);
         bCancelar .setBackground(Color.red);
         bCancelar.setBorderPainted(false);
+        bCancelar.setFocusPainted(false);
   
     }
    
-   
+  /* 
 private  void formatarCampo(JTextField campoTexto){
          try {
              MaskFormatter mascara = new MaskFormatter();
@@ -103,7 +108,7 @@ private  void formatarCampo(JTextField campoTexto){
              JOptionPane.showMessageDialog(null, "Erro ao formatar Campo de texto");
          }
     
-    }    
+    }    */
      
     
   public Container adicionarComponentes() {

@@ -30,13 +30,23 @@ import javax.swing.JPopupMenu;
  * @author Valter Boa 53
  */
 public class Menu_Principal implements ActionListener {
+
     private JFrame frame;
+    private Container cadastro_cliente, cadastro_consul;
+
     private Container painelActual;
     private GridBagConstraints gbc = new GridBagConstraints();
-    private JButton cliente, animal, servicos, produtos, historico, tema;
+    private JButton cliente, animal, servicos, produtos, historico, tema, botao;
     private JLabel label, iCliente, iAnimal, iProduto, iServico, iHistorico, iTema;
-    private JPopupMenu popMenu,pop_Animal;
-    private JMenuItem mCadCliente, mConsCliente,mCadAnimal,mConsAnimal;
+    private JPopupMenu popMenu, pop_Animal;
+    private JMenuItem mCadCliente, mConsCliente, mCadAnimal, mConsAnimal;
+    //cores
+    Color cor = new Color(0.0f, 0.4f, 0.8f, 1f);//COR DO PAINEL
+    Color cor2 = new Color(0.0f, 0.2f, 0.8f, 1f); //COR SECUNDARIA
+
+    //fontes
+    Font fonte = new Font("Helvetica", Font.TRUETYPE_FONT, 20);
+    Font fonte2 = new Font("arial", Font.TRUETYPE_FONT, 15);
 
     public Menu_Principal() {
         criarJanela();
@@ -44,9 +54,8 @@ public class Menu_Principal implements ActionListener {
     }
 
     public void inicializarComponentes() {
-
-        Color cor = new Color(0.0f, 0.4f, 0.8f, 1f);
-        Font fonte = new Font("Helvetica", Font.TRUETYPE_FONT, 20);
+        /* botao = new JButton();
+         botao.addActionListener(this);*/
         // BUTAO CLIENTE
         cliente = new JButton("Clientes ");
         cliente.setBackground(cor);
@@ -54,6 +63,7 @@ public class Menu_Principal implements ActionListener {
         cliente.setBorderPainted(false);
         cliente.setFont(fonte);
         cliente.addActionListener(this);
+        cliente.setFocusPainted(false);
 
         // BUTAO ANIMAL
         animal = new JButton("Animais ");
@@ -62,6 +72,7 @@ public class Menu_Principal implements ActionListener {
         animal.setBorderPainted(false);
         animal.setFont(fonte);
         animal.addActionListener(this);
+        animal.setFocusPainted(false);
 
         // BUTAO produtos
         produtos = new JButton(" Vacinas ");
@@ -69,6 +80,7 @@ public class Menu_Principal implements ActionListener {
         produtos.setForeground(Color.WHITE);
         produtos.setBorderPainted(false);
         produtos.setFont(fonte);
+        produtos.setFocusPainted(false);
 
         // BUTAO serviços
         servicos = new JButton(" Servicos ");
@@ -77,6 +89,7 @@ public class Menu_Principal implements ActionListener {
         servicos.setBorderPainted(false);
         servicos.setFont(fonte);
         servicos.addActionListener(this);
+        servicos.setFocusPainted(false);
 
         // BUTAO historico
         historico = new JButton(" Historico ");
@@ -84,6 +97,7 @@ public class Menu_Principal implements ActionListener {
         historico.setForeground(Color.WHITE);
         historico.setBorderPainted(false);
         historico.setFont(fonte);
+        historico.setFocusPainted(false);
 
         // BUTAO configuracao
         tema = new JButton(" Tema ");
@@ -91,29 +105,33 @@ public class Menu_Principal implements ActionListener {
         tema.setForeground(Color.WHITE);
         tema.setBorderPainted(false);
         tema.setFont(fonte);
+        tema.setFocusPainted(false);
 
         // POP MENUS
         // Cliente pops
         popMenu = new JPopupMenu();
-         //MenuItem Cadastro
-        mCadCliente = new JMenuItem("Cadastrar");
+        //MenuItem Cadastro
+        mCadCliente = new JMenuItem("Cadastrar      ");
         mCadCliente.setBackground(Color.white);
         mCadCliente.addActionListener(this);
+        mCadCliente.setFont(fonte2);
         //MenuItem consulta
-        mConsCliente = new JMenuItem("Consultar");
+        mConsCliente = new JMenuItem("Consulta");
         mConsCliente.setBackground(Color.white);
-        
+        mConsCliente.addActionListener(this);
+        mConsCliente.setFont(fonte2);
         //Animal Pops
-        pop_Animal= new JPopupMenu();
+        pop_Animal = new JPopupMenu();
         //MenuItem cadastro
-        mCadAnimal= new JMenuItem("Cadastrar");
+        mCadAnimal = new JMenuItem("Cadastrar        ");
         mCadAnimal.setBackground(Color.white);
         mCadAnimal.addActionListener(this);
+        mCadAnimal.setFont(fonte2);
         //MenuItem consulta
-        mConsAnimal= new JMenuItem("Consultar");
+        mConsAnimal = new JMenuItem("Consultar");
         mConsAnimal.setBackground(Color.white);
-        
-        
+        mConsAnimal.addActionListener(this);
+        mConsAnimal.setFont(fonte2);
 
         //// ------------------IMAGENS--------
         iProduto = new JLabel();
@@ -130,7 +148,9 @@ public class Menu_Principal implements ActionListener {
         iServico.setIcon(new ImageIcon("src/Imagens/Menu/servico.png"));
         iHistorico.setIcon(new ImageIcon("src/Imagens/Menu/historico.png"));
         iTema.setIcon(new ImageIcon("src/Imagens/Menu/tema.png"));
-    };
+    }
+
+    ;
 
     public Container componentes() {
 
@@ -238,23 +258,49 @@ public class Menu_Principal implements ActionListener {
 
     public void cadastro_Consulta() {
         Cadastro_Consulta cConsulta = new Cadastro_Consulta();
-         //Remover o painel central caso ele tenha algo
+        //Remover o painel central caso ele tenha algo
         removerPainelCentral();
         painelActual = cConsulta.pPrincipal();
-       
+        mudarCor();
+        servicos.setBackground(cor2);
         frame.add(painelActual, BorderLayout.CENTER);
 
     }
 
-    public void cadastro_Animal(){
-    Cadastro_Animal animais = new Cadastro_Animal();
-    //Remover o painel central caso ele tenha algo
-    removerPainelCentral();
-    painelActual=animais.painelPrincipal();
-    frame.add(painelActual,BorderLayout.CENTER);
-    }
-    public void PopMenu_Cliente() {
+    public void Tabela_animal() {
 
+        Tabela_Consulta_Animal tAnimal = new Tabela_Consulta_Animal();
+        //// consulta_animal = tAnimal.componentes();
+//        frame.add(consulta_animal, BorderLayout.CENTER);
+        removerPainelCentral();
+        painelActual = tAnimal.componentes();
+
+        frame.add(painelActual, BorderLayout.CENTER);
+
+    }
+
+    public void Tabela_Cliente() {
+
+        Tabela_Consulta_Cliente tCliente = new Tabela_Consulta_Cliente();
+        //// consulta_animal = tAnimal.componentes();
+//        frame.add(consulta_animal, BorderLayout.CENTER);
+        removerPainelCentral();
+        painelActual = tCliente.componentes();
+
+        frame.add(painelActual, BorderLayout.CENTER);
+
+    }
+
+    public void mudarCor() {
+        cliente.setBackground(cor);
+        servicos.setBackground(cor);
+        animal.setBackground(cor);
+        tema.setBackground(cor);
+        produtos.setBackground(cor);
+        historico.setBackground(cor);
+    }
+
+    public void PopMenu_Cliente() {
         popMenu.add(mCadCliente);
         popMenu.add(mConsCliente);
         popMenu.setBackground(Color.WHITE);
@@ -262,24 +308,27 @@ public class Menu_Principal implements ActionListener {
         cliente.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                mudarCor();
+                cliente.setBackground(cor2);
                 popMenu.show(e.getComponent(), 100, 0);
             }
         });
 
     }
-    
-    public void PopMenu_Animal(){
+
+    public void PopMenu_Animal() {
         pop_Animal.add(mCadAnimal);
         pop_Animal.add(mConsAnimal);
         pop_Animal.setBackground(Color.WHITE);
         animal.setAlignmentX(RIGHT_ALIGNMENT);
         animal.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
+                mudarCor();
+                animal.setBackground(cor2);
                 pop_Animal.show(e.getComponent(), 100, 0);
             }
         });
 
- 
     }
 
     public void criarJanela() {
@@ -288,33 +337,31 @@ public class Menu_Principal implements ActionListener {
         frame.setLayout(new BorderLayout());
         frame.setBackground(Color.white);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(810, 650);
-       
+
+        frame.setSize(880, 750);
         frame.setIconImage(img.getImage());
         frame.setLocationRelativeTo(null);
-        frame.setResizable(true);
+        // frame.setResizable(false);
+
+        frame.setIconImage(img.getImage());
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
         // frame.add(componentes());
         frame.add(lateral(), BorderLayout.WEST);
 
-       
         //cadastro_Consulta();
-        frame.setVisible(true); 
+        frame.setVisible(true);
         //cadastro_Cliente();
         //frame.setVisible(true);
-        
-}
-    
-    public void removerPainelCentral(){
-    if(painelActual!=null){
-    frame.remove(painelActual);
-    }
-    }
- public void Cancelar(){
- frame.remove(tema);
- 
- }   
- 
 
+    }
+
+    public void removerPainelCentral() {
+        if (painelActual != null) {
+            frame.remove(painelActual);
+        }
+
+    }
 
     public static void main(String[] args) {
         new Menu_Principal();
@@ -323,36 +370,62 @@ public class Menu_Principal implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
-       //##### Eventos do botao cliente #########
-        if(e.getSource()==cliente){
-        PopMenu_Cliente();
-        frame.setVisible(true);}
-        
-        if (e.getSource() == mCadCliente) {
-            cadastro_Cliente();
+        //##### Eventos do botao cliente #########
+        if (e.getSource() == cliente) {
+            PopMenu_Cliente();
             frame.setVisible(true);
         }
-        
+
+        if (e.getSource() == mCadCliente) {
+            cadastro_Cliente();
+            // frame.remove(consulta_animal);
+            //frame.remove(painelActual);
+            frame.setVisible(true);
+        }
+
         if (e.getSource() == servicos) {
             cadastro_Consulta();
             frame.setVisible(true);
 
         }
+
         //######## Eventos do botao Animal #########
-        if(e.getSource()==animal){
-        PopMenu_Animal();
-        frame.setVisible(true);
+        if (e.getSource() == animal) {
+            PopMenu_Animal();
+            frame.setVisible(true);
         }
-        
+
         //Pop Menu
-        //Menuitem Cadastrar
-        if(e.getSource()==mCadAnimal){
-        cadastro_Animal();
-        frame.setVisible(true);
+        //Menuitem Cadastrar ANIMAL
+        if (e.getSource() == mCadAnimal) {
+            //  cadastro_Animal();
+            frame.setVisible(true);
         }
-        //Menuitem Consultar
-        
-    
+
+        //Menuitem Consultar ANIMAL
+        if (e.getSource() == mConsAnimal) {
+            Tabela_animal();
+            frame.setVisible(true);
+        }
+
+        //CONSULTAR CLIENTE
+        if (e.getSource() == mConsCliente) {
+            Tabela_Cliente();
+            frame.setVisible(true);
+        }
+
+        /* Cadastro_Cliente cCliente = new Cadastro_Cliente();
+         botao = cCliente.cancelar();
+          if(e.getSource()== botao){
+              System.out.println("jkjjkjkj");
+               frame.setVisible(false);/*/
+        //
+        if (e.getSource() == mConsCliente) {
+            Tabela_Cliente();
+            frame.setVisible(true);
+        }
+
     }
+
 }
+

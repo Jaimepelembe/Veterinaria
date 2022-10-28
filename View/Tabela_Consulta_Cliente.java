@@ -8,22 +8,14 @@ package View;
 
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.RenderingHints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -48,8 +40,10 @@ public class Tabela_Consulta_Cliente {
         String[] columnNames = { "NOME", "TELEFONE", "MORADA" };
 
     public Tabela_Consulta_Cliente(){
-    criarJanela();
+    //criarJanela();
     }
+    
+    
 
     public Container componentes() {
 
@@ -60,54 +54,47 @@ public class Tabela_Consulta_Cliente {
 
         // Componentes da primeira fila
         // nome
-        gbc.insets = new Insets(35, 15, 0, 0);
+        gbc.insets = new Insets(35, 25, 0, 0);
         gbc.ipadx = 35;
         gbc.ipady = 5;
         gbc.gridy = 1;
-        nome = new JLabel("Nome ");
+        nome = new JLabel("   Nome");
+        nome.setForeground(Color.gray);
         gbc.gridx = 0;
         painel.add(nome, gbc);
 
         // Field nome
         gbc.insets = new Insets(35, 5, 0, 10);
         fNome = new JTextField(5);
-        fNome.setColumns(28);
+        fNome.setColumns(17);
         gbc.gridx = 1;
-        gbc.gridwidth = 3;
+        gbc.gridwidth = 2;
         painel.add(fNome, gbc);
         
-          // BOTAO PESQUISAR
-        bPesquisar = new JButton("PESQUISAR");
-        bPesquisar.setForeground(Color.WHITE);
-        bPesquisar.setBackground(Color.blue);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx = 1;
-        gbc.gridy = 4;
-        gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, 15, 5, 0);
-        painel.add(bPesquisar, gbc);
 
         // SEGUNDA FILA
         // Label Telelfone
-        gbc.insets = new Insets(35, 15, 40, 0);  
-        gbc.gridy = 2;
+        gbc.insets = new Insets(35, 95, 0, 0);  
+        gbc.gridy = 1;
         tel = new JLabel("Telefone ");
-        gbc.gridx = 0;
+        tel.setForeground(Color.gray);
+        gbc.gridx = 2;
         painel.add(tel, gbc);
-
+            gbc.ipady = 6;
         // Field telefone
-         gbc.insets = new Insets(35, 5, 40, 20);
+         gbc.insets = new Insets(35, 70, 0, 20);
         fTel = new JTextField();
-        fTel.setColumns(10);
-        gbc.gridx = 1;
-        gbc.gridwidth = 2;
+        fTel.setColumns(9);
+        gbc.gridx = 3;
+        gbc.gridwidth = 1;
         painel.add(fTel, gbc);
 
         // terceira
         // Label distrito
-        gbc.insets = new Insets(35, 15, 0, 0);
+        gbc.insets = new Insets(35, 25, 0, 0);
         gbc.gridy = 0;
-        morada = new JLabel("Morada");
+        morada = new JLabel(" Morada");
+        morada.setForeground(Color.gray);
         gbc.gridx = 0;
         painel.add(morada, gbc);
 
@@ -118,13 +105,25 @@ public class Tabela_Consulta_Cliente {
                 "Matutuine" };
         cDistrito = new JComboBox(distritos);
         gbc.gridx = 1;
-        gbc.gridwidth = 1;
+        gbc.gridwidth = 3;
         painel.add(cDistrito, gbc);
+        
+        
+          // BOTAO PESQUISAR
+        bPesquisar = new JButton("PESQUISAR");
+        bPesquisar.setForeground(Color.WHITE);
+        bPesquisar.setBackground(Color.blue);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        gbc.gridwidth = 1;
+        gbc.insets = new Insets(20, 15, -35, 0);
+        painel.add(bPesquisar, gbc);
        
         
          //tabela
-        gbc.insets = new Insets(35, 5, 40, 50);
-        gbc.gridy = 5;
+        gbc.insets = new Insets(50, 5, -32, 50);
+        gbc.gridy = 6;
         gbc.gridx = 1;
         gbc.gridwidth = 4;
         // INICIALIZANDO
@@ -142,13 +141,13 @@ public class Tabela_Consulta_Cliente {
 
     public void criarJanela() {
         frame = new JFrame("CONSULTAR CLIENTE");
-        frame.setVisible(true);
+       
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(700, 500);
+        frame.setSize(880, 750);
         frame.add(componentes());
       //frame.add(tabela());
-        frame.pack();
-
+        //frame.pack();
+ frame.setVisible(true);
     }
 
     public static void main(String[] args) {

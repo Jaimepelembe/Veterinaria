@@ -28,7 +28,7 @@ public class Cadastro_Consulta {
     private GridBagConstraints gbc = new GridBagConstraints();
     
     public Cadastro_Consulta(){
-        criarJanela();
+        //criarJanela();
     }
     
     public void inicializar(){
@@ -61,7 +61,7 @@ public class Cadastro_Consulta {
         bCancelar.setBorderPainted(false);
     
     }
-      
+      //principal
     public Container componentes(){
         inicializar();
         JPanel painel = new JPanel();
