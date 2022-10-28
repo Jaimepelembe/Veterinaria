@@ -30,6 +30,7 @@ public class Cadastro_Cliente implements ActionListener{
     private JFormattedTextField fTel;
     private JFrame frame;
     private JComboBox cDistrito;
+    private JPanel pAuxiliar;
     GridBagConstraints gbc = new GridBagConstraints();
 
     public Cadastro_Cliente () {
@@ -105,7 +106,7 @@ private  void formatarCampo(JTextField campoTexto){
     }    
      
     
-    public Container adicionarComponentes() {
+  public Container adicionarComponentes() {
         inicializarComponentes();
         JPanel painel = new JPanel();
         painel.setBackground(Color.white);
@@ -186,7 +187,9 @@ public Container adicionarImagens() {
     return pImagens;
 }
 public Container pPrincipal() {
-        JPanel pPrincipal = new JPanel();
+        JPanel pPrincipal = new JPanel(new BorderLayout());
+        pAuxiliar= new JPanel(new BorderLayout());
+        
         ImageIcon imageIcon;
         
         JLabel label = new JLabel();
@@ -195,8 +198,9 @@ public Container pPrincipal() {
         pPrincipal.add(adicionarComponentes(), BorderLayout.CENTER);
         pPrincipal.add(adicionarBotoes(), BorderLayout.SOUTH);
         pPrincipal.setBackground(Color.white);
+        pAuxiliar.add(pPrincipal);
 
-    return pPrincipal;
+    return pAuxiliar;
 }
 
 

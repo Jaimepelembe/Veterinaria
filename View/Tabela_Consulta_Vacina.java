@@ -6,6 +6,7 @@
 package View;
 
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
@@ -28,6 +29,7 @@ public class Tabela_Consulta_Vacina {
     private JComboBox cListaMarcas, cNomesVacinas;
     private JTable tabela;
     private JButton bPesquisar;
+    private JPanel pPrincipal,painel;
     GridBagConstraints gbc = new GridBagConstraints();
      private String[] listaMarcas = { "Zoetis", "Boehringer ingelheim", "VANGUARD ", "SERUM INSTITUTE OF INDIA PVT" };
     private String[] Vacinas_Caes = { "Polivalente (V10)", "Antirrábica", "Contra a gripe", "contra Giárdia", "Esgana",
@@ -42,17 +44,31 @@ public class Tabela_Consulta_Vacina {
     criarJanela();
     }
 
-    public Container componentes() {
-
-        JPanel painel = new JPanel();
+    public void inicializarComponentes(){
+        painel = new JPanel();
         painel.setBackground(Color.white);
         painel.setLayout(new GridBagLayout());
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-
-          // BOTAO PESQUISAR
+        
+        pPrincipal= new JPanel(new BorderLayout());
+        
+        //Botao pesquisar
         bPesquisar = new JButton("PESQUISAR");
         bPesquisar.setForeground(Color.WHITE);
         bPesquisar.setBackground(Color.blue);
+        
+        //Combobox de marca
+        cListaMarcas = new JComboBox(listaMarcas);
+        cListaMarcas.setSelectedIndex(-1);
+        
+        //Combobox nome vacinas
+        cNomesVacinas = new JComboBox(Vacinas_Caes);
+        cNomesVacinas.setSelectedIndex(-1);
+    }
+    public Container adicionarcomponentes() {
+        inicializarComponentes();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+          // BOTAO PESQUISAR
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 1;
         gbc.gridy = 5;
@@ -62,9 +78,9 @@ public class Tabela_Consulta_Vacina {
 
         
        //MARCA DA VACINA
+         marca = new JLabel("MARCA");
         gbc.insets = new Insets(35, 15, 0, 0);
         gbc.gridy = 1;
-        marca = new JLabel("MARCA");
         gbc.gridx = 0;
         painel.add(marca, gbc); 
 
@@ -72,7 +88,7 @@ public class Tabela_Consulta_Vacina {
         gbc.gridy = 1;
        gbc.insets = new Insets(35, 5, 0, 0);
         gbc.ipady = 5;
-        cListaMarcas = new JComboBox(listaMarcas);
+        
         gbc.gridx = 1;
         gbc.gridwidth = 1;
         painel.add(cListaMarcas, gbc);
@@ -88,7 +104,6 @@ public class Tabela_Consulta_Vacina {
         gbc.gridy = 2;
        gbc.insets = new Insets(35, 5, 20, 0);
         gbc.ipady = 5;
-        cNomesVacinas = new JComboBox(Vacinas_Caes);
         gbc.gridx = 1;
         gbc.gridwidth = 1;
         painel.add(cNomesVacinas, gbc);
@@ -100,14 +115,16 @@ public class Tabela_Consulta_Vacina {
         gbc.gridwidth = 4;
         // INICIALIZANDO
         tabela = new JTable(data, columnNames);
-        tabela.setBounds(30, 40, 200, 300);
-        painel.add(tabela, gbc);
+        //tabela.setBounds(30, 40, 200, 300);
 
         // SCROLL PANE
         JScrollPane sp = new JScrollPane(tabela);
         painel.add(sp, gbc);
+        
+        pPrincipal.add(painel,BorderLayout.PAGE_START);
+        pPrincipal.add(sp,BorderLayout.CENTER);
 
-        return painel;
+        return pPrincipal;
 
     
     
@@ -116,7 +133,7 @@ public class Tabela_Consulta_Vacina {
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(700, 500);
-        frame.add(componentes());
+        frame.add(adicionarcomponentes());
       //frame.add(tabela());
         frame.pack();
 

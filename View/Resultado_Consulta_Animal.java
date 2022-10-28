@@ -9,6 +9,7 @@ package View;
  * @author multi
  */
 
+import java.awt.BorderLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -38,6 +39,7 @@ public class Resultado_Consulta_Animal {
     private JFormattedTextField fDtNascimento,fPeso;
     private JFrame frame;
     private JComboBox cRaca, cCor;
+    private JPanel pPrincipal;
     private ButtonGroup botoes;
     private JRadioButton rbcao, rbgato;
     private String[] racas_caes = {"Pastor Alemao", "Pitbull", "Pastor Belga", "Chiuaua","Husky siberiano","Chow chow","Doberman","outro"};
@@ -50,11 +52,11 @@ public class Resultado_Consulta_Animal {
     }
    
     
-      public void inicializarComponentes() throws ParseException {
+ private void inicializarComponentes() throws ParseException {
         //Nome
         nome = new JLabel("Nome ");
-        fNome = new JTextField(5);
-        fNome.setColumns(10);
+        fNome = new JTextField();
+        fNome.setColumns(15);
 
         //Especie
         especie = new JLabel("Especie ");
@@ -108,26 +110,9 @@ public class Resultado_Consulta_Animal {
         bCancelar = new JButton("Cancelar");
         bCancelar.setForeground(Color.white);
         bCancelar.setBackground(Color.red);
-    } 
-    private  void formatarCampo(JTextField campoTexto){
-         try {
-             MaskFormatter mascara = new MaskFormatter();
-              if(campoTexto==fDtNascimento){
-              mascara.setMask("##/##/####");
-             mascara.install( fDtNascimento);
-           }
-              if(campoTexto==fPeso){
-             mascara.setMask("###");
-             mascara.install(fPeso);
-              }
-               
-         } catch (ParseException ex) {
-             JOptionPane.showMessageDialog(null, "Erro ao formatar Campo de texto");
-         }
-    
     }
       
-    public Container adicionarComponentes() throws ParseException {
+  private Container adicionarComponentes() throws ParseException {
         inicializarComponentes();
         JPanel painel = new JPanel();
         painel.setBackground(Color.white);
@@ -136,97 +121,102 @@ public class Resultado_Consulta_Animal {
 
         // Componentes da primeira fila
         // nome
-        gbc.insets = new Insets(35, 15, 0, 0);//Insets de Label
-        gbc.ipadx = 35;
-        gbc.ipady = 5;
+        gbc.insets = new Insets(15, 15, 0, 0);//Insets de Label
         gbc.gridy = 0;
         //Label Nome
         gbc.gridx = 0;
         painel.add(nome, gbc);
 
         // Field nome
-        gbc.insets = new Insets(35, 5, 0, 10);//Insets e Field,RadioButton, Combobox
-
-        gbc.gridx = 1;
-        gbc.gridwidth = 3;
+        gbc.insets = new Insets(15, 5, 0, 10);//Insets e Field,RadioButton, Combobox
+        gbc.ipadx = 15;
+        gbc.ipady = 10;
+        gbc.gridx = 0;
+        gbc.gridy=1;
+        gbc.gridwidth = 2;
         painel.add(fNome, gbc);
 
         // SEGUNDA FILA --Especie
         // Label especie
-        gbc.insets = new Insets(35, 15, 0, 0);
-        gbc.gridy = 1;
+        gbc.insets = new Insets(15, 15, 0, 0);
+        gbc.gridy = 2;
         gbc.gridx = 0;
         painel.add(especie, gbc);
 
         // Radios
-        gbc.insets = new Insets(35, 5, 0, 10);
+        gbc.insets = new Insets(15, 5, 0, 10);
         gbc.gridx = 1;
         gbc.gridwidth = 1;
         painel.add(rbcao, gbc);
 
-        gbc.insets = new Insets(35, 5, 0, 10);
+        gbc.insets = new Insets(15, 5, 0, 10);
         gbc.gridx = 2;
         gbc.gridwidth = 1;
         painel.add(rbgato, gbc);
 
         // terceira --Raca
          // raca
-        gbc.insets = new Insets(35, 15, 0, 0);
-        gbc.gridy = 2;
+        gbc.insets = new Insets(20, 15, 0, 0);
+        gbc.gridy = 3;
         gbc.gridx = 0;
         painel.add(raca, gbc);
 
         // box racas
-        gbc.insets = new Insets(35, 5, 0, 20);
+        gbc.insets = new Insets(15, 5, 0, 20);
         gbc.ipady = 5;
-        gbc.gridx = 1;
+        gbc.gridx = 0;
+        gbc.gridy=4;
         gbc.gridwidth = 1;
         painel.add(cRaca, gbc);
         
         // cores
-        gbc.insets = new Insets(35, 15, 0, 0);
-        gbc.gridy = 3;
-        //Label
+        gbc.insets = new Insets(15, 15, 0, 0);
         gbc.gridx = 0;
+        gbc.gridy = 5;
+        //Label
         painel.add(cor, gbc);
 
         // Combobox cores
-        gbc.insets = new Insets(35, 5, 0, 20);
+        gbc.insets = new Insets(15, 5, 0, 20);
         gbc.ipady = 5;
-        gbc.gridx = 1;
+        gbc.gridx = 0;
+        gbc.gridy=6;
         gbc.gridwidth = 1;
         painel.add(cCor, gbc);
 
           // PESO DO ANIMAL
-        gbc.insets = new Insets(35, 15, 20, 0);
-        gbc.gridy = 4;
-        //Label do peso
-        gbc.gridx = 0;
+         //Label do peso
+         gbc.insets = new Insets(15, 15, 20, 0);
+         gbc.gridx = 0;
+         gbc.gridy = 7;
         painel.add(peso, gbc);
-
-        gbc.insets = new Insets(35, 5, 20, 20);
-        gbc.gridx = 1;
+        //TextField
+        gbc.insets = new Insets(15, 5, 20, 20);
+        gbc.ipady=10;
         gbc.gridwidth = 1;
+        gbc.gridx = 0;
+        gbc.gridy=8;
         painel.add(fPeso, gbc);
         // label kg
         kg = new JLabel("KG");
-        gbc.gridx = 2;
+        gbc.gridx = 1;
         gbc.gridwidth = 1;
         painel.add(kg, gbc);
        
 
         // DATA DE NASCIMENTO
-        gbc.insets = new Insets(35, 15, 0, 0);
-        gbc.gridy = 5;
-
+        gbc.insets = new Insets(15, 15, 0, 0);
         //Label data de nascimento
         gbc.gridx = 0;
+        gbc.gridy = 9;
         painel.add(dtNascimento, gbc);
-          //TextField
-        gbc.insets = new Insets(35, 5, 0, 20);
-        
-        gbc.gridx = 1;
+          
+        //TextField
+        gbc.insets = new Insets(15, 5, 0, 20);
+        gbc.ipady=10;
         gbc.gridwidth = 1;
+        gbc.gridx = 0;
+        gbc.gridy=10;
         painel.add(fDtNascimento, gbc);
 
        
@@ -237,7 +227,7 @@ public class Resultado_Consulta_Animal {
         gbc.gridwidth = 1;
         gbc.ipady = 5;
         gbc.gridx = 0;
-        gbc.gridy = 6;
+        gbc.gridy = 11;
         painel.add(bSalvar, gbc);
 
       //Botao Eliminar
@@ -254,13 +244,35 @@ public class Resultado_Consulta_Animal {
         return painel;
 
     }
+  
+  private  void formatarCampo(JTextField campoTexto){
+         try {
+             MaskFormatter mascara = new MaskFormatter();
+              if(campoTexto==fDtNascimento){
+              mascara.setMask(" ## / ## / ####");
+             mascara.install( fDtNascimento);
+           }
+              if(campoTexto==fPeso){
+             mascara.setMask("###");
+             mascara.install(fPeso);
+              }
+               
+         } catch (ParseException ex) {
+             JOptionPane.showMessageDialog(null, "Erro ao formatar Campo de texto");
+         }
     
-   public void criarJanela() throws ParseException {
+    }
+  public Container painelPrincipal() throws ParseException{
+      pPrincipal= new JPanel(new BorderLayout());
+  pPrincipal.add(adicionarComponentes(),BorderLayout.CENTER);
+  return pPrincipal;}
+  
+  private void criarJanela() throws ParseException {
         frame = new JFrame("Resultado Consulta Animal");
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(700, 500);
-        frame.add(adicionarComponentes());
+        frame.add(painelPrincipal());
         frame.pack();
 
     }  
