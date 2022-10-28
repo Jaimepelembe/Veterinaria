@@ -49,6 +49,7 @@ public class Menu_Principal implements ActionListener {
     Font fonte2 = new Font("arial", Font.TRUETYPE_FONT, 15);
 
     public Menu_Principal() {
+        inicializarComponentes();
         criarJanela();
 
     }
@@ -150,11 +151,7 @@ public class Menu_Principal implements ActionListener {
         iTema.setIcon(new ImageIcon("src/Imagens/Menu/tema.png"));
     }
 
-    ;
-
     public Container componentes() {
-
-        inicializarComponentes();
         JPanel painel = new JPanel();
         painel.setBackground(Color.white);
         return painel;
@@ -163,8 +160,6 @@ public class Menu_Principal implements ActionListener {
     // PAINEL lateral esquerdo
     public Container lateral() {
         Color cor = new Color(0.0f, 0.4f, 0.8f, 1f);
-
-        inicializarComponentes();
         JPanel pLateral = new JPanel();
         pLateral.setBackground(cor);
 
@@ -267,6 +262,26 @@ public class Menu_Principal implements ActionListener {
 
     }
 
+ //Metodos Para cadastro, Consulta e exibir resultado da consulta do animal   
+    //Cadastro do Animal
+    public void cadastro_Animal(){
+    Cadastro_Animal animais= new Cadastro_Animal();
+    //Remover o painel que esta no centro
+     removerPainelCentral();
+     this.painelActual=animais.painelCadastro();
+     frame.add(painelActual, BorderLayout.CENTER);
+     
+    }
+    
+    //Paimel que exibe a informacao do animal selecionado na busca a BD
+    public void Resul_consultaAnimal(){
+    Cadastro_Animal animais= new Cadastro_Animal();
+    //Remover o painel que esta no centro
+     removerPainelCentral();
+     this.painelActual=animais.painelResulConsulta();
+     frame.add(painelActual, BorderLayout.CENTER);
+    }
+    
     public void Tabela_animal() {
 
         Tabela_Consulta_Animal tAnimal = new Tabela_Consulta_Animal();
@@ -358,7 +373,7 @@ public class Menu_Principal implements ActionListener {
 
     public void removerPainelCentral() {
         if (painelActual != null) {
-            frame.remove(painelActual);
+            this.frame.remove(painelActual);
         }
 
     }
@@ -398,7 +413,7 @@ public class Menu_Principal implements ActionListener {
         //Pop Menu
         //Menuitem Cadastrar ANIMAL
         if (e.getSource() == mCadAnimal) {
-            //  cadastro_Animal();
+            cadastro_Animal();
             frame.setVisible(true);
         }
 

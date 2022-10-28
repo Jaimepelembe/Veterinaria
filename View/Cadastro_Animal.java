@@ -23,27 +23,44 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.text.MaskFormatter;
 
-public class Cadastro_Animal implements  ActionListener{
+public class Cadastro_Animal implements ActionListener {
 
     private JLabel nome, especie, raca, cor, dtNascimento, peso, kg;
-    private JButton salvar, cancelar, limpar;
+    private JButton salvar, cancelar, limpar, bEliminar, bHistorico;
     private JTextField fNome;
     private JFormattedTextField fPeso, fDtNascimento;
     private JFrame frame;
     private JComboBox cRaca, cCor;
-    private JPanel pPrincipal;
+    private Container pbActual;
+    private JPanel pPrincipal, pbCadastro, pbConsulta, pComponentes;
     private ButtonGroup botoes;
     private JRadioButton rbcao, rbgato;
-    private String[] racas_caes = {"Pastor Alemao", "Pitbull", "Pastor Belga", "Chiuaua","Husky siberiano","Chow chow","Doberman","outro"};
-    private String [] racas_gatos={"Persa","Sphynx","British Shorthair","Maine Coon","Bengal","Ragdoll","Munchkin","outro"};
+   // String racas= "Pastor Alemao", "Pitbull";
+    private String[] racas_caes = {"Chow chow", "Chiuaua","Doberman", "Husky siberiano","Pastor Alemao", "Pitbull", "Pastor Belga", "outro"};
+    private String[] racas_gatos = { "Bengal","British Shorthair", "Maine Coon", "Munchkin", "Persa", "Ragdoll","Sphynx", "outro"};
     private String[] cores = {"Branco", "Cizento", "Azul", "Amarelo"};
     GridBagConstraints gbc = new GridBagConstraints();
 
     public Cadastro_Animal() {
+        inicializarComponentes();
         //criarJanela();
     }
 
     public void inicializarComponentes() {
+        //Paines
+        //Principal
+        pPrincipal = new JPanel(new BorderLayout());
+        //Botoes de cadastro
+        pbCadastro = new JPanel(new GridBagLayout());
+        pbCadastro.setBackground(Color.white);
+        //Botoes de Consulta
+        pbConsulta = new JPanel(new GridBagLayout());
+        pbConsulta.setBackground(Color.white);
+
+        //Painel Actual
+        pbActual = new JPanel(new GridBagLayout());
+        pbActual.setBackground(Color.white);
+
         //Nome
         nome = new JLabel("Nome ");
         fNome = new JTextField(5);
@@ -52,81 +69,94 @@ public class Cadastro_Animal implements  ActionListener{
         //Especie
         especie = new JLabel("Especie ");
         botoes = new ButtonGroup();
+        //Radio Button Cao
         rbcao = new JRadioButton("Canina");
         rbcao.setBackground(Color.WHITE);
+        rbcao.addActionListener(this);
+        
+        //Radio Button Gato
         rbgato = new JRadioButton("Felina");
         rbgato.setBackground(Color.WHITE);
+        rbgato.addActionListener(this);
+        //Button Group
         botoes.add(rbcao);
         botoes.add(rbgato);
-        
+
         //Cor do pelo
         cor = new JLabel("Cor do pelo ");
-       cCor = new JComboBox(cores);
-       cCor.setSelectedIndex(-1);
-       
+        cCor = new JComboBox(cores);
+        cCor.setSelectedIndex(-1);
+
         //Raca do animal
         //Ela depende da especie
         raca = new JLabel("Raça ");
         cRaca = new JComboBox();//Deve ter raca de caes ou gatos dependendo da especie selecionada
-        cRaca.setSelectedIndex(-1);
+        //cRaca.setSelectedIndex(0);
+        
+            
         //Data de nascimento
         dtNascimento = new JLabel("Data de nascimento ");
         fDtNascimento = new JFormattedTextField();
         fDtNascimento.setColumns(10);
         formatarCampo(fDtNascimento);
-        
+
         //Peso
         peso = new JLabel("Peso ");
         fPeso = new JFormattedTextField();
         fPeso.setColumns(10);
         formatarCampo(fPeso);
-        
+
         //Botoes Salvar,Limpar e cancelar
         //Botao salvar
         salvar = new JButton("Salvar");
         salvar.setForeground(Color.white);
         salvar.setBackground(Color.green);
-        
-        //Botao cancelar
-        cancelar = new JButton("Cancelar");
-        cancelar.setForeground(Color.white);
-        cancelar.setBackground(Color.red);
-        
+
         //Botao limpar
         limpar = new JButton("Limpar");
         limpar.setForeground(Color.white);
         limpar.setBackground(Color.blue);
         limpar.addActionListener(this);
+
+        //Botao cancelar
+        cancelar = new JButton("Cancelar");
+        cancelar.setForeground(Color.white);
+        cancelar.setBackground(Color.red);
+
+        //Botoes para formar a tela de consulta
+        //Botao Ver historico
+        bHistorico = new JButton("Historico");
+        bHistorico.setForeground(Color.white);
+        bHistorico.setBackground(Color.pink);
+
+        //Botao Eliminar
+        bEliminar = new JButton("Eliminar");
+        bEliminar.setForeground(Color.white);
+        bEliminar.setBackground(Color.orange);
     }
-    
-    public Container painelPrincipal(){
-    pPrincipal= new JPanel(new BorderLayout());
-    pPrincipal.add(componentes(),BorderLayout.CENTER);
-    return pPrincipal;
+
+    private void formatarCampo(JTextField campoTexto) {
+        try {
+            MaskFormatter mascara = new MaskFormatter();
+            if (campoTexto == fDtNascimento) {
+                mascara.setMask(" ## / ## / ####");
+                mascara.install(fDtNascimento);
+            }
+            if (campoTexto == fPeso) {
+                mascara.setMask("###");
+                mascara.install(fPeso);
+            }
+
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao formatar Campo de texto");
+        }
+
     }
-   private  void formatarCampo(JTextField campoTexto){
-         try {
-             MaskFormatter mascara = new MaskFormatter();
-              if(campoTexto==fDtNascimento){
-              mascara.setMask(" ## / ## / ####");
-             mascara.install( fDtNascimento);
-           }
-              if(campoTexto==fPeso){
-             mascara.setMask("###");
-             mascara.install(fPeso);
-              }
-               
-         } catch (ParseException ex) {
-             JOptionPane.showMessageDialog(null, "Erro ao formatar Campo de texto");
-         }
-    
-    }
-   
-    private Container componentes() {
-        inicializarComponentes();
-        JPanel painel = new JPanel();
-        painel.setBackground(Color.white);
-        painel.setLayout(new GridBagLayout());
+
+    private Container adicionarcomponentes() {
+        pComponentes = new JPanel();
+        pComponentes.setBackground(Color.white);
+        pComponentes.setLayout(new GridBagLayout());
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         // Componentes da primeira fila
@@ -136,8 +166,8 @@ public class Cadastro_Animal implements  ActionListener{
         gbc.ipady = 5;
         gbc.gridx = 2;
         gbc.gridy = 0;
-        painel.add(nome, gbc);
-        
+        pComponentes.add(nome, gbc);
+
         //Label vazia
         Label vazia = new Label("");
         gbc.insets = new Insets(35, 15, -27, 0);//Insets de Label
@@ -145,125 +175,191 @@ public class Cadastro_Animal implements  ActionListener{
         gbc.ipady = 5;
         gbc.gridx = 0;
         gbc.gridy = 0;
-        painel.add(vazia, gbc);
+        pComponentes.add(vazia, gbc);
 
         // Field nome
         gbc.insets = new Insets(35, 5, 0, 10);//Insets e Field,RadioButton, Combobox
         gbc.ipadx = 150;
         gbc.ipady = 10;
         gbc.gridx = 2;
-        gbc.gridy=1;
+        gbc.gridy = 1;
         gbc.gridwidth = 2;
-        painel.add(fNome, gbc);
+        pComponentes.add(fNome, gbc);
 
         // SEGUNDA FILA --Especie
         // Label especie
-         gbc.insets = new Insets(35, 15, -27, 0);//Insets de Label
+        gbc.insets = new Insets(35, 15, -27, 0);//Insets de Label
         gbc.gridy = 2;
         gbc.gridx = 2;
-        painel.add(especie, gbc);
+        pComponentes.add(especie, gbc);
 
         // Radios
         gbc.insets = new Insets(35, -10, -27, 0);//Insets e Field,RadioButton, Combobox
         gbc.gridx = 3;
         gbc.gridwidth = 1;
-        painel.add(rbcao, gbc);
+        pComponentes.add(rbcao, gbc);
 
         gbc.insets = new Insets(35, -4, -27, 0);
         gbc.gridx = 4;
         gbc.gridwidth = 1;
-        painel.add(rbgato, gbc);
+        pComponentes.add(rbgato, gbc);
 
         // terceira --Raca
-         // label raca
+        // label raca
         gbc.insets = new Insets(35, 15, 0, 0);
         gbc.gridx = 2;
         gbc.gridy = 3;
-        painel.add(raca, gbc);
+        pComponentes.add(raca, gbc);
+        
 
         // box racas
         gbc.insets = new Insets(5, 5, 0, 10);//Insets e Field,RadioButton, Combobox
-        gbc.ipadx=80;
-        gbc.ipady=10;
+        gbc.ipadx = 80;
+        gbc.ipady = 10;
         gbc.gridx = 2;
-        gbc.gridy=4;
+        gbc.gridy = 4;
         gbc.gridwidth = 1;
-        painel.add(cRaca, gbc);
-        
+        pComponentes.add(cRaca, gbc);
+
         //Label cores
         gbc.insets = new Insets(35, 15, -27, 0);//Insets de Label
         gbc.gridx = 2;
         gbc.gridy = 5;
-        painel.add(cor, gbc);
+        pComponentes.add(cor, gbc);
 
         // Combobox cores
         gbc.insets = new Insets(35, 5, 0, 10);//Insets e Field,RadioButton, Combobox
-        gbc.ipadx=80;
-        gbc.ipady=10;
+        gbc.ipadx = 80;
+        gbc.ipady = 10;
         gbc.gridx = 2;
         gbc.gridy = 6;
         gbc.gridwidth = 1;
-        painel.add(cCor, gbc);
+        pComponentes.add(cCor, gbc);
 
-          // PESO DO ANIMAL
-      
+        // PESO DO ANIMAL
         //Label do peso
         gbc.gridx = 2;
         gbc.insets = new Insets(35, 15, -27, 0);//Insets de Label
         gbc.gridy = 7;
-        painel.add(peso, gbc);
-        
+        pComponentes.add(peso, gbc);
+
         //TextField do peso
         gbc.insets = new Insets(35, 5, 0, 10);//Insets e Field,RadioButton, Combobox
         gbc.gridx = 2;
-        gbc.gridy=8;
+        gbc.gridy = 8;
         gbc.gridwidth = 1;
-        painel.add(fPeso, gbc);
+        pComponentes.add(fPeso, gbc);
 
         // DATA DE NASCIMENTO
         //Label data de nascimento
         gbc.gridx = 2;
         gbc.gridy = 9;
         gbc.insets = new Insets(35, 15, -27, 0);//Insets de Label
-        painel.add(dtNascimento, gbc);
-          
+        pComponentes.add(dtNascimento, gbc);
+
         //TextField
-         gbc.insets = new Insets(35, 5, 0, 10);//Insets e Field,RadioButton, Combobox
+        gbc.insets = new Insets(35, 5, 0, 10);//Insets e Field,RadioButton, Combobox
         gbc.gridx = 2;
-        gbc.gridy=10;
+        gbc.gridy = 10;
         gbc.gridwidth = 1;
-        painel.add(fDtNascimento, gbc);
-        
-        // Butoes de salvar,Cancelar e limpar
-        //Botao salvar
-        gbc.fill=GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(35, 5, 40, 0);
-        gbc.ipadx = 10;
-        gbc.ipady = 5;
-        gbc.gridx = 2;
-        gbc.gridy = 11;
-        painel.add(salvar, gbc);
-        
-        //Botao limpar
-        gbc.gridx = 3;
-        painel.add(limpar, gbc);
-
-       //Botao cancelar
-        gbc.gridx = 4;
-        painel.add(cancelar, gbc);
-
-        
-
-        return painel;
-
+        pComponentes.add(fDtNascimento, gbc);
+        return pComponentes;
     }
 
- private void criarJanela() {
-        frame = new JFrame("CADASTRO ANIMAL");
+    private Container botoesCadastro() {
+        // Botoes de salvar,Cancelar e limpar
+        //Botao salvar
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(35, 0, 40, 50);
+        gbc.ipadx = 10;
+        gbc.ipady = 5;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        pbCadastro.add(salvar, gbc);
+
+        //Botao limpar
+        gbc.gridx = 1;
+        pbCadastro.add(limpar, gbc);
+
+        //Botao cancelar
+        gbc.gridx = 2;
+        pbCadastro.add(cancelar, gbc);
+
+        return pbCadastro;
+    }
+
+    public Container painelCadastro() {
+        //Remover o painel de botoao actual
+        removerPainelBotao();
+        pPrincipal.add(adicionarcomponentes(), BorderLayout.CENTER);
+        pbActual = botoesCadastro();
+        pPrincipal.add(pbActual, BorderLayout.PAGE_END);
+        return pPrincipal;
+    }
+
+    private Container botoesResulConsulta() {
+        //Botao salvar
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(35, 0, 40, 50);
+        gbc.ipadx = 10;
+        gbc.ipady = 5;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        pbConsulta.add(salvar, gbc);
+
+        //Botao Ver historico
+        gbc.gridx = 1;
+        pbConsulta.add(bHistorico, gbc);
+
+        //Botao Eliminar
+        gbc.gridx = 2;
+        pbConsulta.add(bEliminar, gbc);
+
+        //Botao Cancelar
+        gbc.gridx = 3;
+        pbConsulta.add(cancelar, gbc);
+
+        return pbConsulta;
+    }
+
+    public Container painelResulConsulta() {
+        //Remover o painel de botoao actual
+        removerPainelBotao();
+        pPrincipal.add(adicionarcomponentes(), BorderLayout.CENTER);
+        pbActual = botoesResulConsulta();
+        pPrincipal.add(pbActual, BorderLayout.PAGE_END);
+        return pPrincipal;
+    }
+
+    public void removerPainelBotao() {
+        if (pbActual != null) {
+            pPrincipal.remove(pbActual);
+        }
+    }
+    
+    public void selecionarRaca(){
+    if(rbcao.isSelected()){
+        this.cRaca.removeAllItems();
+        for(int i=0;i<racas_caes.length;i++){
+        cRaca.addItem(racas_caes[i]);
+        }
+        
+    }
+    if(rbgato.isSelected()){
+        this.cRaca.removeAllItems();
+        for(int i=0;i<racas_gatos.length;i++){
+        cRaca.addItem(racas_gatos[i]);
+        }
+        
+    }
+     }
+
+    private void criarJanela() {
+        frame = new JFrame("ANIMAL");
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-       // frame.setSize(700, 500);
-        frame.add(painelPrincipal());
+        // frame.setSize(700, 500);
+        frame.add(painelCadastro());
         frame.pack();
 
     }
@@ -273,18 +369,34 @@ public class Cadastro_Animal implements  ActionListener{
 
     }
 
- private void Limpar(){
-     fNome.setText("");
-     fPeso.setText("");
-     fDtNascimento.setText("");
-     cCor.setSelectedIndex(-1);
-     cRaca.setSelectedIndex(-1);
-     botoes.clearSelection();
-     fNome.requestFocus();
-     
- }
+    private void Limpar() {
+        fNome.setText("");
+        fPeso.setText("");
+        fDtNascimento.setText("");
+        this.cCor.setSelectedIndex(-1);
+        this.cRaca.removeAllItems();
+        botoes.clearSelection();
+        fNome.requestFocus();
+
+    }
+ 
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==limpar){
-        Limpar();}
+        if (e.getSource() == limpar) {
+            Limpar();
+          
         }
+        //Evento para Selecionar a raca do animal
+        //Selecionar Cao
+        if(e.getSource()==rbcao){
+            selecionarRaca();
+//            System.out.println("Ola mundo");
+//            cRaca.addItem("Ola");
+//            cRaca.addItem("Oi");
+//            cRaca.removeAllItems();
+        }
+        //Evento para selecionar Gato
+        if(e.getSource()==rbgato){
+      selecionarRaca();
+        }
+    }
 }
