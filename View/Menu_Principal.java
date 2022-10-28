@@ -419,6 +419,12 @@ public class Menu_Principal implements ActionListener {
           if(e.getSource()== botao){
               System.out.println("jkjjkjkj");
                frame.setVisible(false);/*/
+        //
+        if (e.getSource() == mConsCliente) {
+            Tabela_Cliente();
+            frame.setVisible(true);
+        }
+
     }
 
 }
