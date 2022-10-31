@@ -2,7 +2,7 @@ package View;
 
 import Controller.AnimalController;
 import Controller.Validacao;
-import Model.Cliente;
+import Model.VO.Cliente;
 import java.awt.BorderLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -159,7 +159,7 @@ public class Cadastro_Animal implements ActionListener {
         try {
             MaskFormatter mascara = new MaskFormatter();
             if (campoTexto == fDtNascimento) {
-                mascara.setMask("##/##/####");//Ano,Mes e Dia
+                mascara.setMask("##-##-####");//Ano,Mes e Dia
                 mascara.install(fDtNascimento);
             }
             if (campoTexto == fPeso) {
@@ -411,18 +411,7 @@ public class Cadastro_Animal implements ActionListener {
     }
 
     public static void main(String[] args) throws ParseException {
-       new Cadastro_Animal();
-       //Date data=Date.valueOf(fDtNascimento.getText());
-//        JFormattedTextField td= new JFormattedTextField();
-//        MaskFormatter mascara = new MaskFormatter();
-//        mascara.setMask("##/##/####");
-//                mascara.install(td);
-//                td.setText("10/10/2050");
-             
-       
-        
-    
-      
+       new Cadastro_Animal();  
     }
     
   //Metodo para passar os dados recolhidos dos componentes para Controller
@@ -431,26 +420,26 @@ public class Cadastro_Animal implements ActionListener {
     
     //Especie do animal
     String especie="";
-    if(rbmascolino.isSelected()){
-    especie=rbmascolino.getText();}
+    if(rbcao.isSelected()){
+    especie=rbcao.getText();}
     
-    if(rbfeminino.isSelected()){
-    especie=rbfeminino.getText();
+    if(rbgato.isSelected()){
+    especie=rbgato.getText();
     }
      //Sexo do animal;
     char sexo='A';
-   if(rbcao.isSelected()){
-    sexo=rbcao.getText().charAt(0);
+   if(rbmascolino.isSelected()){
+    sexo=rbmascolino.getText().charAt(0);
    }
-    if(rbgato.isSelected()){
-    sexo=rbgato.getText().charAt(0);
+    if(rbfeminino.isSelected()){
+    sexo=rbfeminino.getText().charAt(0);
     }
     String raca=cRaca.getSelectedItem().toString();
     String cor= cCor.getSelectedItem().toString();
     float peso= vv.StringToFloat(fPeso.getText());
         
         
-        String data= ""+vv.StringToDate(fDtNascimento.getText());
+        String data= fDtNascimento.getText();//""+vv.StringToDate(fDtNascimento.getText());
     boolean sucesso;
     try{AnimalController animal = new AnimalController();
     sucesso=animal.cadastrarAnimal(nome, especie, sexo, raca, cor, peso, data, 11, 1);
@@ -461,13 +450,6 @@ public class Cadastro_Animal implements ActionListener {
     }catch(Exception ex){ JOptionPane.showMessageDialog(null, "Erro ao coletar dados do animal"+ex);}
     
     }
-   
-   
-    //Metodo para tirar o texto selecionado pelo combobox
-//  private static  String textoCombobox(JComboBox combo){
-//        String texto="";
-//        texto=combo.getSelectedItem().toString();
-//        return texto;}
     private void Limpar() {
         fNome.setText("");
         fPeso.setText("");

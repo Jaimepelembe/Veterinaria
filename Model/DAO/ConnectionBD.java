@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package DAO;
+package Model.DAO;
 
 /**
  *
@@ -37,12 +37,10 @@ public class ConnectionBD {
         }
         try {
             ConnectionBD conexao = new ConnectionBD();
-            con = DriverManager.getConnection("jdbc:mysql://" + conexao.getHost() + ":" + conexao.getPorta() + "/" + conexao.getBD() + "?user=" + conexao.getUser() + "&password=" + conexao.getPassword() + "");
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+            con = DriverManager.getConnection("jdbc:mysql://" + conexao.Host + ":" + conexao.porta + "/" + conexao.BD + "?user="+conexao.user+"&password="+conexao.password+"&noAccessToProcedureBodies=true");
+        } catch (SQLException ex) {ex.printStackTrace();
         }
-        return con;
-    }
+        return con;}
 
     public void fecharConexao(PreparedStatement pstate, Connection con) throws ExceptionDAO {
         try {

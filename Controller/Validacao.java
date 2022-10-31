@@ -54,7 +54,7 @@ return false;}
  public String DateToString(Date data){
     //LocalDate dat=data;
     Date dat= data;
-    SimpleDateFormat formato= new SimpleDateFormat("dd/MM/yyyy");//Ano, mes, dia
+    SimpleDateFormat formato= new SimpleDateFormat("dd-MM-yyyy");//Ano, mes, dia
     
     //Converter String para date
      String date=formato.format(dat);//Converte Local date para String

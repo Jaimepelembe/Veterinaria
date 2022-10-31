@@ -1,4 +1,9 @@
-package Model;
+package Model.VO;
+
+import Model.DAO.AnimalDAO;
+import Model.DAO.ClienteDAO;
+import Model.DAO.ExceptionDAO;
+import java.sql.SQLException;
 
 public class Cliente {
 private int idCliente,idVeterinaria;
@@ -14,6 +19,16 @@ private String nome,telefone, morada;
         this.telefone = telefone;
         this.morada = morada;
     }
+
+    public Cliente(String nome, String telefone, String morada) {
+        this.nome = nome;
+        this.telefone = telefone;
+        this.morada = morada;
+    }
+    
+ public void cadastrarCliente(Cliente cliente) throws SQLException, ClassNotFoundException, ExceptionDAO{
+new ClienteDAO().cadastrarCliente(cliente);
+} 
 
     public int getIdCliente() {
         return idCliente;
@@ -53,6 +68,11 @@ private String nome,telefone, morada;
 
     public void setMorada(String morada) {
         this.morada = morada;
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" + "idCliente=" + idCliente + ", idVeterinaria=" + idVeterinaria + ", nome=" + nome + ", telefone=" + telefone + ", morada=" + morada + '}';
     }
 
 

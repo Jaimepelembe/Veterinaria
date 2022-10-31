@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package DAO;
+package Model.DAO;
 
 /**
  *
  * @author multi
  */
-import Model.Animal;
+import Model.VO.Animal;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -34,7 +34,7 @@ public class AnimalDAO {
    
     int idCli=animal.getIdCliente();
     int idVet=animal.getIdVeterinaria();
-    
+        
     try{
     con=new ConnectionBD().getConnection();//Criar conexao
     pstate=con.prepareStatement(sql);//Preparar o Statement
@@ -47,6 +47,10 @@ public class AnimalDAO {
     pstate.setString(7, data);
     pstate.setInt(8, idCli);
     pstate.setInt(9, idVet);
+    pstate.executeUpdate();
+    pstate.close();
+    
+    System.out.println(animal.toString());//teste
     }
     catch(SQLException ex){JOptionPane.showMessageDialog(null, "Erro ao gravar o actor na base de dados"+ex);
        }

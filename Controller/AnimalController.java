@@ -1,7 +1,7 @@
 package Controller;
 
-import DAO.ExceptionDAO;
-import Model.Animal;
+import Model.DAO.ExceptionDAO;
+import Model.VO.Animal;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;

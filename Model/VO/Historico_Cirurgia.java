@@ -2,27 +2,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Model;
+package Model.VO;
 
 /**
  *
  * @author multi
  */
-public class Historico_Exame {
- private int idAnimal,idExame;
+public class Historico_Cirurgia {
+private int idAnimal,idCirurgia;
 private float preco;
-private String data, observacao,resultado;//A data refere-se a data de realizacao ,deve ser gerada automaticamente
+private String data, observacao;//A data refere-se a data de realizacao ,deve ser gerada automaticamente
 
-    public Historico_Exame() {
+    public Historico_Cirurgia() {
     }
 
-    public Historico_Exame(int idAnimal, int idExame, float preco, String data, String observacao, String resultado) {
+    public Historico_Cirurgia(int idAnimal, int idCirurgia, float preco, String data, String observacao) {
         this.idAnimal = idAnimal;
-        this.idExame = idExame;
+        this.idCirurgia = idCirurgia;
         this.preco = preco;
         this.data = data;
         this.observacao = observacao;
-        this.resultado = resultado;
     }
 
     public int getIdAnimal() {
@@ -33,12 +32,12 @@ private String data, observacao,resultado;//A data refere-se a data de realizaca
         this.idAnimal = idAnimal;
     }
 
-    public int getIdExame() {
-        return idExame;
+    public int getIdCirurgia() {
+        return idCirurgia;
     }
 
-    public void setIdExame(int idExame) {
-        this.idExame = idExame;
+    public void setIdCirurgia(int idCirurgia) {
+        this.idCirurgia = idCirurgia;
     }
 
     public float getPreco() {
@@ -65,14 +64,6 @@ private String data, observacao,resultado;//A data refere-se a data de realizaca
         this.observacao = observacao;
     }
 
-    public String getResultado() {
-        return resultado;
-    }
 
-    public void setResultado(String resultado) {
-        this.resultado = resultado;
-    }
     
- 
-
 }

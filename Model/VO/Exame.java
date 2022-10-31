@@ -2,33 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Model;
+package Model.VO;
 
 /**
  *
  * @author multi
  */
-public class Cirurgia {
+public class Exame {
 private String nome;
 private int idAnimal,idVeterinaria;
 
-    public Cirurgia() {
+   public Exame() {
     }
 
-    public Cirurgia(String nome, int idAnimal, int idVeterinaria) {
-        this.nome = nome;
-        this.idAnimal = idAnimal;
-        this.idVeterinaria = idVeterinaria;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
+    public Exame(String nome) {
         this.nome = nome;
     }
-
     public int getIdAnimal() {
         return idAnimal;
     }
@@ -44,6 +33,17 @@ private int idAnimal,idVeterinaria;
     public void setIdVeterinaria(int idVeterinaria) {
         this.idVeterinaria = idVeterinaria;
     }
+
+ 
+
+  public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
 
 
 }

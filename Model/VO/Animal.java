@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Model;
+package Model.VO;
 
-import DAO.AnimalDAO;
-import DAO.ExceptionDAO;
+import Model.DAO.AnimalDAO;
+import Model.DAO.ExceptionDAO;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -137,6 +137,11 @@ new AnimalDAO().cadastrarAnimal(animal);
 
     public void setPeso(float peso) {
         this.peso = peso;
+    }
+
+    @Override
+    public String toString() {
+        return "Animal{" + "idAnimal=" + idAnimal + ", idCliente=" + idCliente + ", idVeterinaria=" + idVeterinaria + ", nome=" + nome + ", especie=" + especie + ", raca=" + raca + ", cor_pelo=" + cor_pelo + ", sexo=" + sexo + ", peso=" + peso + ", dt_nascimento=" + dt_nascimento + '}';
     }
 
 

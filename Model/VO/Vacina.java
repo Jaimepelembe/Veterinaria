@@ -1,4 +1,4 @@
-package Model;
+package Model.VO;
 
 public class Vacina {
     private int idVacina,idVeterinaria;

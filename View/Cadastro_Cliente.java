@@ -2,6 +2,7 @@ package View;
 
 
 
+import Controller.ClienteController;
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -34,8 +35,7 @@ public class Cadastro_Cliente implements ActionListener{
     GridBagConstraints gbc = new GridBagConstraints();
 
     public Cadastro_Cliente () {
-
-   // criarJanela();
+   criarJanela();
     }
 
     public JButton cancelar(){
@@ -77,6 +77,7 @@ public class Cadastro_Cliente implements ActionListener{
        bSalvar.setBackground(Color.green);
        bSalvar.setBorderPainted(false);
        bSalvar.setFocusPainted(false);
+       bSalvar.addActionListener(this);
        
       //Eliminar
        bLimpar = new JButton("Limpar");
@@ -94,21 +95,6 @@ public class Cadastro_Cliente implements ActionListener{
         bCancelar.setFocusPainted(false);
   
     }
-   
-  /* 
-private  void formatarCampo(JTextField campoTexto){
-         try {
-             MaskFormatter mascara = new MaskFormatter();
-              if(campoTexto==fTel){
-             mascara.setMask("#########");
-             mascara.install(fTel);
-              }
-               
-         } catch (ParseException ex) {
-             JOptionPane.showMessageDialog(null, "Erro ao formatar Campo de texto");
-         }
-    
-    }    */
      
     
   public Container adicionarComponentes() {
@@ -236,15 +222,42 @@ public Container pPrincipal() {
     this.cDistrito.setSelectedIndex(-1);
     
     }
+    public void SalvarDados(){
+        //nome do cliente
+    String nome = fNome.getText();
+    //telefone do cliente
+    String telefone = fTel.getText();
+    //morada
+    String morada = cDistrito.getSelectedItem().toString();
+    
+     boolean sucesso;
+    try{ClienteController cliente = new ClienteController();
+    sucesso=cliente.cadastrarCliente(nome, telefone, morada);
+    if(sucesso){
+    JOptionPane.showMessageDialog(null, "O Cliente foi cadastrado com sucesso");
+    }
+    else{JOptionPane.showMessageDialog(null, "Houve um erro ao cadastrar o Cliente");}
+    }catch(Exception ex){ JOptionPane.showMessageDialog(null, "Erro ao coletar dados do cliente"+ex);}
+    
+    
+    
+    
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
       if(e.getSource()==bLimpar){
       Limpar();}
-      if(e.getSource()==bCancelar){
-      
+      if(e.getSource()==bCancelar){}
+          
+     //Evento para salvar os dados do cliente na BD
+        if(e.getSource()==bSalvar){
+        SalvarDados();
+        Limpar();
+        }
       }
+      
     }
-    }
+    
 
    
 
