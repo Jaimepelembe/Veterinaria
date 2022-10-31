@@ -37,7 +37,7 @@ public class ConnectionBD {
         }
         try {
             ConnectionBD conexao = new ConnectionBD();
-            con = DriverManager.getConnection("jdbc:mysql://" + conexao.getHost() + ":" + conexao.getPorta() + "/" + conexao.getBD() + "?user=" + conexao.getUser() + "&password=" + conexao.getPassword() + "&noAccessToProcedureBodies=true");
+            con = DriverManager.getConnection("jdbc:mysql://" + conexao.getHost() + ":" + conexao.getPorta() + "/" + conexao.getBD() + "?user=" + conexao.getUser() + "&password=" + conexao.getPassword() + "");
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
