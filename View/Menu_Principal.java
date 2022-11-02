@@ -300,7 +300,7 @@ public class Menu_Principal implements ActionListener {
         //// consulta_animal = tAnimal.componentes();
 //        frame.add(consulta_animal, BorderLayout.CENTER);
         removerPainelCentral();
-        painelActual = tCliente.componentes();
+        painelActual = tCliente.painelPrincipal();
 
         frame.add(painelActual, BorderLayout.CENTER);
 

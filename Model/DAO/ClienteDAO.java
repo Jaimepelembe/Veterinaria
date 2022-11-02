@@ -7,7 +7,9 @@ package Model.DAO;
 import Model.VO.Cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 
 /**
@@ -44,6 +46,41 @@ public class ClienteDAO {
     cm.fecharConexao(pstate, con);
     }
     }
+public Vector<Cliente> pesquisarClienteMorada(String morada) throws SQLException, ClassNotFoundException, ExceptionDAO{
+Connection cn=null;
+PreparedStatement pstate=null;
+String sql="select nome,telefone,morada from cliente where morada = '"+morada+"'";
+Vector<Cliente> clientes=null;
+
+try{
+cn=new ConnectionBD().getConnection();
+pstate=cn.prepareStatement(sql);
+ResultSet rs= pstate.executeQuery(sql);
+if(rs!=null){
+String nome,telefone,moradas;
+clientes = new Vector<>();
+while(rs.next()){
+
+nome=rs.getString("nome");
+telefone=rs.getString("telefone");
+moradas=rs.getString("morada");
+Cliente cli= new Cliente(nome, telefone, moradas);
+clientes.add(cli);
+}
+
+}
+else{JOptionPane.showMessageDialog(null, "O cliente Nao foi encontrado");}
+
+}
+
+catch(SQLException ex){ throw new ExceptionDAO("Erro ao buscar o cliente: "+ex); }
+finally{ConnectionBD cm = new ConnectionBD();
+  cm.fecharConexao(pstate, cn);}
+      
+  return clientes;  
+}    
+    
+    
 }
 
     

@@ -4,6 +4,7 @@ import Model.DAO.AnimalDAO;
 import Model.DAO.ClienteDAO;
 import Model.DAO.ExceptionDAO;
 import java.sql.SQLException;
+import java.util.Vector;
 
 public class Cliente {
 private int idCliente,idVeterinaria;
@@ -30,6 +31,9 @@ private String nome,telefone, morada;
 new ClienteDAO().cadastrarCliente(cliente);
 } 
 
+ public Vector<Cliente> pesquisarClienteMorada(String morada) throws SQLException, ClassNotFoundException, ExceptionDAO{
+ return new ClienteDAO().pesquisarClienteMorada(morada);
+ }
     public int getIdCliente() {
         return idCliente;
     }

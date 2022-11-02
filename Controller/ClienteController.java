@@ -8,6 +8,7 @@ import Model.DAO.ExceptionDAO;
 import Model.VO.Animal;
 import Model.VO.Cliente;
 import java.sql.SQLException;
+import java.util.Vector;
 
 /**
  *
@@ -28,7 +29,10 @@ if(vv.validarString(nome) && vv.validarString(telefone) && vv.validarString(mora
  }
  return false;
  }  
-    
+ 
+public Vector<Cliente> pesquisarClienteMorada(String morada) throws SQLException, ClassNotFoundException, ExceptionDAO{
+return new Cliente().pesquisarClienteMorada(morada);
+}
     
     
     
