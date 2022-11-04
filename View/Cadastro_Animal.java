@@ -27,7 +27,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.text.MaskFormatter;
-import sun.jvm.hotspot.oops.java_lang_Class;
+//import sun.jvm.hotspot.oops.java_lang_Class;
 
 public class Cadastro_Animal implements ActionListener {
 
