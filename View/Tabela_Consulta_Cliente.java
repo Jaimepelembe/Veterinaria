@@ -151,26 +151,10 @@ public class Tabela_Consulta_Cliente implements ActionListener{
 
         return pPrincipal;
     }
-    private void pesquisarClienteMorada(){
-    String morada="";
-    if(cDistrito.getSelectedItem()!=null){
-    morada=cDistrito.getSelectedItem().toString();
-    }
-    try{
-    if(morada!=null && morada.length()>0){
-        DefaultTableModel modelo= (DefaultTableModel)tabela.getModel();
-        modelo.setRowCount(0);
-        ClienteController cliente = new ClienteController();
-        Vector<Cliente> clientes=cliente.pesquisarClienteMorada(morada);
-        clientes.forEach((Cliente cli)->{modelo.addRow(new Object[]{cli.getNome(),cli.getTelefone(),cli.getMorada()});});
-        tabela.setModel(modelo);
-    }
-    }
-    catch(Exception ex){ JOptionPane.showMessageDialog(null, "Erro ao pesquisar o actor"+ex);}
-    }
+
     private Container painelTabela() {
      Object[][] data= {};
-     String[] colunas={"NOME", "TELEFONE", "MORADA"
+     String[] colunas={"NOME", "TELEFONE", "MORADA","NUMERO ANIMAIS"
             };
         pTabela = new JPanel(new BorderLayout());
         pTabela.setBackground(Color.white);
@@ -186,10 +170,10 @@ public class Tabela_Consulta_Cliente implements ActionListener{
             colunas
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class,java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false,false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -209,6 +193,23 @@ public class Tabela_Consulta_Cliente implements ActionListener{
         return pTabela;
     }
 
+        private void pesquisarClienteMorada(){
+    String morada="";
+    if(cDistrito.getSelectedItem()!=null){
+    morada=cDistrito.getSelectedItem().toString();
+    }
+    try{
+    if(morada!=null && morada.length()>0){
+        DefaultTableModel modelo= (DefaultTableModel)tabela.getModel();
+        modelo.setRowCount(0);
+        ClienteController cliente = new ClienteController();
+        Vector<Cliente> clientes=cliente.pesquisarClienteMorada(morada);
+        clientes.forEach((Cliente cli)->{modelo.addRow(new Object[]{cli.getNome(),cli.getTelefone(),cli.getMorada()});});
+        tabela.setModel(modelo);
+    }
+    }
+    catch(Exception ex){ JOptionPane.showMessageDialog(null, "Erro ao pesquisar o actor"+ex);}
+    }
     private void criarJanela() {
         frame = new JFrame("CONSULTAR CLIENTE");
 

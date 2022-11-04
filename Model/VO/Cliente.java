@@ -7,7 +7,8 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 public class Cliente {
-private int idCliente,idVeterinaria;
+private int idCliente,idVeterinaria,nrAnimais;
+private float valorGasto;
 private String nome,telefone, morada;
 
     public Cliente() {
@@ -19,6 +20,16 @@ private String nome,telefone, morada;
         this.nome = nome;
         this.telefone = telefone;
         this.morada = morada;
+    }
+    
+     public Cliente(int idCliente, int idVeterinaria, String nome, String telefone, String morada,int nrAnimais,float valorGasto) {
+        this.idCliente = idCliente;
+        this.idVeterinaria = idVeterinaria;
+        this.nome = nome;
+        this.telefone = telefone;
+        this.morada = morada;
+        this.nrAnimais=nrAnimais;
+        this.valorGasto=valorGasto;
     }
 
     public Cliente(String nome, String telefone, String morada) {

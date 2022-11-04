@@ -247,6 +247,8 @@ public class Menu_Principal implements ActionListener {
         Cadastro_Cliente cCliente = new Cadastro_Cliente();
         //Remover o painel que esta no centro
         removerPainelCentral();
+         mudarCor();
+                cliente.setBackground(cor2);
         painelActual = cCliente.pPrincipal();
         frame.add(painelActual, BorderLayout.CENTER);
     }
@@ -266,7 +268,9 @@ public class Menu_Principal implements ActionListener {
     //Cadastro do Animal
     public void cadastro_Animal(){
     Cadastro_Animal animais= new Cadastro_Animal();
-    //Remover o painel que esta no centro
+    mudarCor();
+    animal.setBackground(cor2);
+       //Remover o painel que esta no centro 
      removerPainelCentral();
      this.painelActual=animais.painelCadastro();
      frame.add(painelActual, BorderLayout.CENTER);
@@ -287,6 +291,9 @@ public class Menu_Principal implements ActionListener {
         Tabela_Consulta_Animal tAnimal = new Tabela_Consulta_Animal();
         //// consulta_animal = tAnimal.componentes();
 //        frame.add(consulta_animal, BorderLayout.CENTER);
+
+                mudarCor();
+                animal.setBackground(cor2);
         removerPainelCentral();
         painelActual = tAnimal.componentes();
 
@@ -300,6 +307,8 @@ public class Menu_Principal implements ActionListener {
         //// consulta_animal = tAnimal.componentes();
 //        frame.add(consulta_animal, BorderLayout.CENTER);
         removerPainelCentral();
+         mudarCor();
+                cliente.setBackground(cor2);
         painelActual = tCliente.painelPrincipal();
 
         frame.add(painelActual, BorderLayout.CENTER);
@@ -323,8 +332,7 @@ public class Menu_Principal implements ActionListener {
         cliente.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                mudarCor();
-                cliente.setBackground(cor2);
+               
                 popMenu.show(e.getComponent(), 100, 0);
             }
         });
@@ -338,8 +346,6 @@ public class Menu_Principal implements ActionListener {
         animal.setAlignmentX(RIGHT_ALIGNMENT);
         animal.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                mudarCor();
-                animal.setBackground(cor2);
                 pop_Animal.show(e.getComponent(), 100, 0);
             }
         });
