@@ -129,26 +129,30 @@ public class Cadastro_Vacina implements  ActionListener {
         painel.setBackground(Color.white);
         painel.setLayout(new GridBagLayout());
         gbc.fill = GridBagConstraints.HORIZONTAL;
-
+         
+        JLabel vazio = new JLabel("");
+         gbc.insets = new Insets(35, 15, 77, 0);
+         painel.add(vazio, gbc);
         // Informacoes d o nome
+       
         
         // nome
         gbc.insets = new Insets(35, 15, -27, 0);
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         gbc.gridx = 1;
         gbc.ipady = 12;
         painel.add(nome, gbc);
         // Field nome
         gbc.insets = new Insets(35, 5, 0, 10);
         gbc.gridx = 1;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         gbc.gridwidth = 1;
         painel.add(fNome, gbc);
 
         // SEGUNDA FILA
         // Label MARCA
         gbc.insets = new Insets(35, 15, -27, 0);
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         gbc.gridx = 1;
         painel.add(marca, gbc);
 
@@ -156,21 +160,21 @@ public class Cadastro_Vacina implements  ActionListener {
         gbc.insets = new Insets(35, 5, 0, 10);
         gbc.ipady = 6;
         gbc.gridx = 1;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         gbc.gridwidth = 1;
         painel.add(cMarca, gbc);
 
         // terceira
         // Label quant
         gbc.insets = new Insets(35, 15, -27, 0);
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         gbc.gridx = 1;
         painel.add(quant, gbc);
 
         // SPINNER QUANT
         gbc.insets = new Insets(35, 5, 40, 10);
         gbc.ipady = 15;
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         gbc.gridx = 1;
         gbc.gridwidth = 1;
         painel.add(spQuant, gbc);
@@ -181,28 +185,28 @@ public class Cadastro_Vacina implements  ActionListener {
         // Informacoes dE preco
         // precp
         gbc.insets = new Insets(35, 45, -27, 0);
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         gbc.gridx = 2;
         gbc.ipady = 12;
         painel.add(preco, gbc);
         // Field nome
         gbc.insets = new Insets(35, 35, 0, 10);
         gbc.gridx = 2;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         gbc.gridwidth = 1;
         painel.add(fPreco, gbc);
 
         // SEGUNDA FILA
         // Label data
         gbc.insets = new Insets(35, 45, -27, 0);
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         gbc.gridx = 2;
         painel.add(dtVal, gbc);
 
         // field data
         gbc.insets = new Insets(35, 35, 0, 10);
         gbc.gridx = 2;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         gbc.gridwidth = 1;
         painel.add(fDtVal, gbc);
 
@@ -256,7 +260,14 @@ public Container adicionarImagens() {
 
     return pImagens;
 }
-
+ public Container componentes() {
+JPanel  pComponentes = new JPanel();
+pComponentes.setBackground(Color.white);
+pComponentes.add(adicionarImagens(), BorderLayout.NORTH);
+        pComponentes.add(adicionarComponentes(), BorderLayout.CENTER);
+         pComponentes.add(adicionarBotoes(), BorderLayout.SOUTH);
+ 
+ return pComponentes;}
     
 
     public void criarJanela() {
@@ -264,20 +275,18 @@ public Container adicionarImagens() {
         frame.setBackground(Color.white);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(730, 690);
-        frame.add(adicionarImagens(), BorderLayout.NORTH);
-        frame.add(adicionarComponentes(), BorderLayout.CENTER);
-         frame.add(adicionarBotoes(), BorderLayout.SOUTH);
+        //frame.add(adicionarImagens(), BorderLayout.NORTH);
+       // frame.add(adicionarComponentes(), BorderLayout.CENTER);
+       //  frame.add(adicionarBotoes(), BorderLayout.SOUTH);
+       frame.add(componentes());
         ImageIcon img = new ImageIcon("C:/Users/Valter Boa/Documents/NetBeansProject/veterinaria/src/Imagens/iconVacina.png");
         frame.setIconImage(img.getImage());
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
     }
     
-    
-
     public static void main(String[] args) {
-     new Cadastro_Vacina();
-        
+     new Cadastro_Vacina(); 
     }
 
     @Override
