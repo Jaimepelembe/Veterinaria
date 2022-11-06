@@ -6,6 +6,7 @@
 package View;
 
 import Controller.ClienteController;
+import Controller.Validacao;
 import Model.VO.Cliente;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -15,6 +16,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -28,7 +31,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-public class Tabela_Consulta_Cliente implements ActionListener{
+public class Tabela_Consulta_Cliente extends MouseAdapter implements ActionListener {
 
     private JLabel nome, tel, morada;
     private JTextField fNome, fTel;
@@ -36,25 +39,26 @@ public class Tabela_Consulta_Cliente implements ActionListener{
     private JComboBox cDistrito;
     private JTable tabela;
     private JButton bPesquisar;
-    private JPanel pPrincipal, pTabela,painel;
+    private JPanel pPrincipal, pTabela, painel;
     private GridBagConstraints gbc = new GridBagConstraints();
     private String[] distritos = {"Matola", "Marracuene", "Manhiça", "Magude", "Moamba", "Boane", "Namaacha",
         "Matutuine"};
+    Validacao vv = new Validacao();
 
     public Tabela_Consulta_Cliente() {
         inicializarComponentes();
-        criarJanela();
+        //criarJanela();
     }
 
-    private void inicializarComponentes(){
-     painel = new JPanel();
+    private void inicializarComponentes() {
+        painel = new JPanel();
         painel.setBackground(Color.white);
         painel.setLayout(new GridBagLayout());
         //Label Nome
         nome = new JLabel("   Nome");
         nome.setForeground(Color.gray);
         //TextField Nome
-         fNome = new JTextField(5);
+        fNome = new JTextField(5);
         fNome.setColumns(17);
         //Label Telefone
         tel = new JLabel("Telefone ");
@@ -62,25 +66,25 @@ public class Tabela_Consulta_Cliente implements ActionListener{
         //Field Telefone
         fTel = new JTextField();
         fTel.setColumns(9);
-        
+
         //Label Morada
         morada = new JLabel(" Morada");
         morada.setForeground(Color.gray);
-        
+
         //Combobox Morada
         cDistrito = new JComboBox(distritos);
         cDistrito.setSelectedIndex(-1);
         cDistrito.addActionListener(this);
-        
+
         //Botoes
         //Pesquisar
         bPesquisar = new JButton("PESQUISAR");
         bPesquisar.setForeground(Color.WHITE);
         bPesquisar.setBackground(Color.blue);
-        
-        
-        
+        bPesquisar.addActionListener(this);
+
     }
+
     private Container adicionarComponentes() {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
@@ -90,29 +94,38 @@ public class Tabela_Consulta_Cliente implements ActionListener{
         gbc.ipadx = 35;
         gbc.ipady = 5;
         gbc.gridy = 1;
-       
+
         gbc.gridx = 0;
         painel.add(nome, gbc);
 
         // Field nome
         gbc.insets = new Insets(35, 5, 0, 10);
         gbc.gridx = 1;
-        gbc.gridwidth = 2;
-        painel.add(fNome, gbc);
-
-        // SEGUNDA FILA
-        // Label Telelfone
-        gbc.insets = new Insets(35, 95, 0, 0);
-        gbc.gridy = 1;
-        gbc.gridx = 2;
-        painel.add(tel, gbc);
-        gbc.ipady = 6;
-        
-        // Field telefone
-        gbc.insets = new Insets(35, 70, 0, 20);
-        gbc.gridx = 3;
         gbc.gridwidth = 1;
-        painel.add(fTel, gbc);
+        painel.add(fNome, gbc);
+        
+           // BOTAO PESQUISAR
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 2;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.insets = new Insets(35, 5, 0, 10);
+        painel.add(bPesquisar, gbc);
+
+
+//        // SEGUNDA FILA
+//        // Label Telelfone
+//        gbc.insets = new Insets(35, 95, 0, 0);
+//        gbc.gridy = 1;
+//        gbc.gridx = 2;
+//        painel.add(tel, gbc);
+//        gbc.ipady = 6;
+
+//        // Field telefone
+//        gbc.insets = new Insets(35, 70, 0, 20);
+//        gbc.gridx = 3;
+//        gbc.gridwidth = 1;
+//        painel.add(fTel, gbc);
 
         // terceira
         // Label distrito
@@ -124,20 +137,13 @@ public class Tabela_Consulta_Cliente implements ActionListener{
         // ComboBox Morada
         gbc.insets = new Insets(35, 5, 0, 10);
         gbc.ipady = 5;
-        gbc.ipadx=10;
-        gbc.gridwidth=1;
+        gbc.ipadx = 10;
+        gbc.gridwidth = 1;
         gbc.gridx = 1;
         gbc.gridwidth = 3;
         painel.add(cDistrito, gbc);
 
-        // BOTAO PESQUISAR
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx = 1;
-        gbc.gridy = 4;
-        gbc.gridwidth = 1;
-        gbc.insets = new Insets(20, 15, -35, 0);
-        painel.add(bPesquisar, gbc);
-
+     
         return painel;
 
     }
@@ -153,38 +159,40 @@ public class Tabela_Consulta_Cliente implements ActionListener{
     }
 
     private Container painelTabela() {
-     Object[][] data= {};
-     String[] colunas={"NOME", "TELEFONE", "MORADA","NUMERO ANIMAIS"
-            };
+        Object[][] data = {};
+        String[] colunas = {"ID", "NOME", "TELEFONE", "MORADA", "NUMERO ANIMAIS"
+        };
         pTabela = new JPanel(new BorderLayout());
         pTabela.setBackground(Color.white);
         pTabela.setForeground(Color.white);
         // INICIALIZANDO a tabela
         tabela = new JTable(data, colunas);
         tabela.setBounds(30, 40, 200, 300);
-       // tabela.setForeground(Color.white);
+        // tabela.setForeground(Color.white);
         //tabela.setBackground(Color.white);
-  
-   tabela.setModel(new javax.swing.table.DefaultTableModel(
-           data,
-            colunas
+
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
+                data,
+                colunas
         ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class,java.lang.Integer.class
+            Class[] types = new Class[]{
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
-            boolean[] canEdit = new boolean [] {
-                false, false, false,false
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+                return types[columnIndex];
             }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
-   
+
+        tabela.addMouseListener(this);
+        
         // Adicionar a tabela ap SCROLL PANE
         JScrollPane sp = new JScrollPane(tabela);
         sp.setForeground(Color.white);
@@ -193,22 +201,58 @@ public class Tabela_Consulta_Cliente implements ActionListener{
         return pTabela;
     }
 
-        private void pesquisarClienteMorada(){
-    String morada="";
-    if(cDistrito.getSelectedItem()!=null){
-    morada=cDistrito.getSelectedItem().toString();
+    private void selecionarCliente() {//Levar todos atributos e passar para tela de cadastro
+        Integer linha = tabela.getSelectedRow();
+        int id =  (Integer)tabela.getModel().getValueAt(linha, 0);
+        String nome = (String) tabela.getModel().getValueAt(linha, 1);
+        String telefone = (String) tabela.getModel().getValueAt(linha, 2);
+        String morada = (String) tabela.getModel().getValueAt(linha, 3);
+        Cadastro_Cliente cliente= new Cadastro_Cliente();
+        cliente.selecionarCliente(id, nome, telefone, morada);
+        
+        //Cadastro_Cliente.selecionarCliente(id, nome, telefone, morada);
+
     }
-    try{
-    if(morada!=null && morada.length()>0){
-        DefaultTableModel modelo= (DefaultTableModel)tabela.getModel();
-        modelo.setRowCount(0);
-        ClienteController cliente = new ClienteController();
-        Vector<Cliente> clientes=cliente.pesquisarClienteMorada(morada);
-        clientes.forEach((Cliente cli)->{modelo.addRow(new Object[]{cli.getNome(),cli.getTelefone(),cli.getMorada()});});
-        tabela.setModel(modelo);
+
+    private void pesquisarClienteMorada() {
+        String morada = "";
+        if (cDistrito.getSelectedItem() != null) {
+            morada = cDistrito.getSelectedItem().toString();
+        }
+        try {
+            if (morada != null && morada.length() > 0) {
+                DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+                modelo.setRowCount(0);
+                ClienteController cliente = new ClienteController();
+                Vector<Cliente> clientes = cliente.pesquisarClienteMorada(morada);
+                clientes.forEach((Cliente cli) -> {
+                    modelo.addRow(new Object[]{cli.getIdCliente(), cli.getNome(), cli.getTelefone(), cli.getMorada(), cli.getNrAnimsais()});
+                });
+                tabela.setModel(modelo);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao pesquisar o actor" + ex);
+        }
     }
-    }
-    catch(Exception ex){ JOptionPane.showMessageDialog(null, "Erro ao pesquisar o actor"+ex);}
+
+        private void pesquisarClienteNome() {
+        String nome = "";
+        nome=fNome.getText();
+        
+        try {
+            if (nome != null && nome.length()>0) {
+                DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+                modelo.setRowCount(0);
+                ClienteController cliente = new ClienteController();
+                Vector<Cliente> clientes = cliente.pesquisarClienteNome(nome);
+                clientes.forEach((Cliente cli) -> {
+                    modelo.addRow(new Object[]{cli.getIdCliente(), cli.getNome(), cli.getTelefone(), cli.getMorada(), cli.getNrAnimsais()});
+                });
+                tabela.setModel(modelo);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao pesquisar o actor" + ex);
+        }
     }
     private void criarJanela() {
         frame = new JFrame("CONSULTAR CLIENTE");
@@ -228,9 +272,22 @@ public class Tabela_Consulta_Cliente implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-       if(e.getSource()==cDistrito){
-       pesquisarClienteMorada();
+        //Evento para selecionar o distritos dos clientes
+        if (e.getSource() == cDistrito) {
+            pesquisarClienteMorada();
+        }
+        
+       //Evento para selecionar o cliente pelo nome
+       if(e.getSource()==bPesquisar){
+       pesquisarClienteNome();
        }
+       
+    }
+
+    public void mouseClicked(java.awt.event.MouseEvent evt) {
+        if (evt.getClickCount() == 2) {
+            selecionarCliente();
+        }
     }
 
 }

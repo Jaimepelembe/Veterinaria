@@ -30,10 +30,34 @@ if(vv.validarString(nome) && vv.validarString(telefone) && vv.validarString(mora
  return false;
  }  
  
+
 public Vector<Cliente> pesquisarClienteMorada(String morada) throws SQLException, ClassNotFoundException, ExceptionDAO{
 return new Cliente().pesquisarClienteMorada(morada);
 }
-    
+public Vector<Cliente> pesquisarClienteNome(String nome) throws SQLException, ClassNotFoundException, ExceptionDAO{
+return new Cliente().pesquisarClienteNome(nome);
+}
+
+
+public boolean actualizarCliente(int id,String nome, String telefone, String morada) throws SQLException, ClassNotFoundException, ExceptionDAO{
+    Validacao vv= new Validacao();
+if(vv.validarString(nome) && vv.validarString(telefone) && vv.validarString(morada) &&id>0){//&vv.validarSexo(sexo) && vv.validarString(especie)&&vv.validarString(raca)&& vv.validarString(pelo) &&vv.validarPeso(peso)&& vv.validaeID(idVet)&& vv.validaeID(idCli
+ Cliente cliente = new Cliente(nome, telefone, morada);
+ cliente.setIdCliente(id);
+cliente.actualizarCliente(cliente);
+ return true;
+ }
+ return false;
+}
+public boolean apagarCliente(int id) throws SQLException, ClassNotFoundException, ExceptionDAO{
+ Cliente cliente = new Cliente();
+if(id>0){
+ cliente.setIdCliente(id);
+cliente.apagarCliente(cliente);
+ return true;
+ }
+ return false;
+}    
     
     
    

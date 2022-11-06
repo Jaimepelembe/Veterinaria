@@ -31,10 +31,10 @@ import javax.swing.JPopupMenu;
  */
 public class Menu_Principal implements ActionListener {
 
-    private JFrame frame;
-    private Container cadastro_cliente, cadastro_consul;
+    private static JFrame frame;
+    private static Container cadastro_cliente, cadastro_consul;
 
-    private Container painelActual;
+    private static Container painelActual;
     private GridBagConstraints gbc = new GridBagConstraints();
     private JButton cliente, animal, servicos, produtos, historico, tema, botao;
     private JLabel label, iCliente, iAnimal, iProduto, iServico, iHistorico, iTema;
@@ -50,13 +50,10 @@ public class Menu_Principal implements ActionListener {
 
     public Menu_Principal() {
         inicializarComponentes();
-        criarJanela();
-
+        //criarJanela();
     }
 
     public void inicializarComponentes() {
-        /* botao = new JButton();
-         botao.addActionListener(this);*/
         // BUTAO CLIENTE
         cliente = new JButton("Clientes ");
         cliente.setBackground(cor);
@@ -149,6 +146,9 @@ public class Menu_Principal implements ActionListener {
         iServico.setIcon(new ImageIcon("src/Imagens/Menu/servico.png"));
         iHistorico.setIcon(new ImageIcon("src/Imagens/Menu/historico.png"));
         iTema.setIcon(new ImageIcon("src/Imagens/Menu/tema.png"));
+
+        criarJanela();
+
     }
 
     public Container componentes() {
@@ -247,10 +247,19 @@ public class Menu_Principal implements ActionListener {
         Cadastro_Cliente cCliente = new Cadastro_Cliente();
         //Remover o painel que esta no centro
         removerPainelCentral();
-         mudarCor();
-                cliente.setBackground(cor2);
-        painelActual = cCliente.pPrincipal();
+        mudarCor();
+        cliente.setBackground(cor2);
+        painelActual = cCliente.painelCadastro();
         frame.add(painelActual, BorderLayout.CENTER);
+    }
+
+    public static void ResulConsultaCliente(Container contentor) {
+        //Cadastro_Cliente cliente = new Cadastro_Cliente();
+        //Remover o painel que esta no centro
+        removerPainelCentral();
+        painelActual =  contentor; //cliente.painelResultConsulta();
+        frame.add(painelActual, BorderLayout.CENTER);
+        frame.setVisible(true);
     }
 
     public void cadastro_Consulta() {
@@ -264,36 +273,36 @@ public class Menu_Principal implements ActionListener {
 
     }
 
- //Metodos Para cadastro, Consulta e exibir resultado da consulta do animal   
+    //Metodos Para cadastro, Consulta e exibir resultado da consulta do animal   
     //Cadastro do Animal
-    public void cadastro_Animal(){
-    Cadastro_Animal animais= new Cadastro_Animal();
-    mudarCor();
-    animal.setBackground(cor2);
-       //Remover o painel que esta no centro 
-     removerPainelCentral();
-     this.painelActual=animais.painelCadastro();
-     frame.add(painelActual, BorderLayout.CENTER);
-     
+    public void cadastro_Animal() {
+        Cadastro_Animal animais = new Cadastro_Animal();
+        mudarCor();
+        animal.setBackground(cor2);
+        //Remover o painel que esta no centro 
+        removerPainelCentral();
+        painelActual = animais.painelCadastro();
+        frame.add(painelActual, BorderLayout.CENTER);
+
     }
-    
+
     //Paimel que exibe a informacao do animal selecionado na busca a BD
-    public void Resul_consultaAnimal(){
-    Cadastro_Animal animais= new Cadastro_Animal();
-    //Remover o painel que esta no centro
-     removerPainelCentral();
-     this.painelActual=animais.painelResulConsulta();
-     frame.add(painelActual, BorderLayout.CENTER);
+    public void Resul_consultaAnimal() {
+        Cadastro_Animal animais = new Cadastro_Animal();
+        //Remover o painel que esta no centro
+        removerPainelCentral();
+        painelActual = animais.painelResulConsulta();
+        frame.add(painelActual, BorderLayout.CENTER);
     }
-    
+
     public void Tabela_animal() {
 
         Tabela_Consulta_Animal tAnimal = new Tabela_Consulta_Animal();
         //// consulta_animal = tAnimal.componentes();
 //        frame.add(consulta_animal, BorderLayout.CENTER);
 
-                mudarCor();
-                animal.setBackground(cor2);
+        mudarCor();
+        animal.setBackground(cor2);
         removerPainelCentral();
         painelActual = tAnimal.componentes();
 
@@ -304,11 +313,9 @@ public class Menu_Principal implements ActionListener {
     public void Tabela_Cliente() {
 
         Tabela_Consulta_Cliente tCliente = new Tabela_Consulta_Cliente();
-        //// consulta_animal = tAnimal.componentes();
-//        frame.add(consulta_animal, BorderLayout.CENTER);
         removerPainelCentral();
-         mudarCor();
-                cliente.setBackground(cor2);
+        mudarCor();
+        cliente.setBackground(cor2);
         painelActual = tCliente.painelPrincipal();
 
         frame.add(painelActual, BorderLayout.CENTER);
@@ -332,7 +339,7 @@ public class Menu_Principal implements ActionListener {
         cliente.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-               
+
                 popMenu.show(e.getComponent(), 100, 0);
             }
         });
@@ -354,7 +361,7 @@ public class Menu_Principal implements ActionListener {
 
     public void criarJanela() {
         ImageIcon img = new ImageIcon("src/Imagens/Menu/menu.jpg");
-        frame = new JFrame("MENU");
+        frame = new JFrame();
         frame.setLayout(new BorderLayout());
         frame.setBackground(Color.white);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -377,9 +384,9 @@ public class Menu_Principal implements ActionListener {
 
     }
 
-    public void removerPainelCentral() {
+    public static void removerPainelCentral() {
         if (painelActual != null) {
-            this.frame.remove(painelActual);
+            frame.remove(painelActual);
         }
 
     }
@@ -449,4 +456,3 @@ public class Menu_Principal implements ActionListener {
     }
 
 }
-

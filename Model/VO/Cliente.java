@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 public class Cliente {
-private int idCliente,idVeterinaria,nrAnimais;
+private int idCliente,idVeterinaria,nrAnimsais;
 private float valorGasto;
 private String nome,telefone, morada;
 
@@ -20,16 +20,6 @@ private String nome,telefone, morada;
         this.nome = nome;
         this.telefone = telefone;
         this.morada = morada;
-    }
-    
-     public Cliente(int idCliente, int idVeterinaria, String nome, String telefone, String morada,int nrAnimais,float valorGasto) {
-        this.idCliente = idCliente;
-        this.idVeterinaria = idVeterinaria;
-        this.nome = nome;
-        this.telefone = telefone;
-        this.morada = morada;
-        this.nrAnimais=nrAnimais;
-        this.valorGasto=valorGasto;
     }
 
     public Cliente(String nome, String telefone, String morada) {
@@ -45,7 +35,17 @@ new ClienteDAO().cadastrarCliente(cliente);
  public Vector<Cliente> pesquisarClienteMorada(String morada) throws SQLException, ClassNotFoundException, ExceptionDAO{
  return new ClienteDAO().pesquisarClienteMorada(morada);
  }
-    public int getIdCliente() {
+ public Vector<Cliente> pesquisarClienteNome(String nome) throws SQLException, ClassNotFoundException, ExceptionDAO{
+ return new ClienteDAO().pesquisarClienteNome(nome);
+ } 
+ 
+ public void actualizarCliente(Cliente cliente) throws SQLException, ClassNotFoundException, ExceptionDAO{
+new ClienteDAO().actualizarCliente(cliente);
+} 
+ public void apagarCliente(Cliente cliente) throws SQLException, ClassNotFoundException, ExceptionDAO{
+ new ClienteDAO().apagarCliente(cliente);
+ }
+ public int getIdCliente() {
         return idCliente;
     }
 
@@ -84,6 +84,23 @@ new ClienteDAO().cadastrarCliente(cliente);
     public void setMorada(String morada) {
         this.morada = morada;
     }
+
+    public int getNrAnimsais() {
+        return nrAnimsais;
+    }
+
+    public void setNrAnimsais(int nrAnimsais) {
+        this.nrAnimsais = nrAnimsais;
+    }
+
+    public float getValorGasto() {
+        return valorGasto;
+    }
+
+    public void setValorGasto(float valorGasto) {
+        this.valorGasto = valorGasto;
+    }
+    
 
     @Override
     public String toString() {
