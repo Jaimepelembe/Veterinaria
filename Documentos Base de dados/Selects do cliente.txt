@@ -1,0 +1,3 @@
+select cliente.idCliente,cliente.nome,cliente.telefone,cliente.morada, count(animal.idAnimal) as 'numero animais' from cliente join animal where cliente.idCliente=animal.idCliente and cliente.morada= '"+morada+"' group by cliente.idCliente;";
+
+Mostart todos os cliente e os seus animais

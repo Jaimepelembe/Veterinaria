@@ -50,7 +50,7 @@ public Vector<Cliente> pesquisarClienteMorada(String morada) throws SQLException
 Connection cn=null;
 PreparedStatement pstate=null;
 //String sql="select nome,telefone,morada from cliente where morada = '"+morada+"'";
-String sql="select cliente.idCliente,cliente.nome,cliente.telefone,cliente.morada, count(animal.idAnimal) as 'numero animais' from cliente join animal where cliente.idCliente=animal.idCliente and cliente.morada= '"+morada+"' group by cliente.idCliente;";
+String sql="select cliente.idCliente,cliente.nome,cliente.telefone,cliente.morada from cliente where cliente.morada= '"+morada+"' group by cliente.idCliente;";
 
 Vector<Cliente> clientes=null;
 
@@ -67,10 +67,10 @@ while(rs.next()){
 nome=rs.getString("nome");
 telefone=rs.getString("telefone");
 moradas=rs.getString("morada");
-nrAnimais=rs.getInt("numero animais");
+//nrAnimais=rs.getInt("numero animais");
 id=rs.getInt("idCliente");
 Cliente cli= new Cliente(nome, telefone, moradas);
-cli.setNrAnimsais(nrAnimais);
+//cli.setNrAnimsais(nrAnimais);
 cli.setIdCliente(id);
 clientes.add(cli);
 }
@@ -89,7 +89,7 @@ finally{ConnectionBD cm = new ConnectionBD();
 public Vector<Cliente> pesquisarClienteNome(String nome) throws SQLException, ClassNotFoundException, ExceptionDAO{
 Connection cn=null;
 PreparedStatement pstate=null;
-String sql="select cliente.idCliente,cliente.nome,cliente.telefone,cliente.morada, count(animal.idAnimal) as 'numero animais' from cliente join animal where cliente.idCliente=animal.idCliente and cliente.nome like  '%"+nome+"%' group by cliente.idCliente;";
+String sql="select cliente.idCliente,cliente.nome,cliente.telefone,cliente.morada from cliente where cliente.nome like  '%"+nome+"%';";
 
 Vector<Cliente> clientes=null;
 
@@ -106,10 +106,10 @@ while(rs.next()){
 name=rs.getString("nome");
 telefone=rs.getString("telefone");
 moradas=rs.getString("morada");
-nrAnimais=rs.getInt("numero animais");
 id=rs.getInt("idCliente");
+//nrAnimais=rs.getInt("numero animais");
 Cliente cli= new Cliente(name, telefone, moradas);
-cli.setNrAnimsais(nrAnimais);
+//cli.setNrAnimsais(nrAnimais);
 cli.setIdCliente(id);
 clientes.add(cli);
 }

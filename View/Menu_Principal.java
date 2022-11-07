@@ -37,7 +37,7 @@ public class Menu_Principal implements ActionListener {
     private static Container painelActual;
     private GridBagConstraints gbc = new GridBagConstraints();
     private JButton cliente, animal, servicos, produtos, historico, tema, botao;
-    private JLabel label, iCliente, iAnimal, iProduto, iServico, iHistorico, iTema;
+    private static JLabel label, iCliente, iAnimal, iProduto, iServico, iHistorico, iTema , iconPrincipal;
     private JPopupMenu popMenu, pop_Animal, pop_Vacina;
     private JMenuItem mCadCliente, mConsCliente, mCadAnimal, mConsAnimal, mConsVacina, mCadVacina;
     //cores
@@ -50,7 +50,12 @@ public class Menu_Principal implements ActionListener {
 
     public Menu_Principal() {
         inicializarComponentes();
-        //criarJanela();
+        criarJanela();
+    }
+
+     public Menu_Principal(String vazio) {
+        inicializarComponentes();
+       
     }
 
     public void inicializarComponentes() {
@@ -161,9 +166,6 @@ public class Menu_Principal implements ActionListener {
         iServico.setIcon(new ImageIcon("src/Imagens/Menu/servico.png"));
         iHistorico.setIcon(new ImageIcon("src/Imagens/Menu/historico.png"));
         iTema.setIcon(new ImageIcon("src/Imagens/Menu/tema.png"));
-
-        criarJanela();
-
     }
 
     public Container componentes() {
@@ -381,6 +383,11 @@ public class Menu_Principal implements ActionListener {
         produtos.setBackground(cor);
         historico.setBackground(cor);
     }
+    public  void iconPrincipal(){
+       removerPainelCentral();
+       painelActual=new JLabel(new ImageIcon("src/Imagens/Menu/pexels.jpg"));
+       this.frame.add(painelActual,BorderLayout.CENTER);
+       this.frame.setVisible(true);}
 
     public void PopMenu_Cliente() {
         popMenu.add(mCadCliente);
@@ -420,27 +427,23 @@ public class Menu_Principal implements ActionListener {
         frame.setSize(880, 750);
         frame.setIconImage(img.getImage());
         frame.setLocationRelativeTo(null);
-        // frame.setResizable(false);
 
         frame.setIconImage(img.getImage());
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
-        // frame.add(componentes());
+        // painel lateral da janela
         frame.add(lateral(), BorderLayout.WEST);
-
-        //cadastro_Consulta();
-        frame.setVisible(true);
-        //cadastro_Cliente();
-        //frame.setVisible(true);
+       //Icon principal
+       iconPrincipal();
+       frame.setVisible(true);
+       
 
     }
 
     public static void removerPainelCentral() {
         if (painelActual != null) {
             frame.remove(painelActual);
-        }
-
-    }
+        }  }
 
     public static void main(String[] args) {
         new Menu_Principal();

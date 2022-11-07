@@ -97,6 +97,7 @@ public class Cadastro_Cliente implements ActionListener {
         bCancelar.setBackground(Color.red);
         bCancelar.setBorderPainted(false);
         bCancelar.setFocusPainted(false);
+        bCancelar.addActionListener(this);
 
         //Botoes para formar a tela de consulta
         //Actualizar
@@ -109,6 +110,7 @@ public class Cadastro_Cliente implements ActionListener {
        bAnimal= new JButton("Add Animal");
        bAnimal.setForeground(Color.white);
        bAnimal.setBackground(Color.blue);
+       bAnimal.addActionListener(this);
        
 
         //Botao Eliminar
@@ -242,6 +244,8 @@ public class Cadastro_Cliente implements ActionListener {
         fNome.setText(nome);
         fTel.setText(cell);
         SelectcomboBox(morada);
+        //Passar o painel do resultado da consulta para o menu 
+       // new Menu_Principal().ResulConsultaCliente(painelResultConsulta());
        Menu_Principal.ResulConsultaCliente(painelResultConsulta());
         return id;
     }
@@ -379,7 +383,11 @@ public class Cadastro_Cliente implements ActionListener {
         }
     
     }
-    
+  //Volta a colocar a imagem central no Painel do menu Principal
+ 
+ public void colocarIconMenu(){
+  new Menu_Principal("").iconPrincipal();
+ }
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == bLimpar) {
@@ -401,6 +409,9 @@ public class Cadastro_Cliente implements ActionListener {
        if(e.getSource()==bEliminar){
        apagarCiente();
        } 
+       if(e.getSource()==bCancelar){
+       colocarIconMenu();
+       }
     }
 
 }

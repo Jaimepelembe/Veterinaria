@@ -160,7 +160,7 @@ public class Tabela_Consulta_Cliente extends MouseAdapter implements ActionListe
 
     private Container painelTabela() {
         Object[][] data = {};
-        String[] colunas = {"ID", "NOME", "TELEFONE", "MORADA", "NUMERO ANIMAIS"
+        String[] colunas = {"ID", "NOME", "TELEFONE", "MORADA"
         };
         pTabela = new JPanel(new BorderLayout());
         pTabela.setBackground(Color.white);
@@ -176,10 +176,10 @@ public class Tabela_Consulta_Cliente extends MouseAdapter implements ActionListe
                 colunas
         ) {
             Class[] types = new Class[]{
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean[]{
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -209,8 +209,7 @@ public class Tabela_Consulta_Cliente extends MouseAdapter implements ActionListe
         String morada = (String) tabela.getModel().getValueAt(linha, 3);
         Cadastro_Cliente cliente= new Cadastro_Cliente();
         cliente.selecionarCliente(id, nome, telefone, morada);
-        
-        //Cadastro_Cliente.selecionarCliente(id, nome, telefone, morada);
+       
 
     }
 
@@ -226,7 +225,7 @@ public class Tabela_Consulta_Cliente extends MouseAdapter implements ActionListe
                 ClienteController cliente = new ClienteController();
                 Vector<Cliente> clientes = cliente.pesquisarClienteMorada(morada);
                 clientes.forEach((Cliente cli) -> {
-                    modelo.addRow(new Object[]{cli.getIdCliente(), cli.getNome(), cli.getTelefone(), cli.getMorada(), cli.getNrAnimsais()});
+                    modelo.addRow(new Object[]{cli.getIdCliente(), cli.getNome(), cli.getTelefone(), cli.getMorada()});
                 });
                 tabela.setModel(modelo);
             }
@@ -235,7 +234,7 @@ public class Tabela_Consulta_Cliente extends MouseAdapter implements ActionListe
         }
     }
 
-        private void pesquisarClienteNome() {
+ private void pesquisarClienteNome() {
         String nome = "";
         nome=fNome.getText();
         
@@ -255,7 +254,7 @@ public class Tabela_Consulta_Cliente extends MouseAdapter implements ActionListe
         }
     }
     private void criarJanela() {
-        frame = new JFrame("CONSULTAR CLIENTE");
+        frame = new JFrame();
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(880, 750);
