@@ -131,28 +131,34 @@ public class Cadastro_Animal implements ActionListener {
         salvar.setForeground(Color.white);
         salvar.setBackground(Color.green);
         salvar.addActionListener(this);
+        salvar.setFocusPainted(false);
 
         //Botao limpar
         limpar = new JButton("Limpar");
         limpar.setForeground(Color.white);
         limpar.setBackground(Color.blue);
         limpar.addActionListener(this);
+        limpar.setFocusPainted(false);
 
         //Botao cancelar
         cancelar = new JButton("Cancelar");
         cancelar.setForeground(Color.white);
         cancelar.setBackground(Color.red);
+        cancelar.addActionListener(this);
+        cancelar.setFocusPainted(false);
 
         //Botoes para formar a tela de consulta
         //Botao Ver historico
         bHistorico = new JButton("Historico");
         bHistorico.setForeground(Color.white);
         bHistorico.setBackground(Color.pink);
+        bHistorico.setFocusPainted(false);
 
         //Botao Eliminar
         bEliminar = new JButton("Eliminar");
         bEliminar.setForeground(Color.white);
         bEliminar.setBackground(Color.orange);
+        bEliminar.setFocusPainted(false);
     }
 
     private void formatarCampo(JTextField campoTexto) {
@@ -461,6 +467,11 @@ public class Cadastro_Animal implements ActionListener {
        
 
     }
+      public void colocarIconMenu() {
+        Menu_Principal a = new Menu_Principal();
+        a.iconPrincipal();
+        a.mudarCor();
+    }
  
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == limpar) {
@@ -486,5 +497,8 @@ public class Cadastro_Animal implements ActionListener {
         if(e.getSource()==rbgato){
       selecionarRaca();
         }
+         if(e.getSource()==cancelar){
+       colocarIconMenu();
+       }
     }
 }

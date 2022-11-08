@@ -13,12 +13,14 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.ParseException;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 
-public class Cadastro_Consulta {
+public class Cadastro_Consulta  implements ActionListener {
     private JLabel lab,lPreco, nome, preco, data, lData;
     private JButton bSalvar, bLimpar, bCancelar;
     private JComboBox cNome;
@@ -28,7 +30,7 @@ public class Cadastro_Consulta {
     private GridBagConstraints gbc = new GridBagConstraints();
     
     public Cadastro_Consulta(){
-        //criarJanela();
+        criarJanela();
     }
     
     public void inicializar(){
@@ -47,18 +49,23 @@ public class Cadastro_Consulta {
        bSalvar.setForeground(Color.white);
        bSalvar.setBackground(Color.green);
        bSalvar.setBorderPainted(false);
+       bSalvar.setFocusPainted(false);
        
       //Eliminar
        bLimpar = new JButton("Limpar");
        bLimpar.setForeground(Color.white);
        bLimpar.setBackground(Color.blue);
        bLimpar.setBorderPainted(false);
+       bLimpar.addActionListener(this);
+       bLimpar.setFocusPainted(false);
        
        //Cancelar
         bCancelar = new JButton("Cancelar");
         bCancelar .setForeground(Color.white);
         bCancelar .setBackground(Color.red);
         bCancelar.setBorderPainted(false);
+        bCancelar.addActionListener(this);
+        bCancelar.setFocusPainted(false);
     
     }
       //principal
@@ -143,7 +150,17 @@ public Container adicionarBotoes() {
 
     return pPrincipal;
 }
+         public void colocarIconMenu() {
+             new Menu_Principal().iconPrincipal();
+       /*Menu_Principal a = new Menu_Principal();
+        a.mudarCor();
+        a.iconPrincipal();*/
         
+    }
+         public void Limpar() {
+        this.cNome.setSelectedIndex(-1);
+
+    }
     
     public void criarJanela() {
         frame = new JFrame("CONSULTA");
@@ -159,9 +176,12 @@ frame.setVisible(true);
 
     public static void main(String[] args) {
      new Cadastro_Consulta();
-        
-        
     }
-
-
-}
+ public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == bLimpar) {
+            Limpar();
+        }
+  if(e.getSource()==bCancelar){
+       colocarIconMenu();
+       }
+}}

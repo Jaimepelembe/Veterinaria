@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -29,7 +30,7 @@ import javax.swing.JPopupMenu;
  *
  * @author Valter Boa 53
  */
-public class Menu_Principal implements ActionListener {
+public class Menu_Principal implements ActionListener, MouseListener{
 
     private static JFrame frame;
     private static Container cadastro_cliente, cadastro_consul;
@@ -166,6 +167,8 @@ public class Menu_Principal implements ActionListener {
         iServico.setIcon(new ImageIcon("src/Imagens/Menu/servico.png"));
         iHistorico.setIcon(new ImageIcon("src/Imagens/Menu/historico.png"));
         iTema.setIcon(new ImageIcon("src/Imagens/Menu/tema.png"));
+        label.addMouseListener(this);
+       
     }
 
     public Container componentes() {
@@ -387,7 +390,8 @@ public class Menu_Principal implements ActionListener {
        removerPainelCentral();
        painelActual=new JLabel(new ImageIcon("src/Imagens/Menu/pexels.jpg"));
        this.frame.add(painelActual,BorderLayout.CENTER);
-       this.frame.setVisible(true);}
+       //this.frame.setVisible(true);
+    }
 
     public void PopMenu_Cliente() {
         popMenu.add(mCadCliente);
@@ -513,8 +517,28 @@ public class Menu_Principal implements ActionListener {
             Tabela_vacina();
             frame.setVisible(true);
         }
+    }
 
+    @Override
+    public void mouseClicked(MouseEvent me) {
+        mudarCor();
+          iconPrincipal();
+    }
 
+    @Override
+    public void mousePressed(MouseEvent me) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent me) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent me) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent me) {
     }
 
 }

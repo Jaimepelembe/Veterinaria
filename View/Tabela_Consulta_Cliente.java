@@ -82,6 +82,7 @@ public class Tabela_Consulta_Cliente extends MouseAdapter implements ActionListe
         bPesquisar.setForeground(Color.WHITE);
         bPesquisar.setBackground(Color.blue);
         bPesquisar.addActionListener(this);
+        bPesquisar.setFocusPainted(false);
 
     }
 
