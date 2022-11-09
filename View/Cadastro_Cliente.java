@@ -414,6 +414,7 @@ public class Cadastro_Cliente implements ActionListener {
        if(e.getSource()==bCancelar){
        colocarIconMenu();
        }
+       
     }
 
 }

@@ -42,7 +42,8 @@ public class Menu_Principal implements ActionListener, MouseListener{
     private JPopupMenu popMenu, pop_Animal, pop_Vacina;
     private JMenuItem mCadCliente, mConsCliente, mCadAnimal, mConsAnimal, mConsVacina, mCadVacina;
     //cores
-    Color cor = new Color(0.0f, 0.4f, 0.8f, 1f);//COR DO PAINEL
+    Color cor = new Color(0.0f, 0.4f, 0.8f, 1f);//COR DO PAINEL AZUL
+    Color corBranco = Color.white ;//COR DO PAINEL branco
     Color cor2 = new Color(0.0f, 0.2f, 0.8f, 1f); //COR SECUNDARIA
 
     //fontes
@@ -111,6 +112,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
         tema.setBorderPainted(false);
         tema.setFont(fonte);
         tema.setFocusPainted(false);
+        tema.addActionListener(this);
 
         // POP MENUS
         // Cliente pops
@@ -179,7 +181,6 @@ public class Menu_Principal implements ActionListener, MouseListener{
 
     // PAINEL lateral esquerdo
     public Container lateral() {
-        Color cor = new Color(0.0f, 0.4f, 0.8f, 1f);
         JPanel pLateral = new JPanel();
         pLateral.setBackground(cor);
 
@@ -392,7 +393,12 @@ public class Menu_Principal implements ActionListener, MouseListener{
        this.frame.add(painelActual,BorderLayout.CENTER);
        this.frame.setVisible(true);
     }
-
+    //MUDAR TEMA
+    public void mudarTema(){
+    cor = Color.orange;
+    cor2 = Color.orange;
+    }
+    
     public void PopMenu_Cliente() {
         popMenu.add(mCadCliente);
         popMenu.add(mConsCliente);
@@ -515,6 +521,10 @@ public class Menu_Principal implements ActionListener, MouseListener{
         } //Menuitem Consultar VACINA
         if (e.getSource() == mConsVacina) {
             Tabela_vacina();
+            frame.setVisible(true);
+        }
+          if (e.getSource() == tema) {
+            //mudarTema();
             frame.setVisible(true);
         }
     }
