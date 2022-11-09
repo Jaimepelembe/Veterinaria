@@ -390,7 +390,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
        removerPainelCentral();
        painelActual=new JLabel(new ImageIcon("src/Imagens/Menu/pexels.jpg"));
        this.frame.add(painelActual,BorderLayout.CENTER);
-       //this.frame.setVisible(true);
+       this.frame.setVisible(true);
     }
 
     public void PopMenu_Cliente() {

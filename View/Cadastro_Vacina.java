@@ -100,12 +100,16 @@ public class Cadastro_Vacina implements  ActionListener {
        bLimpar.setForeground(Color.white);
        bLimpar.setBackground(Color.blue);
        bLimpar.setBorderPainted(false);
+       bLimpar.addActionListener(this);
+       bLimpar.setFocusPainted(false);
        
        //Cancelar
         bCancelar = new JButton("Cancelar");
         bCancelar .setForeground(Color.white);
         bCancelar .setBackground(Color.red);
         bCancelar.setBorderPainted(false);
+        bCancelar.setFocusPainted(false);
+        bCancelar.addActionListener(this);
   
     }
     
@@ -268,7 +272,20 @@ pComponentes.add(adicionarImagens(), BorderLayout.NORTH);
          pComponentes.add(adicionarBotoes(), BorderLayout.SOUTH);
  
  return pComponentes;}
-    
+      //Volta a colocar a imagem central no Painel do menu Principal
+    public void colocarIconMenu() {
+        Menu_Principal a = new Menu_Principal("");
+        a.iconPrincipal();
+        a.mudarCor();
+    }
+    //limpar
+    public void Limpar() {
+        this.fNome.setText("");
+        this.fDtVal.setText("");
+        this.fPreco.setText("");
+        this.cMarca.setSelectedIndex(-1);
+        this.spQuant.setValue(0);
+    }
 
     public void criarJanela() {
         frame = new JFrame("CADASTRO DE VACINA");
@@ -290,8 +307,16 @@ pComponentes.add(adicionarImagens(), BorderLayout.NORTH);
     }
 
     @Override
-    public void actionPerformed(ActionEvent ae) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == bLimpar) {
+            Limpar();
+            System.out.println("limpar");
+             Limpar();
+        }
+         if(e.getSource()==bCancelar){
+       colocarIconMenu();
+       }
+}
     }
  
-}
+

@@ -151,10 +151,9 @@ public Container adicionarBotoes() {
     return pPrincipal;
 }
          public void colocarIconMenu() {
-             new Menu_Principal().iconPrincipal();
-       /*Menu_Principal a = new Menu_Principal();
+       Menu_Principal a = new Menu_Principal("");
         a.mudarCor();
-        a.iconPrincipal();*/
+        a.iconPrincipal();
         
     }
          public void Limpar() {

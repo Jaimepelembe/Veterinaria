@@ -468,7 +468,7 @@ public class Cadastro_Animal implements ActionListener {
 
     }
       public void colocarIconMenu() {
-        Menu_Principal a = new Menu_Principal();
+        Menu_Principal a = new Menu_Principal("");
         a.iconPrincipal();
         a.mudarCor();
     }
