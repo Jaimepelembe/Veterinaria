@@ -150,6 +150,7 @@ public class Tabela_Consulta_Animal {
         bPesquisar = new JButton("PESQUISAR");
         bPesquisar.setForeground(Color.WHITE);
         bPesquisar.setBackground(Color.blue);
+        bPesquisar.setFocusPainted(false);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         gbc.gridx = 2;

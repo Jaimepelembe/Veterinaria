@@ -54,6 +54,7 @@ public class Tabela_Consulta_Vacina {
         //Botao pesquisar
         bPesquisar = new JButton("PESQUISAR");
         bPesquisar.setForeground(Color.WHITE);
+        bPesquisar.setFocusPainted(false);
         bPesquisar.setBackground(Color.blue);
         
         //Combobox de marca

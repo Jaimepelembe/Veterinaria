@@ -385,9 +385,11 @@ public class Cadastro_Cliente implements ActionListener {
     }
   //Volta a colocar a imagem central no Painel do menu Principal
  
- public void colocarIconMenu(){
-  new Menu_Principal("").iconPrincipal();
- }
+    public void colocarIconMenu() {
+        Menu_Principal a = new Menu_Principal("");
+        a.iconPrincipal();
+        a.mudarCor();
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == bLimpar) {
@@ -412,6 +414,7 @@ public class Cadastro_Cliente implements ActionListener {
        if(e.getSource()==bCancelar){
        colocarIconMenu();
        }
+       
     }
 
 }
