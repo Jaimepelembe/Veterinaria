@@ -1,5 +1,9 @@
 package Model.VO;
 
+import Model.DAO.ExceptionDAO;
+import Model.DAO.VacinaDAO;
+import java.sql.SQLException;
+
 public class Vacina {
     private int idVacina,idVeterinaria;
     private String marca, nome, data;//data de validade
@@ -17,6 +21,15 @@ public class Vacina {
         this.quantidade = quantidade;
         this.preco = preco;
     }
+
+    public Vacina(String marca, String nome, String data, Float quantidade, Float preco) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public void cadastrarVacina(Vacina vacina) throws SQLException, ClassNotFoundException, ExceptionDAO{
+    new VacinaDAO().cadastrarVacina(vacina);
+    }
+
 
     public int getIdVacina() {
         return idVacina;
@@ -68,6 +81,11 @@ public class Vacina {
 
     public float getPreco() {
         return preco;
+    }
+
+    @Override
+    public String toString() {
+        return "Vacina{" + "idVacina=" + idVacina + ", idVeterinaria=" + idVeterinaria + ", marca=" + marca + ", nome=" + nome + ", data=" + data + ", quantidade=" + quantidade + ", preco=" + preco + '}';
     }
 
     public void setPreco(float preco) {
