@@ -292,6 +292,7 @@ pComponentes.add(adicionarImagens(), BorderLayout.NORTH);
      public void CadastrarVacina() {
          //marca da vacina
         String marca = cMarca.getSelectedItem().toString();
+        
         //nome da vacina
         String nome = fNome.getText();
         
