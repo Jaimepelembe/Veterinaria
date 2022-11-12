@@ -5,6 +5,10 @@
  */
 package View;
 
+import Controller.AnimalController;
+import Controller.ClienteController;
+import Model.VO.Animal;
+import Model.VO.Cliente;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -13,21 +17,26 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.util.Vector;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
-public class Tabela_Consulta_Animal {
+public class Tabela_Consulta_Animal extends MouseAdapter implements ActionListener {
 
-    private JLabel nome, tel, especie, raca, cor;
-    private JTextField fNome, fTel;
+    private JLabel nome, especie, raca;
+    private JPanel pTabela,pPrincipal;
+    private JTextField fNome;
     private JFrame frame;
     private JComboBox cCores, cRacas;
     private JTable tabela;
@@ -35,15 +44,12 @@ public class Tabela_Consulta_Animal {
     private ButtonGroup botoes;
     private JRadioButton rbcao, rbgato;
     GridBagConstraints gbc = new GridBagConstraints();
-    String[][] data = {
-        {"Rex", "Canino", "PitBull", "Preto"},
-        {"Kitty", "Felino", "Gatao", "Branco"}};
-
-    // NOMES DAS COLUNAS
-    String[] columnNames = {"NOME", "ESPECIE", "RAÇA", "COR"};
+    private String[] racas_caes = {"Chow chow", "Chiuaua", "Doberman", "Husky siberiano", "Pastor Alemao", "Pitbull", "Pastor Belga", "outro"};
+    private String[] racas_gatos = {"Bengal", "British Shorthair", "Maine Coon", "Munchkin", "Persa", "Ragdoll", "Sphynx", "outro"};
 
     public Tabela_Consulta_Animal() {
-        //criarJanela();
+        inicializar();
+        criarJanela();
     }
 
     public void inicializar() {
@@ -51,149 +57,255 @@ public class Tabela_Consulta_Animal {
         //Especie
         especie = new JLabel("Especie ");
         botoes = new ButtonGroup();
+        //Canina
         rbcao = new JRadioButton("Especie - Canina");
         rbcao.setBackground(Color.WHITE);
+        rbcao.addActionListener(this);
+        
+        //Felina
         rbgato = new JRadioButton("Especie - Felina");
         rbgato.setBackground(Color.WHITE);
+        rbgato.addActionListener(this);
         botoes.add(rbcao);
         botoes.add(rbgato);
-    }
-
-    public Container componentes() {
-        inicializar();
-        JPanel painel = new JPanel();
-        painel.setBackground(Color.white);
-        painel.setLayout(new GridBagLayout());
-
-        // Componentes da primeira fila
-        // ESPECIES
-        // Label ESPECIES
-        gbc.insets = new Insets(35, 0, 0, 0);
-        gbc.gridy = 0;
-        especie = new JLabel("Especie");
-        especie.setForeground(Color.gray);
-        gbc.gridx =1;
-       // painel.add(especie, gbc);
-        //butoes
-        gbc.gridy = 0;
-        gbc.insets = new Insets(35, 200, 0, 0);
-        gbc.gridx = 1;
-        gbc.gridwidth = 1;
-        painel.add(rbcao, gbc);
-        gbc.insets = new Insets(35, 0, 0, 0);
-        gbc.gridx = 2;
-        gbc.gridwidth = 1;
-        painel.add(rbgato, gbc);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        //RACA DO ANIMAL
-        gbc.insets = new Insets(28, 15, -60, 0);
-        gbc.gridy = 2;
-        raca = new JLabel("Raça");
-        raca.setForeground(Color.gray);
-        gbc.gridx = 1;
-        painel.add(raca, gbc);
-
-        // Box racas
-        gbc.gridy = 3;
         
-        gbc.ipady = 5;
-        
-        String[] racas = {"Pastor Alemao", "Pitbull", "Pastor Belga", "Chiuaua"};
-        cRacas = new JComboBox(racas);
-        gbc.insets = new Insets(30, 55, 0, 10);
-        gbc.ipadx = 2;
-        gbc.gridx = 1;
-        gbc.gridwidth = 1;
-        painel.add(cRacas, gbc);
-
-        //COR DO ANIMAL
-        gbc.insets = new Insets(28, 15, -60, 0);
-        gbc.gridy = 2;
-        cor = new JLabel("Cor");
-        cor.setForeground(Color.gray);
-        gbc.gridx = 2;
-        painel.add(cor, gbc);
-
-        // Box cores
-        gbc.gridy = 3;
-        gbc.insets = new Insets(30, 55, 0, 10);
-        gbc.ipady = 5;
-        gbc.ipadx = 90;
-        String[] cores = {"Branco", "Cizento", "Azul", "Amarelo"};
-        cCores = new JComboBox(cores);
-        gbc.gridx = 2;
-        gbc.gridwidth = 1;
-        painel.add(cCores, gbc);
-
-        // nome
-        gbc.gridwidth = 0;
-        gbc.insets = new Insets(25, 15, -35, 0);
-        gbc.ipadx = 20;
-        gbc.ipady = 5;
-        gbc.gridy = 5;
+        //Nome do animal
         nome = new JLabel("Nome ");
         nome.setForeground(Color.gray);
-        gbc.gridx = 1;
-        painel.add(nome, gbc);
-
-        // Field nome
-        gbc.insets = new Insets(5, 55, 20, 50);
+        //TextField Nome
         fNome = new JTextField(5);
         fNome.setColumns(25);
-        gbc.ipady = 10;
-        gbc.gridy = 6;
-        gbc.gridx = 1;
-        gbc.gridwidth = 1;
-        painel.add(fNome, gbc);
 
-        // BOTAO PESQUISAR
+        //Raca do animal
+        raca = new JLabel("Raça");
+        raca.setForeground(Color.gray);
+        cRacas = new JComboBox();
+        cRacas.addActionListener(this);
+
+        //Botao pesquisar
         bPesquisar = new JButton("PESQUISAR");
         bPesquisar.setForeground(Color.WHITE);
         bPesquisar.setBackground(Color.blue);
         bPesquisar.setFocusPainted(false);
+        bPesquisar.addActionListener(this);
+
+    }
+
+    
+    
+    public Container componentes() {
+        JPanel painel = new JPanel();
+        painel.setBackground(Color.white);
+        painel.setLayout(new GridBagLayout());
+
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        // Componentes da primeira fila
+        // ESPECIES
 
-        gbc.gridx = 2;
-        gbc.gridy = 6;
-        gbc.gridwidth = 1;
-      //  gbc.insets = new Insets(5, 55, 20, 10);//gbc.insets = new Insets(30, 55, 0, 10);
-        gbc.ipadx = -2;
-        painel.add(bPesquisar, gbc);
-
-        //tabela
-        gbc.insets = new Insets(5, 5, -35, 10);
-        gbc.gridy = 7;
+        //Radio button ESPECIES canina
+        gbc.insets = new Insets(35, 15, 0, 0);
         gbc.gridx = 1;
-        gbc.gridwidth = 5;
-        // INICIALIZANDO
-        tabela = new JTable(data, columnNames);
-        tabela.setBounds(30, 40, 200, 300);
-        tabela.setBackground(Color.white);
-        painel.add(tabela, gbc);
-        
+        gbc.gridy = 0;
+        gbc.ipadx = 10;
+        painel.add(rbcao, gbc);
 
-        // SCROLL PANE
-        JScrollPane sp = new JScrollPane(tabela);
-        painel.add(sp, gbc);
+        //Radio button ESPECIES Felina
+        gbc.insets = new Insets(35, 15, 0, 0);
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        painel.add(rbgato, gbc);
 
+        // Label RACA DO ANIMAL
+        gbc.insets = new Insets(35, 15, 0, 0);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        painel.add(raca, gbc);
+
+        //Combobox de raca do animal
+        gbc.insets = new Insets(35, 15, 0, 0);
+        gbc.ipady = 5;
+        gbc.ipadx = -10;
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        painel.add(cRacas, gbc);
+
+        // nome
+        gbc.gridwidth = 0;
+        gbc.insets = new Insets(35, 15, 0, 0);
+        gbc.ipadx = 20;
+        gbc.ipady = 5;
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        painel.add(nome, gbc);
+
+        // Field nome
+        gbc.insets = new Insets(35, 15, 0, 0);
+        gbc.ipady = 10;
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        painel.add(fNome, gbc);
+
+        //BOTAO PESQUISAR
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 2;
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        painel.add(bPesquisar, gbc);
         return painel;
 
     }
+
+    public Container pPrincipal() {
+       pPrincipal = new JPanel(new BorderLayout());
+        pPrincipal.setBackground(Color.white);
+        pPrincipal.add(componentes(),BorderLayout.PAGE_START);
+        pPrincipal.add(painelTabela(),BorderLayout.CENTER);
+        return pPrincipal;
+
+    }
+
+    private Container painelTabela() {
+        Object[][] data = {};
+        String[] colunas = {"ID", "NOME", "ESPECIE", "SEXO","RACA","COR_PELO","PESO","DT_NASC"
+        };
+        pTabela = new JPanel(new BorderLayout());
+        pTabela.setBackground(Color.white);
+        pTabela.setForeground(Color.white);
+        // INICIALIZANDO a tabela
+        tabela = new JTable(data, colunas);
+        tabela.setBounds(30, 40, 200, 300);
+        
+
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
+                data,
+                colunas
+        ) {
+            Class[] types = new Class[]{
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class,java.lang.String.class,java.lang.String.class,java.lang.Float.class,java.lang.String.class
+            };
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false,false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types[columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        });
+
+        tabela.addMouseListener(this);
+
+        // Adicionar a tabela ap SCROLL PANE
+        JScrollPane sp = new JScrollPane(tabela);
+        sp.setForeground(Color.white);
+        sp.setBackground(Color.white);
+        pTabela.add(sp, BorderLayout.CENTER);
+        return pTabela;
+    }
+
+     private void selecionarAnimal() {//Levar todos atributos e passar para tela de cadastro
+        Integer linha = tabela.getSelectedRow();
+        int id =  (Integer)tabela.getModel().getValueAt(linha, 0);
+        String nome = (String) tabela.getModel().getValueAt(linha, 1);
+        String especie = (String) tabela.getModel().getValueAt(linha, 2);
+        String sexo = (String) tabela.getModel().getValueAt(linha, 3);
+        String raca = (String) tabela.getModel().getValueAt(linha, 4);
+        String pelo = (String) tabela.getModel().getValueAt(linha, 5);
+       float peso = (Float) tabela.getModel().getValueAt(linha, 6);
+       String data = (String) tabela.getModel().getValueAt(linha, 7);
+        
+        Cadastro_Cliente cliente= new Cadastro_Cliente();
+      //  cliente.selecionarCliente(id, nome, telefone, morada);
+       
+
+    }
+   private void selecionarRaca(){
+    if(rbcao.isSelected()){
+       cRacas.removeAllItems();
+        for(int i=0;i<racas_caes.length;i++){
+        cRacas.addItem(racas_caes[i]);
+       
+        }
+        
+    }
+    if(rbgato.isSelected()){
+        this.cRacas.removeAllItems();
+        for(int i=0;i<racas_gatos.length;i++){
+        cRacas.addItem(racas_gatos[i]);
+      
+        }
+        
+    }
+     }
     
-    public Container pPrincipal(){
-JPanel pPrincipal = new JPanel();
-pPrincipal.setBackground(Color.white);
-pPrincipal.add(componentes());
-return pPrincipal;
-
-}
-
+   private void pesquisarAnimalEspecie(String esp) {
+        String especie = "";
+        especie=esp;
+        
+        try {
+            if (especie != null && especie.length()>0) {
+                DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+                modelo.setRowCount(0);
+                AnimalController animal = new AnimalController();
+                Vector<Animal> animais = animal.pesquisarAnimalEspecie(especie);
+                animais.forEach((Animal ani) -> {modelo.addRow(new Object[]{ani.getIdAnimal(), ani.getNome(),ani.getEspecie(),ani.getSexo(),ani.getRaca(),ani.getCor_pelo(),ani.getPeso(),ani.getDt_nascimento()});
+                });
+                tabela.setModel(modelo);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao pesquisar o Animal" + ex);
+        }
+    } 
+   private void pesquisarAnimalRaca(String rac) {
+        String raca = "";
+        raca=rac;
+        
+        try {
+            if (raca != null && raca.length()>0) {
+                DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+                modelo.setRowCount(0);
+                AnimalController animal = new AnimalController();
+                Vector<Animal> animais = animal.pesquisarAnimalRaca(raca);
+                animais.forEach((Animal ani) -> {modelo.addRow(new Object[]{ani.getIdAnimal(), ani.getNome(),ani.getEspecie(),ani.getSexo(),ani.getRaca(),ani.getCor_pelo(),ani.getPeso(),ani.getDt_nascimento()});
+                });
+                tabela.setModel(modelo);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao pesquisar o Animal" + ex);
+        }
+    } 
+   
+    private void pesquisarAnimalNome(String nome) {
+        String name = "";
+        name=nome;
+        
+        try {
+            if (name != null && name.length()>0) {
+                DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+                modelo.setRowCount(0);
+                AnimalController animal = new AnimalController();
+                Vector<Animal> animais = animal.pesquisarAnimalNome(name);
+                animais.forEach((Animal ani) -> {modelo.addRow(new Object[]{ani.getIdAnimal(), ani.getNome(),ani.getEspecie(),ani.getSexo(),ani.getRaca(),ani.getCor_pelo(),ani.getPeso(),ani.getDt_nascimento()});
+                });
+                tabela.setModel(modelo);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao pesquisar o Animal" + ex);
+        }
+    }
+   
     public void criarJanela() {
         frame = new JFrame("CONSULTAR ANIMAL");
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 650);
-        frame.add(componentes(),BorderLayout.NORTH);
+        frame.add(pPrincipal(), BorderLayout.NORTH);
         //frame.add(tabela());
         // frame.pack();
         frame.setVisible(true);
@@ -204,4 +316,53 @@ return pPrincipal;
 
     }
 
+    
+    public void mouseClicked(java.awt.event.MouseEvent evt) {
+        if (evt.getClickCount() == 2) {
+           selecionarAnimal();
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        //Evento para selecionar o animal pela especie e preencher o combobox da raca
+     
+      if(e.getSource()==rbcao){
+      selecionarRaca();
+      cRacas.setSelectedIndex(-1);
+      fNome.setText("");
+      
+      String especie="Canina";
+       pesquisarAnimalEspecie(especie);
+      
+      } 
+     if(e.getSource()==rbgato){
+      selecionarRaca();
+       cRacas.setSelectedIndex(-1);
+       fNome.setText("");
+       
+       String especie="Felina";
+       pesquisarAnimalEspecie(especie);
+       
+      } 
+     //Evento para selecionar o animal pela raca
+     if(e.getSource()==cRacas){
+         if(cRacas.getSelectedIndex()>-1){
+         fNome.setText("");
+         String raca=cRacas.getSelectedItem().toString();
+         pesquisarAnimalRaca(raca);}
+     }
+     
+     if(e.getSource()==bPesquisar){
+         botoes.clearSelection();
+         cRacas.removeAllItems();
+         cRacas.setSelectedIndex(-1);
+         String nome=fNome.getText();
+         pesquisarAnimalNome(nome);
+     }
+     
+    }
+     
+   
+    
 }

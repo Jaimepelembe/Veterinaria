@@ -4,11 +4,13 @@
  */
 package Model.VO;
 
+import Controller.AnimalController;
 import Model.DAO.AnimalDAO;
 import Model.DAO.ExceptionDAO;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Vector;
 
 /**
  *
@@ -17,14 +19,14 @@ import java.time.LocalDate;
 public class Animal {
 private int idAnimal,idCliente,idVeterinaria;
 private String nome,especie,raca,cor_pelo;
-private char sexo;
+private String sexo;
 private float peso;
 private String dt_nascimento;
 
 public Animal() {
     }
 
-public Animal(int idAnimal, int idCliente, int idVeterinaria, String nome, String especie, String raca, String cor_pelo, float peso,String date, char sexo) {
+public Animal(int idAnimal, int idCliente, int idVeterinaria, String nome, String especie, String raca, String cor_pelo, float peso,String date, String sexo) {
         this.idAnimal = idAnimal;
         this.idCliente = idCliente;
         this.idVeterinaria = idVeterinaria;
@@ -38,7 +40,7 @@ public Animal(int idAnimal, int idCliente, int idVeterinaria, String nome, Strin
     }
 
 //construtor para cadastrar animal BD
-    public Animal( String nome, String especie, char sexo,String raca, String cor_pelo, float peso, String dt_nascimento,int idCliente, int idVeterinaria) {
+    public Animal( String nome, String especie, String sexo,String raca, String cor_pelo, float peso, String dt_nascimento,int idCliente, int idVeterinaria) {
         this.nome = nome;
         this.especie = especie;
         this.raca = raca;
@@ -55,6 +57,23 @@ public Animal(int idAnimal, int idCliente, int idVeterinaria, String nome, Strin
 public void cadastrarAnimal(Animal animal) throws SQLException, ClassNotFoundException, ExceptionDAO{
 new AnimalDAO().cadastrarAnimal(animal);
 }
+
+
+public Vector<Cliente> selecionarCliente() throws SQLException, ClassNotFoundException, ExceptionDAO{
+return  new AnimalController().selecionarCliente();
+}
+
+public Vector<Animal> pesquisarAnimalEspecie(String especie) throws ClassNotFoundException, ExceptionDAO {
+return new AnimalDAO().pesquisarAnimalEspecie(especie);
+        }
+
+public Vector<Animal> pesquisarAnimalRaca(String raca) throws ClassNotFoundException, ExceptionDAO {
+return new AnimalDAO().pesquisarAnimalRaca(raca);
+        }
+
+public Vector<Animal> pesquisarAnimalNome(String nome) throws ClassNotFoundException, ExceptionDAO {
+return new AnimalDAO().pesquisarAnimalNome(nome);
+        }
     public int getIdAnimal() {
         return idAnimal;
     }
@@ -119,17 +138,15 @@ new AnimalDAO().cadastrarAnimal(animal);
         this.dt_nascimento = dt_nascimento;
     }
 
-    
-   
-  
-    
-    public char getSexo() {
+    public String getSexo() {
         return sexo;
     }
 
-    public void setSexo(char sexo) {
+    public void setSexo(String sexo) {
         this.sexo = sexo;
     }
+
+  
 
     public float getPeso() {
         return peso;

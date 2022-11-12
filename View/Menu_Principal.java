@@ -5,6 +5,7 @@
  */
 package View;
 
+import Model.DAO.ExceptionDAO;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import static java.awt.Component.RIGHT_ALIGNMENT;
@@ -18,6 +19,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -296,7 +300,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
 
     //Metodos Para cadastro, Consulta e exibir resultado da consulta do animal   
     //Cadastro do Animal
-    public void cadastro_Animal() {
+    public void cadastro_Animal() throws SQLException, ClassNotFoundException, ExceptionDAO {
         Cadastro_Animal animais = new Cadastro_Animal();
         mudarCor();
         animal.setBackground(cor2);
@@ -344,7 +348,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
     
 
     //Paimel que exibe a informacao do animal selecionado na busca a BD
-    public void Resul_consultaAnimal() {
+    public void Resul_consultaAnimal() throws SQLException, ClassNotFoundException, ExceptionDAO {
         Cadastro_Animal animais = new Cadastro_Animal();
         //Remover o painel que esta no centro
         removerPainelCentral();
@@ -496,7 +500,15 @@ public class Menu_Principal implements ActionListener, MouseListener{
         //Pop Menu
         //Menuitem Cadastrar ANIMAL
         if (e.getSource() == mCadAnimal) {
-            cadastro_Animal();
+            try {
+                cadastro_Animal();
+            } catch (SQLException ex) {
+                Logger.getLogger(Menu_Principal.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Menu_Principal.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ExceptionDAO ex) {
+                Logger.getLogger(Menu_Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
             frame.setVisible(true);
         }
 

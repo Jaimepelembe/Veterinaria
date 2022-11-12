@@ -9,6 +9,7 @@ package Model.DAO;
  * @author multi
  */
 import Model.VO.Animal;
+import Model.VO.Cliente;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -21,7 +22,7 @@ public class AnimalDAO {
  
     //Metodo recebe o animal da model e salva na BD
     public void cadastrarAnimal(Animal animal) throws SQLException, ClassNotFoundException, ExceptionDAO{
-    String sql="insert into animal(nome,especie,sexo,raca,cor_pelo,peso,dt_nascimento,idCliente,idVeterinaria) values (?,?,?,?,?,?,?,?,?)";
+    String sql="insert into animal(nome,especie,sexo,raca,cor_pelo,peso,dt_nascimento,idCliente,idVeterinaria) values (?,?,?,?,?,?,?,?,?);";
     PreparedStatement pstate=null;
     Connection con=null;
     String nome=animal.getNome();
@@ -31,7 +32,6 @@ public class AnimalDAO {
     String pelo=animal.getCor_pelo();
     float peso=animal.getPeso();
    String  data=animal.getDt_nascimento();
-   
     int idCli=animal.getIdCliente();
     int idVet=animal.getIdVeterinaria();
         
@@ -49,14 +49,213 @@ public class AnimalDAO {
     pstate.setInt(9, idVet);
     pstate.executeUpdate();
     pstate.close();
-    
-    System.out.println(animal.toString());//teste
+ 
     }
-    catch(SQLException ex){JOptionPane.showMessageDialog(null, "Erro ao gravar o actor na base de dados"+ex);
+    catch(SQLException ex){JOptionPane.showMessageDialog(null, "Erro ao gravar o animal na base de dados"+ex);
        }
     //Fechar prepared Statement e connection
     finally{ ConnectionBD cm= new ConnectionBD();
     cm.fecharConexao(pstate, con);
     }
     }
+public Vector<Cliente> selecionarCliente() throws SQLException, ClassNotFoundException, ExceptionDAO{
+Connection cn=null;
+PreparedStatement pstate=null;
+String sql="select cliente.idCliente,cliente.idVeterinaria,cliente.nome from cliente;";
+
+Vector<Cliente> clientes=null;
+
+try{
+cn=new ConnectionBD().getConnection();
+pstate=cn.prepareStatement(sql);
+ResultSet rs= pstate.executeQuery(sql);
+if(rs!=null){
+int  idCliente,idVeterinaria;
+String nome;
+clientes = new Vector<>();
+while(rs.next()){
+
+idCliente=rs.getInt("idCliente");
+idVeterinaria=rs.getInt("idVeterinaria");
+nome=rs.getString("nome");
+Cliente cli= new Cliente();
+cli.setIdCliente(idCliente);
+cli.setIdVeterinaria(idVeterinaria);
+cli.setNome(nome);
+clientes.add(cli);
 }
+
+}
+else{JOptionPane.showMessageDialog(null, "O cliente Nao foi encontrado");}
+
+}
+
+catch(SQLException ex){ throw new ExceptionDAO("Erro ao buscar o cliente: "+ex); }
+finally{ConnectionBD cm = new ConnectionBD();
+  cm.fecharConexao(pstate, cn);}
+      
+  return clientes;  
+} 
+
+public Vector<Animal> pesquisarAnimalEspecie(String especie) throws ClassNotFoundException, ExceptionDAO {
+Connection cn=null;
+PreparedStatement pstate=null;
+String sql="select animal.idAnimal,animal.nome,animal.especie,animal.sexo,animal.raca,animal.cor_pelo,animal.peso,animal.dt_nascimento from animal where animal.especie='"+especie+"';";
+
+Vector<Animal> animais=null;
+
+try{
+cn=new ConnectionBD().getConnection();
+pstate=cn.prepareStatement(sql);
+ResultSet rs= pstate.executeQuery(sql);
+if(rs!=null){
+int  idAnimal;
+float peso;
+String nome,esp,sexo,raca,pelo,data;
+animais = new Vector<>();
+while(rs.next()){
+
+idAnimal=rs.getInt("idAnimal");
+nome=rs.getString("nome");
+esp=rs.getString("especie");
+sexo=rs.getString("sexo");
+raca=rs.getString("raca");
+pelo= rs.getString("cor_pelo");
+peso=rs.getFloat("peso");
+data=rs.getString("dt_nascimento");
+Animal animal= new Animal();
+animal.setIdAnimal(idAnimal);
+animal.setNome(nome);
+animal.setEspecie(especie);
+animal.setSexo(sexo);
+animal.setRaca(raca);
+animal.setCor_pelo(pelo);
+animal.setPeso(peso);
+animal.setDt_nascimento(data);
+
+animais.add(animal);
+
+}
+
+}
+else{JOptionPane.showMessageDialog(null, "O animal Nao foi encontrado");}
+
+}
+
+catch(SQLException ex){ throw new ExceptionDAO("Erro ao buscar o animal: "+ex); }
+finally{ConnectionBD cm = new ConnectionBD();
+  cm.fecharConexao(pstate, cn);}
+      
+  return  animais;  
+}  
+
+
+public Vector<Animal> pesquisarAnimalRaca(String rac) throws ClassNotFoundException, ExceptionDAO {
+Connection cn=null;
+PreparedStatement pstate=null;
+String sql="select animal.idAnimal,animal.nome,animal.especie,animal.sexo,animal.raca,animal.cor_pelo,animal.peso,animal.dt_nascimento from animal where animal.raca='"+rac+"';";
+
+Vector<Animal> animais=null;
+
+try{
+cn=new ConnectionBD().getConnection();
+pstate=cn.prepareStatement(sql);
+ResultSet rs= pstate.executeQuery(sql);
+if(rs!=null){
+int  idAnimal;
+float peso;
+String nome,esp,sexo,raca,pelo,data;
+animais = new Vector<>();
+while(rs.next()){
+
+idAnimal=rs.getInt("idAnimal");
+nome=rs.getString("nome");
+esp=rs.getString("especie");
+sexo=rs.getString("sexo");
+raca=rs.getString("raca");
+pelo= rs.getString("cor_pelo");
+peso=rs.getFloat("peso");
+data=rs.getString("dt_nascimento");
+Animal animal= new Animal();
+animal.setIdAnimal(idAnimal);
+animal.setNome(nome);
+animal.setEspecie(esp);
+animal.setSexo(sexo);
+animal.setRaca(raca);
+animal.setCor_pelo(pelo);
+animal.setPeso(peso);
+animal.setDt_nascimento(data);
+
+animais.add(animal);
+
+}
+
+}
+else{JOptionPane.showMessageDialog(null, "O animal Nao foi encontrado");}
+
+}
+
+catch(SQLException ex){ throw new ExceptionDAO("Erro ao buscar o animal: "+ex); }
+finally{ConnectionBD cm = new ConnectionBD();
+  cm.fecharConexao(pstate, cn);}
+      
+  return  animais;  
+}  
+
+
+public Vector<Animal> pesquisarAnimalNome(String name) throws ClassNotFoundException, ExceptionDAO {
+Connection cn=null;
+PreparedStatement pstate=null;
+String sql="select animal.idAnimal,animal.nome,animal.especie,animal.sexo,animal.raca,animal.cor_pelo,animal.peso,animal.dt_nascimento from animal where animal.nome like  '%"+name+"%';";
+
+Vector<Animal> animais=null;
+
+try{
+cn=new ConnectionBD().getConnection();
+pstate=cn.prepareStatement(sql);
+ResultSet rs= pstate.executeQuery(sql);
+if(rs!=null){
+int  idAnimal;
+float peso;
+String nome,esp,sexo,raca,pelo,data;
+animais = new Vector<>();
+while(rs.next()){
+
+idAnimal=rs.getInt("idAnimal");
+nome=rs.getString("nome");
+esp=rs.getString("especie");
+sexo=rs.getString("sexo");
+raca=rs.getString("raca");
+pelo= rs.getString("cor_pelo");
+peso=rs.getFloat("peso");
+data=rs.getString("dt_nascimento");
+Animal animal= new Animal();
+animal.setIdAnimal(idAnimal);
+animal.setNome(nome);
+animal.setEspecie(esp);
+animal.setSexo(sexo);
+animal.setRaca(raca);
+animal.setCor_pelo(pelo);
+animal.setPeso(peso);
+animal.setDt_nascimento(data);
+
+animais.add(animal);
+
+}
+
+}
+else{JOptionPane.showMessageDialog(null, "O animal Nao foi encontrado");}
+
+}
+
+catch(SQLException ex){ throw new ExceptionDAO("Erro ao buscar o animal: "+ex); }
+finally{ConnectionBD cm = new ConnectionBD();
+  cm.fecharConexao(pstate, cn);}
+      
+  return  animais;  
+}  
+
+
+
+
+        }

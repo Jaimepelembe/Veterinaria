@@ -2,6 +2,7 @@ package View;
 
 import Controller.AnimalController;
 import Controller.Validacao;
+import Model.DAO.ExceptionDAO;
 import Model.VO.Cliente;
 import java.awt.BorderLayout;
 import javax.swing.ButtonGroup;
@@ -17,11 +18,14 @@ import java.awt.Insets;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Label;
+import static java.awt.SystemColor.info;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.util.Vector;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
@@ -31,30 +35,30 @@ import javax.swing.text.MaskFormatter;
 
 public class Cadastro_Animal implements ActionListener {
 
-    private JLabel nome, especie, raca, cor, dtNascimento, peso, kg;
+    private JLabel nome, especie, raca, cor, dtNascimento, peso, kg,codigoCliente, escolha, sexo, info;
     private JButton salvar, cancelar, limpar, bEliminar, bHistorico;
     private JTextField fNome;
+    private Vector<Cliente> clientes;
     private static JFormattedTextField fPeso, fDtNascimento;
     private JFrame frame;
-    private  JComboBox cRaca, cCor;
-    private JLabel lab;
+    private  JComboBox cRaca, cCor,cClientes;
     private Container pbActual;
     private JPanel pPrincipal, pbCadastro, pbConsulta, pComponentes;
     private ButtonGroup botoes,bSexo;
     private JRadioButton rbcao, rbgato,rbfeminino,rbmascolino;
-    private int idCliente;
+    private int idCliente=-1,indice, idVeterinaria;
     private String[] racas_caes = {"Chow chow", "Chiuaua","Doberman", "Husky siberiano","Pastor Alemao", "Pitbull", "Pastor Belga", "outro"};
     private String[] racas_gatos = { "Bengal","British Shorthair", "Maine Coon", "Munchkin", "Persa", "Ragdoll","Sphynx", "outro"};
     private String[] cores = {"Branco", "Cizento", "Azul", "Amarelo"};
     private  Validacao vv= new Validacao();
     GridBagConstraints gbc = new GridBagConstraints();
 
-    public Cadastro_Animal() {
+    public Cadastro_Animal() throws SQLException, ClassNotFoundException, ExceptionDAO {
         inicializarComponentes();
         //criarJanela();
     }
 
-    private void inicializarComponentes() {
+    private void inicializarComponentes() throws SQLException, ClassNotFoundException, ExceptionDAO {
         //Paines
         //Principal
         pPrincipal = new JPanel(new BorderLayout());
@@ -64,18 +68,32 @@ public class Cadastro_Animal implements ActionListener {
         //Botoes de Consulta
         pbConsulta = new JPanel(new GridBagLayout());
         pbConsulta.setBackground(Color.white);
+        
 
         //Painel Actual
         pbActual = new JPanel(new GridBagLayout());
         pbActual.setBackground(Color.white);
+        
+        // label Selecionar o cliente
+        escolha = new JLabel("Selecione o cliente");
+        escolha.setForeground(Color.gray);
+        
 
+        //label codigo cliente
+        //Combobox de clientes
+        cClientes= new JComboBox();
+        cClientes.addActionListener(this);
+        //LABEL ID CLIENT
+        info = new JLabel();
         //Nome
         nome = new JLabel("Nome ");
+        nome.setForeground(Color.gray);
         fNome = new JTextField(5);
         fNome.setColumns(10);
 
         //Especie
         especie = new JLabel("Especie ");
+        especie.setForeground(Color.gray);
         botoes = new ButtonGroup();
         //Radio Button Cao
         rbcao = new JRadioButton("Canina");
@@ -91,6 +109,9 @@ public class Cadastro_Animal implements ActionListener {
         botoes.add(rbgato);
 
        //Sexo do animal
+       
+        sexo = new JLabel("Sexo");
+        sexo.setForeground(Color.gray);
        //Masculino
        rbmascolino= new JRadioButton("M");
        rbmascolino.setBackground(Color.white);
@@ -100,30 +121,36 @@ public class Cadastro_Animal implements ActionListener {
        bSexo= new ButtonGroup();
        bSexo.add(rbmascolino);
        bSexo.add(rbfeminino);
+       
         
         //Cor do pelo
         cor = new JLabel("Cor do pelo ");
+        cor.setForeground(Color.gray);
         cCor = new JComboBox(cores);
         cCor.setSelectedIndex(-1);
 
         //Raca do animal
         //Ela depende da especie
         raca = new JLabel("Raça ");
+        raca.setForeground(Color.gray);
         cRaca = new JComboBox();//Deve ter raca de caes ou gatos dependendo da especie selecionada
-        //cRaca.setSelectedIndex(0);
-        
             
         //Data de nascimento
         dtNascimento = new JLabel("Data de nascimento ");
+        dtNascimento.setForeground(Color.gray);
         fDtNascimento = new JFormattedTextField();
         fDtNascimento.setColumns(10);
         formatarCampo(fDtNascimento);
 
         //Peso
         peso = new JLabel("Peso ");
+        peso.setForeground(Color.gray);
         fPeso = new JFormattedTextField();
         fPeso.setColumns(10);
         formatarCampo(fPeso);
+        //Receber os clientes da BD
+        receberClientes();
+        cClientes.setSelectedIndex(-1);
 
         //Botoes Salvar,Limpar e cancelar
         //Botao salvar
@@ -185,37 +212,55 @@ public class Cadastro_Animal implements ActionListener {
         pComponentes.setLayout(new GridBagLayout());
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // Componentes da primeira fila
-        //Label Nome
+        
+        //Informacpoes do cliente
         gbc.insets = new Insets(35, 15, -27, 0);//Insets de Label
         gbc.ipadx = 35;
         gbc.ipady = 5;
         gbc.gridx = 2;
         gbc.gridy = 0;
-        pComponentes.add(nome, gbc);
-
-        //Label vazia
-        Label vazia = new Label("");
-        gbc.insets = new Insets(35, 15, -27, 0);//Insets de Label
-        gbc.ipadx = 35;
-        gbc.ipady = 5;
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        pComponentes.add(vazia, gbc);
-
-        // Field nome
-        gbc.insets = new Insets(35, 5, 0, 10);//Insets e Field,RadioButton, Combobox
-        gbc.ipadx = 150;
+        pComponentes.add(escolha, gbc);
+        
+        //Combobox clientes
+        gbc.insets = new Insets(35, 5, -27, 0);//Insets e Field,RadioButton, Combobox
+        gbc.ipadx = 80;
         gbc.ipady = 10;
         gbc.gridx = 2;
         gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        pComponentes.add(cClientes, gbc);
+
+         //codigo do cliente
+
+        gbc.insets = new Insets(35, 5, -27, 10);//Insets e Field,RadioButton, Combobox
+        gbc.ipadx = 80;
+        gbc.ipady = 10;
+        gbc.gridx = 3;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        pComponentes.add(info, gbc);
+        
+        //Label Nome do animal
+        gbc.insets = new Insets(35, 15, -27, 0);//Insets de Label
+        gbc.ipadx = 35;
+        gbc.ipady = 5;
+        gbc.gridx = 2;
+        gbc.gridy = 2;
+        pComponentes.add(nome, gbc);
+
+        // Field nome
+        gbc.insets = new Insets(35, 5, -27, 0);//Insets e Field,RadioButton, Combobox
+        gbc.ipadx = 80;
+        gbc.ipady = 10;
+        gbc.gridx = 2;
+        gbc.gridy = 3;
         gbc.gridwidth = 2;
         pComponentes.add(fNome, gbc);
 
         // SEGUNDA FILA --Especie
         // Label especie
         gbc.insets = new Insets(35, 15, -27, 0);//Insets de Label
-        gbc.gridy = 2;
+        gbc.gridy = 4;
         gbc.gridx = 2;
         pComponentes.add(especie, gbc);
 
@@ -231,11 +276,10 @@ public class Cadastro_Animal implements ActionListener {
         pComponentes.add(rbgato, gbc);
         
          //Sexo do animal
-        lab = new JLabel("Sexo");
         gbc.insets = new Insets(35, 15, -27, 0);
         gbc.gridx = 2;
-        gbc.gridy = 3;
-        pComponentes.add(lab, gbc);
+        gbc.gridy = 5;
+        pComponentes.add(sexo, gbc);
         
         //Radio Masculino
       gbc.insets = new Insets(35, -10, -27, 30);
@@ -254,7 +298,7 @@ public class Cadastro_Animal implements ActionListener {
         // label raca
         gbc.insets = new Insets(35, 15, 0, 0);
         gbc.gridx = 2;
-        gbc.gridy = 4;
+        gbc.gridy = 6;
         pComponentes.add(raca, gbc);
         
 
@@ -263,33 +307,31 @@ public class Cadastro_Animal implements ActionListener {
         gbc.ipadx = 80;
         gbc.ipady = 10;
         gbc.gridx = 2;
-        gbc.gridy = 5;
+        gbc.gridy = 7;
         gbc.gridwidth = 1;
         pComponentes.add(cRaca, gbc);
 
        
         
         //Label cores
-        gbc.insets = new Insets(35, 15, -27, 0);//Insets de Label
-        gbc.gridx = 2;
+        gbc.insets = new Insets(35, 15, 0, 0);
+        gbc.gridx = 3;
         gbc.gridy = 6;
         pComponentes.add(cor, gbc);
         
-        
-        
         // Combobox cores
-        gbc.insets = new Insets(35, 5, 0, 10);//Insets e Field,RadioButton, Combobox
+          gbc.insets = new Insets(5, 5, 0, 10);//Insets e Field,RadioButton, Combobox
         gbc.ipadx = 80;
         gbc.ipady = 10;
-        gbc.gridx = 2;
+        gbc.gridx = 3;
         gbc.gridy = 7;
         gbc.gridwidth = 1;
         pComponentes.add(cCor, gbc);
-
+        
         // PESO DO ANIMAL
         //Label do peso
-        gbc.gridx = 2;
         gbc.insets = new Insets(35, 15, -27, 0);//Insets de Label
+        gbc.gridx = 2;
         gbc.gridy = 8;
         pComponentes.add(peso, gbc);
 
@@ -301,16 +343,16 @@ public class Cadastro_Animal implements ActionListener {
         pComponentes.add(fPeso, gbc);
 
         // DATA DE NASCIMENTO
-        //Label data de nascimento
-        gbc.gridx = 2;
-        gbc.gridy = 10;
+       //Label do peso
         gbc.insets = new Insets(35, 15, -27, 0);//Insets de Label
+        gbc.gridx = 3;
+        gbc.gridy = 8;
         pComponentes.add(dtNascimento, gbc);
 
         //TextField
         gbc.insets = new Insets(35, 5, 0, 10);//Insets e Field,RadioButton, Combobox
-        gbc.gridx = 2;
-        gbc.gridy = 11;
+        gbc.gridx = 3;
+        gbc.gridy = 9;
         gbc.gridwidth = 1;
         pComponentes.add(fDtNascimento, gbc);
         return pComponentes;
@@ -406,6 +448,8 @@ public class Cadastro_Animal implements ActionListener {
     }
      }
 
+    
+    
     private void criarJanela() {
         frame = new JFrame("ANIMAL");
         frame.setVisible(true);
@@ -416,7 +460,7 @@ public class Cadastro_Animal implements ActionListener {
 
     }
 
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) throws ParseException, SQLException, ClassNotFoundException, ExceptionDAO {
        new Cadastro_Animal();  
     }
     
@@ -433,36 +477,57 @@ public class Cadastro_Animal implements ActionListener {
     especie=rbgato.getText();
     }
      //Sexo do animal;
-    char sexo='A';
+    String sexo="";
    if(rbmascolino.isSelected()){
-    sexo=rbmascolino.getText().charAt(0);
+    sexo=rbmascolino.getText();
    }
     if(rbfeminino.isSelected()){
-    sexo=rbfeminino.getText().charAt(0);
+    sexo=rbfeminino.getText();
     }
     String raca=cRaca.getSelectedItem().toString();
     String cor= cCor.getSelectedItem().toString();
-    float peso= vv.StringToFloat(fPeso.getText());
-        
-        
-        String data= fDtNascimento.getText();//""+vv.StringToDate(fDtNascimento.getText());
+    float peso= vv.StringToFloat(fPeso.getText());    
+    String data= fDtNascimento.getText();
     boolean sucesso;
     try{AnimalController animal = new AnimalController();
-    sucesso=animal.cadastrarAnimal(nome, especie, sexo, raca, cor, peso, data, 11, 1);
+    if(idCliente>0 && idVeterinaria>0){
+    sucesso=animal.cadastrarAnimal(nome, especie, sexo, raca, cor, peso, data, idCliente, idVeterinaria);
     if(sucesso){
     JOptionPane.showMessageDialog(null, "O Animal foi cadastrado com sucesso");
     }
     else{JOptionPane.showMessageDialog(null, "Houve um erro ao cadastrar o animal");}
+    }
+  
     }catch(Exception ex){ JOptionPane.showMessageDialog(null, "Erro ao coletar dados do animal"+ex);}
+    
+    }
+    private void receberClientes() throws SQLException, ClassNotFoundException, ExceptionDAO{
+    clientes=new AnimalController().selecionarCliente();
+    for(int i=0; i< clientes.size();i++){
+    cClientes.addItem(clientes.elementAt(i).getNome());
+    }
+    }
+    public void selecionarIdCliente(int id){
+    idCliente=clientes.elementAt(id).getIdCliente();
+    idVeterinaria=clientes.elementAt(id).getIdVeterinaria();
+     info.setText("ID do cliente: "+idCliente);
+    
+   
+    }
+    public void selecionarAnimal (int idAnimal, String nome, String especie, String sexo,String raca, String cor_pelo, float peso, String dt_nascimento) {
+
     
     }
     private void Limpar() {
         fNome.setText("");
+        this.cClientes.setSelectedIndex(-1);
         fPeso.setText("");
         fDtNascimento.setText("");
         this.cCor.setSelectedIndex(-1);
         this.cRaca.removeAllItems();
         botoes.clearSelection();
+        bSexo.clearSelection();
+        info.setText("");
         fNome.requestFocus();
        
 
@@ -474,6 +539,15 @@ public class Cadastro_Animal implements ActionListener {
     }
  
     public void actionPerformed(ActionEvent e) {
+        //Evento para Selecionar o dono do animal
+        if(e.getSource()==cClientes){
+        indice=cClientes.getSelectedIndex();
+        if(indice>=0){
+            selecionarIdCliente(indice);
+        }
+        }
+        
+        
         if (e.getSource() == limpar) {
             Limpar();
         }
