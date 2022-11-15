@@ -40,6 +40,8 @@ public class Menu_Principal implements ActionListener, MouseListener{
     private static Container cadastro_cliente, cadastro_consul;
 
     private static Container painelActual;
+
+   
     private GridBagConstraints gbc = new GridBagConstraints();
     private JButton cliente, animal, servicos, produtos, historico, tema, botao;
     private static JLabel label, iCliente, iAnimal, iProduto, iServico, iHistorico, iTema , iconPrincipal;
@@ -309,6 +311,10 @@ public class Menu_Principal implements ActionListener, MouseListener{
         painelActual = animais.painelCadastro();
         frame.add(painelActual, BorderLayout.CENTER);
 
+    }
+    public void selecionarAnimal(){
+    //sCadastro_Animal animal= new Cadastro_Animal().selecionarAnimal(0, nome, especie, sexo, raca, cor_pelo, RIGHT_ALIGNMENT, dt_nascimento)
+    
     }
 
     
