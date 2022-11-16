@@ -18,19 +18,23 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 import javax.swing.text.MaskFormatter;
 
 public class Cadastro_Vacina implements  ActionListener {
-    private JLabel nome, marca, quant,preco, dtVal ;
+    private JLabel nome, marca, quant,preco, dtVal,especie ;
     private JButton bSalvar, bCancelar, bLimpar;
     private JTextField fNome, fPreco;
     private JFormattedTextField  fDtVal;
     private JFrame frame;
-    private JComboBox cMarca;
+    private JComboBox cMarca,cNome;
+    private JRadioButton rbcao, rbgato;
+    private ButtonGroup botoes;
     private JSpinner spQuant;
      private String[] listaMarca = { "Zoetis", "Boehringer ingelheim", "VANGUARD ", "SERUM INSTITUTE OF INDIA PVT","Outro" };
     GridBagConstraints gbc = new GridBagConstraints();
@@ -43,14 +47,34 @@ public class Cadastro_Vacina implements  ActionListener {
 
     
     public void inicializarComponentes(){
+        
+         //Especie
+        especie = new JLabel("Especie ");
+        especie.setForeground(Color.gray);
+        botoes = new ButtonGroup();
+        //Radio Button Cao
+        rbcao = new JRadioButton("Canina");
+        rbcao.setBackground(Color.WHITE);
+        rbcao.addActionListener(this);
+        
+        //Radio Button Gato
+        rbgato = new JRadioButton("Felina");
+        rbgato.setBackground(Color.WHITE);
+        rbgato.addActionListener(this);
+        //Button Group
+        botoes.add(rbcao);
+        botoes.add(rbgato);
+        
+        
+        
     //Informacoes do nome
     //Label
     nome = new JLabel("Nome ");
     nome.setForeground(Color.gray);
     
    //TextField
-    fNome = new JTextField(5);
-    fNome.setColumns(20);
+    cNome = new JComboBox();
+      cNome.setSelectedIndex(-1);
     
     //informacoes da marca
     //Label
@@ -140,34 +164,54 @@ public class Cadastro_Vacina implements  ActionListener {
         JLabel vazio = new JLabel("");
          gbc.insets = new Insets(35, 15, 77, 0);
          painel.add(vazio, gbc);
+         
+         // SEGUNDA FILA --Especie
+        // Label especie
+        gbc.insets = new Insets(35, 15, -7, 0);//Insets de Label
+        gbc.gridy = 0;
+        gbc.gridx = 1;
+        painel.add(especie, gbc);
+
+        // Radios
+        gbc.insets = new Insets(95, -1, -7, 0);//Insets e Field,RadioButton, Combobox
+        gbc.gridx = 1;
+        gbc.gridwidth = 1;
+        painel.add(rbcao, gbc);
+
+        gbc.insets = new Insets(95, -4, -7, 0);
+        gbc.gridx = 2;
+        gbc.gridwidth = 1;
+        painel.add(rbgato, gbc);
+         
+         
         // Informacoes d o nome
-       
-        
         // nome
         gbc.insets = new Insets(35, 15, -27, 0);
-        gbc.gridy = 1;
+        gbc.gridy = 3;
         gbc.gridx = 1;
-        gbc.ipady = 12;
         painel.add(nome, gbc);
+       
         // Field nome
         gbc.insets = new Insets(35, 5, 0, 10);
         gbc.gridx = 1;
-        gbc.gridy = 2;
+        gbc.gridy = 4;
+        gbc.ipady = 6;
         gbc.gridwidth = 1;
-        painel.add(fNome, gbc);
+        painel.add(cNome, gbc);
 
         // SEGUNDA FILA
         // Label MARCA
         gbc.insets = new Insets(35, 15, -27, 0);
-        gbc.gridy = 3;
+        gbc.gridy = 1;
         gbc.gridx = 1;
+        gbc.ipady = 12;
         painel.add(marca, gbc);
 
         // BOX MARCA
         gbc.insets = new Insets(35, 5, 0, 10);
         gbc.ipady = 6;
         gbc.gridx = 1;
-        gbc.gridy = 4;
+        gbc.gridy = 2;
         gbc.gridwidth = 1;
         painel.add(cMarca, gbc);
 
@@ -179,15 +223,12 @@ public class Cadastro_Vacina implements  ActionListener {
         painel.add(quant, gbc);
 
         // SPINNER QUANT
-        gbc.insets = new Insets(35, 5, 40, 10);
+        gbc.insets = new Insets(35, 5, 90, 10);
         gbc.ipady = 15;
         gbc.gridy = 6;
         gbc.gridx = 1;
         gbc.gridwidth = 1;
         painel.add(spQuant, gbc);
-        
-        
-        
         
         // Informacoes dE preco
         // precp
