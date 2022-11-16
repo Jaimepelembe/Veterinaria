@@ -58,6 +58,71 @@ public class AnimalDAO {
     cm.fecharConexao(pstate, con);
     }
     }
+    
+public void actualizarAnimal(Animal animal) throws SQLException, ClassNotFoundException, ExceptionDAO{
+    String nome,especie,sexo,raca,cor,data;
+    int id;
+    float peso;
+    id=animal.getIdAnimal();
+    nome=animal.getNome();
+    especie=animal.getEspecie();
+    sexo=animal.getSexo();
+    raca=animal.getRaca();
+    cor=animal.getCor_pelo();
+    peso=animal.getPeso();
+    data=animal.getDt_nascimento();
+   
+    
+    String sql="update animal set nome= ?,especie= ?,sexo= ?, raca=?,cor_pelo=?,peso=?,dt_nascimento=? where idAnimal=?";
+    PreparedStatement pstate=null;
+    Connection con=null;
+        
+    try{
+    con=new ConnectionBD().getConnection();//Criar conexao
+    pstate=con.prepareStatement(sql);//Preparar o Statement
+    pstate.setString(1, nome);
+    pstate.setString(2, especie);
+    pstate.setString(3, sexo);
+    pstate.setString(4, raca);
+    pstate.setString(5, cor);
+    pstate.setFloat(6, peso);
+    pstate.setString(7, data);
+    pstate.setInt(8, id);
+    pstate.executeUpdate();
+    pstate.close();
+    
+    }
+    catch(SQLException ex){JOptionPane.showMessageDialog(null, "Erro ao actualizar o animal na base de dados"+ex);
+       }
+    //Fechar prepared Statement e connection
+    finally{ ConnectionBD cm= new ConnectionBD();
+    cm.fecharConexao(pstate, con);
+    }
+    }    
+public void apagarAnimal(Animal animal) throws SQLException, ClassNotFoundException, ExceptionDAO{
+    int id;
+    id=animal.getIdAnimal();
+    
+    String sql="delete from animal where idAnimal=?";
+    PreparedStatement pstate=null;
+    Connection con=null;
+        
+    try{
+    con=new ConnectionBD().getConnection();//Criar conexao
+    pstate=con.prepareStatement(sql);//Preparar o Statement
+    pstate.setInt(1, id);//idAnimal
+    pstate.executeUpdate();
+    pstate.close();
+    
+    }
+    catch(SQLException ex){JOptionPane.showMessageDialog(null, "Erro ao apagar o Animal da base de dados"+ex);
+       }
+    //Fechar prepared Statement e connection
+    finally{ ConnectionBD cm= new ConnectionBD();
+    cm.fecharConexao(pstate, con);
+    }
+    }
+
 public Vector<Cliente> selecionarCliente() throws SQLException, ClassNotFoundException, ExceptionDAO{
 Connection cn=null;
 PreparedStatement pstate=null;

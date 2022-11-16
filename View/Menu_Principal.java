@@ -40,6 +40,8 @@ public class Menu_Principal implements ActionListener, MouseListener{
     private static Container cadastro_cliente, cadastro_consul;
 
     private static Container painelActual;
+
+   
     private GridBagConstraints gbc = new GridBagConstraints();
     private JButton cliente, animal, servicos, produtos, historico, tema, botao;
     private static JLabel label, iCliente, iAnimal, iProduto, iServico, iHistorico, iTema , iconPrincipal;
@@ -298,7 +300,6 @@ public class Menu_Principal implements ActionListener, MouseListener{
     }
 
     public static void ResulConsultaCliente(Container contentor) {
-        //Cadastro_Cliente cliente = new Cadastro_Cliente();
         //Remover o painel que esta no centro
         removerPainelCentral();
         painelActual =  contentor; //cliente.painelResultConsulta();
@@ -348,9 +349,24 @@ public class Menu_Principal implements ActionListener, MouseListener{
         frame.add(painelActual, BorderLayout.CENTER);
 
     }
+    //Dados do animal selecionado na consulta
+    public static void ResulConsultaAnimal(Container contentor) {   
+        //Remover o painel que esta no centro
+        removerPainelCentral();
+        painelActual =  contentor;
+        frame.add(painelActual, BorderLayout.CENTER);
+        frame.setVisible(true);
+    }
+    
+    public static void addAnimalCliente(Container contentor){
+       removerPainelCentral();
+        painelActual =  contentor;
+        frame.add(painelActual, BorderLayout.CENTER);
+        frame.setVisible(true);
+    }
 
     
-      public void cadastro_Vacina(){
+    public void cadastro_Vacina(){
     Cadastro_Vacina vacinas= new Cadastro_Vacina();
     mudarCor();
     produtos.setBackground(cor2);
@@ -385,7 +401,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
 
     
 
-    //Paimel que exibe a informacao do animal selecionado na busca a BD
+    //Painel que exibe a informacao do animal selecionado na busca a BD
     public void Resul_consultaAnimal() throws SQLException, ClassNotFoundException, ExceptionDAO {
         Cadastro_Animal animais = new Cadastro_Animal();
         //Remover o painel que esta no centro
@@ -395,16 +411,12 @@ public class Menu_Principal implements ActionListener, MouseListener{
     }
 
     public void Tabela_animal() {
-
         Tabela_Consulta_Animal tAnimal = new Tabela_Consulta_Animal();
-        //// consulta_animal = tAnimal.componentes();
-//        frame.add(consulta_animal, BorderLayout.CENTER);
-
         mudarCor();
         animal.setBackground(cor2);
+        
         removerPainelCentral();
-        painelActual = tAnimal.componentes();
-
+        painelActual = tAnimal.pPrincipal();
         frame.add(painelActual, BorderLayout.CENTER);
 
     }

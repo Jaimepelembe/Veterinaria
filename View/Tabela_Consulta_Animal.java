@@ -7,6 +7,7 @@ package View;
 
 import Controller.AnimalController;
 import Controller.ClienteController;
+import Model.DAO.ExceptionDAO;
 import Model.VO.Animal;
 import Model.VO.Cliente;
 import java.awt.BorderLayout;
@@ -18,7 +19,10 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
+import java.sql.SQLException;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -49,7 +53,7 @@ public class Tabela_Consulta_Animal extends MouseAdapter implements ActionListen
 
     public Tabela_Consulta_Animal() {
         inicializar();
-        criarJanela();
+        //criarJanela();
     }
 
     public void inicializar() {
@@ -209,7 +213,7 @@ public class Tabela_Consulta_Animal extends MouseAdapter implements ActionListen
         return pTabela;
     }
 
-     private void selecionarAnimal() {//Levar todos atributos e passar para tela de cadastro
+     private void selecionarAnimal() throws SQLException, ClassNotFoundException, ExceptionDAO {//Levar todos atributos e passar para tela de cadastro
         Integer linha = tabela.getSelectedRow();
         int id =  (Integer)tabela.getModel().getValueAt(linha, 0);
         String nome = (String) tabela.getModel().getValueAt(linha, 1);
@@ -219,9 +223,10 @@ public class Tabela_Consulta_Animal extends MouseAdapter implements ActionListen
         String pelo = (String) tabela.getModel().getValueAt(linha, 5);
        float peso = (Float) tabela.getModel().getValueAt(linha, 6);
        String data = (String) tabela.getModel().getValueAt(linha, 7);
-        
-        Cadastro_Cliente cliente= new Cadastro_Cliente();
-      //  cliente.selecionarCliente(id, nome, telefone, morada);
+        //Passar a informacao do animal selecionado para a tela de Consulta
+        Cadastro_Animal animal = new Cadastro_Animal();
+        animal.selecionarAnimal(id, nome, especie, sexo, raca, pelo, peso, data);
+     
        
 
     }
@@ -319,7 +324,15 @@ public class Tabela_Consulta_Animal extends MouseAdapter implements ActionListen
     
     public void mouseClicked(java.awt.event.MouseEvent evt) {
         if (evt.getClickCount() == 2) {
-           selecionarAnimal();
+            try {
+                selecionarAnimal();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao Selecionar os dados do animal"+ ex);
+            } catch (ClassNotFoundException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao Selecionar os dados do animal"+ ex);
+            } catch (ExceptionDAO ex) {
+                 JOptionPane.showMessageDialog(null, "Erro ao Selecionar os dados do animal"+ ex);
+            }
         }
     }
 
