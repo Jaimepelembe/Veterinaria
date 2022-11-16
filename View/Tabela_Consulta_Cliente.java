@@ -34,7 +34,7 @@ import javax.swing.table.TableColumn;
 public class Tabela_Consulta_Cliente extends MouseAdapter implements ActionListener {
 
     private JLabel nome, tel, morada;
-    private JTextField fNome, fTel;
+    private JTextField fNome;
     private JFrame frame;
     private JComboBox cDistrito;
     private JTable tabela;
@@ -60,12 +60,6 @@ public class Tabela_Consulta_Cliente extends MouseAdapter implements ActionListe
         //TextField Nome
         fNome = new JTextField(5);
         fNome.setColumns(17);
-        //Label Telefone
-        tel = new JLabel("Telefone ");
-        tel.setForeground(Color.gray);
-        //Field Telefone
-        fTel = new JTextField();
-        fTel.setColumns(9);
 
         //Label Morada
         morada = new JLabel(" Morada");
@@ -112,21 +106,6 @@ public class Tabela_Consulta_Cliente extends MouseAdapter implements ActionListe
         gbc.gridwidth = 1;
         gbc.insets = new Insets(35, 5, 0, 10);
         painel.add(bPesquisar, gbc);
-
-
-//        // SEGUNDA FILA
-//        // Label Telelfone
-//        gbc.insets = new Insets(35, 95, 0, 0);
-//        gbc.gridy = 1;
-//        gbc.gridx = 2;
-//        painel.add(tel, gbc);
-//        gbc.ipady = 6;
-
-//        // Field telefone
-//        gbc.insets = new Insets(35, 70, 0, 20);
-//        gbc.gridx = 3;
-//        gbc.gridwidth = 1;
-//        painel.add(fTel, gbc);
 
         // terceira
         // Label distrito
@@ -275,11 +254,13 @@ public class Tabela_Consulta_Cliente extends MouseAdapter implements ActionListe
         //Evento para selecionar o distritos dos clientes
         if (e.getSource() == cDistrito) {
             pesquisarClienteMorada();
+            fNome.setText("");
         }
         
        //Evento para selecionar o cliente pelo nome
        if(e.getSource()==bPesquisar){
        pesquisarClienteNome();
+       cDistrito.setSelectedIndex(-1);
        }
        
     }

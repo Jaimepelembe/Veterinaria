@@ -1,6 +1,7 @@
 package View;
 
 import Controller.AnimalController;
+import Controller.ClienteController;
 import Controller.Validacao;
 import Model.DAO.ExceptionDAO;
 import Model.VO.Cliente;
@@ -36,7 +37,7 @@ import javax.swing.text.MaskFormatter;
 public class Cadastro_Animal implements ActionListener {
 
     private JLabel nome, especie, raca, cor, dtNascimento, peso, kg,codigoCliente, escolha, sexo, info;
-    private JButton salvar, cancelar, limpar, bEliminar, bHistorico;
+    private JButton bActualizar,salvar, cancelar, limpar, bEliminar, bHistorico;
     private JTextField fNome;
     private Vector<Cliente> clientes;
     private static JFormattedTextField fPeso, fDtNascimento;
@@ -55,7 +56,7 @@ public class Cadastro_Animal implements ActionListener {
 
     public Cadastro_Animal() throws SQLException, ClassNotFoundException, ExceptionDAO {
         inicializarComponentes();
-        criarJanela();
+       // criarJanela();
     }
 
     private void inicializarComponentes() throws SQLException, ClassNotFoundException, ExceptionDAO {
@@ -148,17 +149,26 @@ public class Cadastro_Animal implements ActionListener {
         fPeso = new JFormattedTextField();
         fPeso.setColumns(10);
         formatarCampo(fPeso);
+        
         //Receber os clientes da BD
         receberClientes();
-        cClientes.setSelectedIndex(-1);
 
-        //Botoes Salvar,Limpar e cancelar
+        //Botoes Actualizar Salvar,Limpar e cancelar
+         //Botao Actualizar
+        bActualizar = new JButton("Update");
+        bActualizar.setForeground(Color.white);
+        bActualizar.setBackground(Color.darkGray);
+        bActualizar.addActionListener(this);
+        
+        
         //Botao salvar
         salvar = new JButton("Salvar");
         salvar.setForeground(Color.white);
         salvar.setBackground(Color.green);
         salvar.addActionListener(this);
         salvar.setFocusPainted(false);
+        
+        
 
         //Botao limpar
         limpar = new JButton("Limpar");
@@ -180,12 +190,14 @@ public class Cadastro_Animal implements ActionListener {
         bHistorico.setForeground(Color.white);
         bHistorico.setBackground(Color.pink);
         bHistorico.setFocusPainted(false);
+        bHistorico.addActionListener(this);
 
         //Botao Eliminar
         bEliminar = new JButton("Eliminar");
         bEliminar.setForeground(Color.white);
         bEliminar.setBackground(Color.orange);
         bEliminar.setFocusPainted(false);
+        bEliminar.addActionListener(this);
     }
 
     private void formatarCampo(JTextField campoTexto) {
@@ -196,7 +208,7 @@ public class Cadastro_Animal implements ActionListener {
                 mascara.install(fDtNascimento);
             }
             if (campoTexto == fPeso) {
-                mascara.setMask("###");
+                mascara.setMask("## ");
                 mascara.install(fPeso);
             }
 
@@ -397,7 +409,7 @@ public class Cadastro_Animal implements ActionListener {
         gbc.ipady = 5;
         gbc.gridx = 0;
         gbc.gridy = 0;
-        pbConsulta.add(salvar, gbc);
+        pbConsulta.add(bActualizar, gbc);
 
         //Botao Ver historico
         gbc.gridx = 1;
@@ -428,7 +440,7 @@ public class Cadastro_Animal implements ActionListener {
             pPrincipal.remove(pbActual);
         }
     }
-    
+  
     private void selecionarRaca(){
     if(rbcao.isSelected()){
         this.cRaca.removeAllItems();
@@ -465,16 +477,17 @@ public class Cadastro_Animal implements ActionListener {
     }
     
   //Metodo para passar os dados recolhidos dos componentes para Controller
- 
     private void receberClientes() throws SQLException, ClassNotFoundException, ExceptionDAO{
     clientes=new AnimalController().selecionarCliente();
     for(int i=0; i< clientes.size();i++){
-    cClientes.addItem(clientes.elementAt(i).getNome());
+    this.cClientes.addItem(clientes.elementAt(i).getNome());
+    
     }
+    this.cClientes.setSelectedIndex(-1);
     }
-    public void selecionarIdCliente(int id){
-    idCliente=clientes.elementAt(id).getIdCliente();
-    idVeterinaria=clientes.elementAt(id).getIdVeterinaria();
+    public void selecionarIdCliente(int indice){
+    idCliente=clientes.elementAt(indice).getIdCliente();
+    idVeterinaria=clientes.elementAt(indice).getIdVeterinaria();
      info.setText("ID do cliente: "+idCliente);
     
    
@@ -492,26 +505,105 @@ public class Cadastro_Animal implements ActionListener {
         SelectcomboBox(raca);
         
         //Selecionar sexo
-        if(sexo=="F"){
+        if(sexo.equalsIgnoreCase("F")){
         rbfeminino.setSelected(true);
+        rbmascolino.setSelected(false);
        
         }else{rbmascolino.setSelected(true);
+        rbfeminino.setSelected(false);
         }
+        
        //Selectionsr Cor do pelo
        cCor.setSelectedIndex(SelectcomboBox(cor_pelo, cCor));
        //Preencher o peso
-       fPeso.setText(""+peso);
+       String p="";
+       if(peso<10){
+      p="0"+peso;
+       }
+       if(peso>10){
+        p=peso+"";
+       }
+        fPeso.setText(p);
        
        //Preencher data de nascimento
        fDtNascimento.setText(dt_nascimento);
        
-       
-        
-        
         //Passar o painel do resultado da consulta para o menu 
-       // new Menu_Principal().ResulConsultaCliente(painelResultConsulta());
-     // Menu_Principal.ResulConsultaAnimal(painelResulConsulta());
+        Menu_Principal.ResulConsultaAnimal(painelResulConsulta());
+   
         
+    
+    }
+    //Metodo retorna o sexo que foi selecionado
+    private String sexoSelecionado(){
+        String sexo="";
+    if(rbfeminino.isSelected()){
+    sexo="F";
+    }
+    
+    if(rbmascolino.isSelected()){
+    sexo="M";
+    }
+    return sexo;}
+     
+    private String especieSelecionada(){
+        String especie="";
+    if(rbcao.isSelected()){
+    especie="Canina";
+    }
+    
+    if(rbgato.isSelected()){
+    especie="Felina";
+    }  
+    return especie;}
+    
+     public void actualizarAnimal(){
+        
+      //nome  animal cliente
+        String nome = fNome.getText();
+        String especie =especieSelecionada();
+        String sexo = sexoSelecionado();
+        //Raca do animal
+        String raca="";
+        if(cRaca.getSelectedIndex()>-1){
+        raca=cRaca.getSelectedItem().toString();}
+        //Cor do animal
+        String cor="";
+        if(cCor.getSelectedIndex()>-1){
+        cor=cCor.getSelectedItem().toString();
+        }
+        float peso=vv.StringToFloat(fPeso.getText());
+        String data=fDtNascimento.getText();
+
+        boolean sucesso;
+        try {
+            AnimalController animal = new AnimalController();
+            sucesso = animal.actualizarAnimal(idAnimal, nome, especie, sexo, raca, cor, peso, data);
+            if (sucesso) {
+                JOptionPane.showMessageDialog(null, "O Animal foi actualizado com sucesso");
+            } else {
+                JOptionPane.showMessageDialog(null, "Houve um erro ao actualizar o Animal");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao actualizar dados do Animal" + ex);
+        }
+    
+    }
+     
+   public void apagarAnimal(){
+        boolean sucesso;
+        try {
+           AnimalController animal = new AnimalController();
+           if(this.idAnimal>-1){
+            sucesso = animal.apagarAnimal(this.idAnimal);
+            if (sucesso) {
+                JOptionPane.showMessageDialog(null, "O Animal foi apagado com sucesso");
+            } else {
+                JOptionPane.showMessageDialog(null, "Houve um erro ao apagar o animal");
+            }}
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao apagar o animal" + ex);
+        }
     
     }
     
@@ -595,23 +687,16 @@ public class Cadastro_Animal implements ActionListener {
         a.iconPrincipal();
         a.mudarCor();
     }
-// public void setinfo(Object nomecomponente,Object info){
-// if(nomecomponente==fNome){
-//     fNome.setText(""+info);
-//     System.out.println("Ola jaime");
-//     
-// }
-// 
-// }
+
     public void actionPerformed(ActionEvent e) {
         //Evento para Selecionar o dono do animal
-        if(e.getSource()==cClientes){
+        if(e.getSource()==cClientes && cClientes.isShowing()){
+            
         indice=cClientes.getSelectedIndex();
         if(indice>=0){
             selecionarIdCliente(indice);
         }
         }
-        
         
         if (e.getSource() == limpar) {
             Limpar();
@@ -628,10 +713,7 @@ public class Cadastro_Animal implements ActionListener {
         //Selecionar Cao
         if(e.getSource()==rbcao){
             selecionarRaca();
-//            System.out.println("Ola mundo");
-//            cRaca.addItem("Ola");
-//            cRaca.addItem("Oi");
-//            cRaca.removeAllItems();
+//           
         }
         //Evento para selecionar Gato
         if(e.getSource()==rbgato){
@@ -640,6 +722,18 @@ public class Cadastro_Animal implements ActionListener {
          if(e.getSource()==cancelar){
        colocarIconMenu();
        }
+   //Evento para Actualizar os dados do animal
+   if(e.getSource()==bActualizar){
+   actualizarAnimal();
+       Limpar();
+   }
+   //Evento para apagar o animal
+   if(e.getSource()==bEliminar){
+    apagarAnimal();
+       Limpar();
+   }
+  
+   
     }
     
     

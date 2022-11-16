@@ -1,6 +1,7 @@
 package View;
 
 import Controller.ClienteController;
+import Model.DAO.ExceptionDAO;
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,7 +16,10 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
@@ -105,19 +109,19 @@ public class Cadastro_Cliente implements ActionListener {
         bActualizar.setForeground(Color.white);
         bActualizar.setBackground(Color.darkGray);
         bActualizar.addActionListener(this);
-        
-        //Adicionar Animal
-       bAnimal= new JButton("Add Animal");
-       bAnimal.setForeground(Color.white);
-       bAnimal.setBackground(Color.blue);
-       bAnimal.addActionListener(this);
-       
 
         //Botao Eliminar
         bEliminar = new JButton("Eliminar");
         bEliminar.setForeground(Color.white);
         bEliminar.setBackground(Color.orange);
         bEliminar.addActionListener(this);
+        
+        //        //Adicionar Animal
+//       bAnimal= new JButton("Add Animal");
+//       bAnimal.setForeground(Color.white);
+//       bAnimal.setBackground(Color.blue);
+//       bAnimal.addActionListener(this);
+       
 
     }
 
@@ -214,15 +218,15 @@ public class Cadastro_Cliente implements ActionListener {
         gbc.gridy = 0;
         pbConsulta.add(bActualizar, gbc);
 
-         gbc.gridx = 1;
-        pbConsulta.add(bAnimal, gbc);
+//         gbc.gridx = 1;
+//        pbConsulta.add(bAnimal, gbc);
         
         //Botao Eliminar
-        gbc.gridx = 2;
+        gbc.gridx = 1;
         pbConsulta.add(bEliminar, gbc);
 
         //Botao Cancelar
-        gbc.gridx = 3;
+        gbc.gridx = 2;
         pbConsulta.add(bCancelar, gbc);
 
         return pbConsulta;
@@ -308,9 +312,6 @@ public class Cadastro_Cliente implements ActionListener {
 
     public static void main(String[] args) {
         new Cadastro_Cliente();
-       //fTel.setText("olla");
-       // System.out.println(fTel.getText());
-
     }
 
     public void Limpar() {
@@ -343,7 +344,7 @@ public class Cadastro_Cliente implements ActionListener {
 
     }
     
-    public void actualizarCiente(){
+    public void actualizarCliente(){
         
       //nome do cliente
         String nome = fNome.getText();
@@ -367,7 +368,7 @@ public class Cadastro_Cliente implements ActionListener {
     
     }
 
- public void apagarCiente(){
+ public void apagarCliente(){
 
         boolean sucesso;
         try {
@@ -384,6 +385,13 @@ public class Cadastro_Cliente implements ActionListener {
     
     }
   //Volta a colocar a imagem central no Painel do menu Principal
+ 
+// //Metodo para adicionar um animal ao cliente
+// public void adicionarAnimal() throws SQLException, ClassNotFoundException, ExceptionDAO{   
+// Cadastro_Animal animal = new Cadastro_Animal();
+// Menu_Principal.addAnimalCliente( animal.painelCadastro());
+//         
+//         }
  
     public void colocarIconMenu() {
         Menu_Principal a = new Menu_Principal("");
@@ -405,16 +413,30 @@ public class Cadastro_Cliente implements ActionListener {
         }
         //Evento para actualizar dados do cliente
         if(e.getSource()==bActualizar){
-        actualizarCiente();
+        actualizarCliente();
+            Limpar();
         }
-         //Evento para apagardados o cliente da BD
+         //Evento para apagar dados o cliente da BD
        if(e.getSource()==bEliminar){
-       apagarCiente();
+       apagarCliente();
+           Limpar();
        } 
        if(e.getSource()==bCancelar){
        colocarIconMenu();
        }
-       
+       //Evento para Adicionar um animal ao cliente
+//         if(e.getSource()==bAnimal){
+//            try {
+//                adicionarAnimal();
+//            } catch (SQLException ex) {
+//                JOptionPane.showMessageDialog(null, "Erro ao Adicionar o animal" +ex);
+//            } catch (ClassNotFoundException ex) {
+//              JOptionPane.showMessageDialog(null, "Erro ao Adicionar o animal" +ex);
+//            } catch (ExceptionDAO ex) {
+//                JOptionPane.showMessageDialog(null, "Erro ao Adicionar o animal" +ex);
+//            }
+//       
+//       } 
     }
 
 }

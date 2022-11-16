@@ -29,6 +29,35 @@ public class AnimalController {
         return false;
     }
 
+   public boolean actualizarAnimal(int id,String nome, String especie, String sexo,String raca,String cor,float peso,String data) throws SQLException, ClassNotFoundException, ExceptionDAO{
+    Validacao vv= new Validacao();
+if(id>0 && vv.validarString(nome) && vv.validarString(especie) && vv.validarString(sexo) && vv.validarString(raca) && vv.validarString(cor) && peso>0 && vv.validarString(data)){
+ Animal animal = new Animal();
+ animal.setIdAnimal(id);
+ animal.setNome(nome);
+ animal.setEspecie(especie);
+ animal.setSexo(sexo);
+ animal.setRaca(raca);
+ animal.setCor_pelo(cor);
+ animal.setPeso(peso);
+ animal.setDt_nascimento(data);
+ 
+ animal.actualizarAnimal(animal);
+ return true;
+ }
+ return false;
+} 
+  
+   public boolean apagarAnimal(int id) throws SQLException, ClassNotFoundException, ExceptionDAO{
+Animal animal= new Animal();
+if(id>0){
+ animal.setIdAnimal(id);
+animal.apagarAnimal(animal);
+ return true;
+ }
+ return false;
+}   
+   
     public Vector<Cliente> selecionarCliente() throws SQLException, ClassNotFoundException, ExceptionDAO {
 
         return new AnimalDAO().selecionarCliente();

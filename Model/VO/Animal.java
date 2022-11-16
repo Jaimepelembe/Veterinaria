@@ -6,6 +6,7 @@ package Model.VO;
 
 import Controller.AnimalController;
 import Model.DAO.AnimalDAO;
+import Model.DAO.ClienteDAO;
 import Model.DAO.ExceptionDAO;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -58,6 +59,13 @@ public void cadastrarAnimal(Animal animal) throws SQLException, ClassNotFoundExc
 new AnimalDAO().cadastrarAnimal(animal);
 }
 
+ public void actualizarAnimal(Animal animal) throws SQLException, ClassNotFoundException, ExceptionDAO{
+new AnimalDAO().actualizarAnimal(animal);
+} 
+ 
+public void apagarAnimal(Animal animal)  throws SQLException, ClassNotFoundException, ExceptionDAO{
+new AnimalDAO().apagarAnimal(animal);
+} 
 
 public Vector<Cliente> selecionarCliente() throws SQLException, ClassNotFoundException, ExceptionDAO{
 return  new AnimalController().selecionarCliente();
