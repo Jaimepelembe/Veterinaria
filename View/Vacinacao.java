@@ -1,6 +1,14 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package View;
 
-import Controller.VacinaController;
+/**
+ *
+ * @author Valter Boa 53
+ */
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -24,41 +32,39 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 
-public class Cadastro_Vacina implements  ActionListener {
-    private JLabel nome, marca, quant,preco, dtVal ;
+public class Vacinacao  implements ActionListener{
+       private JLabel animal, vacina, data, quant, preco ;
     private JButton bSalvar, bCancelar, bLimpar;
-    private JTextField fNome, fPreco;
+    private JTextField fData, fPreco;
     private JFormattedTextField  fDtVal;
     private JFrame frame;
-    private JComboBox cMarca;
+    private JComboBox cMarca, cAnimal;
     private JSpinner spQuant;
      private String[] listaMarca = { "Zoetis", "Boehringer ingelheim", "VANGUARD ", "SERUM INSTITUTE OF INDIA PVT","Outro" };
     GridBagConstraints gbc = new GridBagConstraints();
-
-    public Cadastro_Vacina() {
-
+    
+     public Vacinacao() {
     criarJanela();
     }
     
-
-    
-    public void inicializarComponentes(){
-    //Informacoes do nome
+     public void inicializarComponentes(){
+    //Informacoes do Animal
     //Label
-    nome = new JLabel("Nome ");
-    nome.setForeground(Color.gray);
+    animal = new JLabel("Animal ");
+    animal.setForeground(Color.gray);
     
-   //TextField
-    fNome = new JTextField(5);
-    fNome.setColumns(20);
+   //bocx de animais
+      cAnimal = new JComboBox();
+      cAnimal.setSelectedIndex(-1);
     
-    //informacoes da marca
+    //informacoes da vacina
     //Label
-    marca = new JLabel("Marca");
+    vacina = new JLabel("Vacina");
       cMarca = new JComboBox(listaMarca);
       cMarca.setSelectedIndex(-1);
      //BOX
-     marca.setForeground(Color.gray);
+     vacina.setForeground(Color.gray);
+     
      
      //Informacoes QUANTIDADE
      //Label
@@ -77,26 +83,26 @@ public class Cadastro_Vacina implements  ActionListener {
     fPreco = new JTextField(5);
     fPreco.setColumns(20);
      
-   //INFORMACOES SOBRE DATA 
+   //INFORMACOES SOBRE DATA da vacinacao 
      //Label
-    dtVal = new JLabel("Data de Validade ");
-    dtVal.setForeground(Color.gray);
+    data = new JLabel("Data de Vacinação ");
+    data.setForeground(Color.gray);
     
    //TextField
-    fDtVal = new JFormattedTextField();
-    fDtVal.setColumns(20);
-    formatarCampo(fDtVal);
+    fData = new JFormattedTextField();
+    fData.setColumns(20);
+    formatarCampo(fData);
 
         
         
      //Botoes 
      //Salvar
-       bSalvar = new JButton("       Salvar       ");
+       bSalvar = new JButton("    Salvar       ");
        bSalvar.setForeground(Color.white);
        bSalvar.setBackground(Color.green);
        bSalvar.setBorderPainted(false);
-       bSalvar.addActionListener(this);
        bSalvar.setFocusPainted(false);
+      //bSalvar.addActionListener(this);
        
       //Eliminar
        bLimpar = new JButton("Limpar");
@@ -128,9 +134,9 @@ public class Cadastro_Vacina implements  ActionListener {
              JOptionPane.showMessageDialog(null, "Erro ao formatar Campo de texto");
          }
     
+         
     }
-       
-    public Container adicionarComponentes() {
+     public Container adicionarComponentes() {
         inicializarComponentes();
         JPanel painel = new JPanel();
         painel.setBackground(Color.white);
@@ -140,28 +146,29 @@ public class Cadastro_Vacina implements  ActionListener {
         JLabel vazio = new JLabel("");
          gbc.insets = new Insets(35, 15, 77, 0);
          painel.add(vazio, gbc);
-        // Informacoes d o nome
-       
         
-        // nome
+// Informacoes da vacina
+        // Animal
         gbc.insets = new Insets(35, 15, -27, 0);
         gbc.gridy = 1;
         gbc.gridx = 1;
         gbc.ipady = 12;
-        painel.add(nome, gbc);
-        // Field nome
+        painel.add(animal, gbc);
+        
+        // box vacina/ marca
         gbc.insets = new Insets(35, 5, 0, 10);
         gbc.gridx = 1;
         gbc.gridy = 2;
-        gbc.gridwidth = 1;
-        painel.add(fNome, gbc);
+        gbc.gridwidth = 2;
+        painel.add(cAnimal, gbc);
 
+        
         // SEGUNDA FILA
-        // Label MARCA
+        // Label vacina
         gbc.insets = new Insets(35, 15, -27, 0);
         gbc.gridy = 3;
         gbc.gridx = 1;
-        painel.add(marca, gbc);
+        painel.add(vacina, gbc);
 
         // BOX MARCA
         gbc.insets = new Insets(35, 5, 0, 10);
@@ -174,48 +181,48 @@ public class Cadastro_Vacina implements  ActionListener {
         // terceira
         // Label quant
         gbc.insets = new Insets(35, 15, -27, 0);
-        gbc.gridy = 5;
-        gbc.gridx = 1;
+        gbc.gridy = 3;
+        gbc.gridx = 2;
+        
         painel.add(quant, gbc);
 
         // SPINNER QUANT
-        gbc.insets = new Insets(35, 5, 40, 10);
+        gbc.insets = new Insets(35, 5, 0, 10);
         gbc.ipady = 15;
-        gbc.gridy = 6;
-        gbc.gridx = 1;
-        gbc.gridwidth = 1;
-        painel.add(spQuant, gbc);
-        
-        
-        
-        
-        // Informacoes dE preco
-        // precp
-        gbc.insets = new Insets(35, 45, -27, 0);
-        gbc.gridy = 1;
-        gbc.gridx = 2;
-        gbc.ipady = 12;
-        painel.add(preco, gbc);
-        // Field nome
-        gbc.insets = new Insets(35, 35, 0, 10);
-        gbc.gridx = 2;
-        gbc.gridy = 2;
-        gbc.gridwidth = 1;
-        painel.add(fPreco, gbc);
-
-        // SEGUNDA FILA
-        // Label data
-        gbc.insets = new Insets(35, 45, -27, 0);
-        gbc.gridy = 3;
-        gbc.gridx = 2;
-        painel.add(dtVal, gbc);
-
-        // field data
-        gbc.insets = new Insets(35, 35, 0, 10);
         gbc.gridx = 2;
         gbc.gridy = 4;
         gbc.gridwidth = 1;
-        painel.add(fDtVal, gbc);
+        painel.add(spQuant, gbc);
+       
+        // SEGUNDA FILA
+        // Label data
+        gbc.insets = new Insets(35, 15, -27, 0);
+        gbc.gridy = 5;
+        gbc.gridx = 1;
+        painel.add(data, gbc);
+
+        // field data
+        gbc.insets = new Insets(35, 5, 70, 10);
+        gbc.gridy = 6;
+        gbc.gridx = 1;
+        gbc.gridwidth = 1;
+        painel.add(fData, gbc);
+         
+        // Informacoes dE preco
+        // precp
+        gbc.insets = new Insets(35, 15, -27, 0);
+        gbc.gridy = 5;
+        gbc.gridx = 2;
+        gbc.ipady = 12;
+        painel.add(preco, gbc);
+        
+        // Field preco
+        gbc.insets = new Insets(35, 5, 70, 10);
+        gbc.gridx = 2;
+        gbc.gridy = 6;
+        gbc.gridwidth = 1;
+        painel.add(fPreco, gbc);
+
         
         return painel;
 
@@ -239,23 +246,6 @@ public Container adicionarBotoes() {
         pBotoes.add(bCancelar,gbc);
     return pBotoes;
 }
-
-public Container adicionarImagens() {
-      
-        inicializarComponentes();
-        JPanel pImagens = new JPanel();
-        ImageIcon imageIcon;
-        
-        JLabel label = new JLabel();
-      label.setIcon(new ImageIcon("C:/Users/Valter Boa/Documents/NetBeansProject/veterinaria/src/Imagens/vacina.png"));
-        pImagens.add(label);
-        pImagens.setBackground(Color.white);
-        
-   
-    
-
-    return pImagens;
-}
  public Container componentes() {
 JPanel  pComponentes = new JPanel();
 pComponentes.setBackground(Color.white);
@@ -264,87 +254,59 @@ pComponentes.add(adicionarImagens(), BorderLayout.NORTH);
          pComponentes.add(adicionarBotoes(), BorderLayout.SOUTH);
  
  return pComponentes;}
-      //Volta a colocar a imagem central no Painel do menu Principal
-    public void colocarIconMenu() {
-        Menu_Principal a = new Menu_Principal("");
-        a.iconPrincipal();
-        a.mudarCor();
-    }
-    //limpar
+ public Container adicionarImagens() {
+        inicializarComponentes();
+        JPanel pImagens = new JPanel();
+        ImageIcon imageIcon;
+        
+        JLabel label = new JLabel();
+      label.setIcon(new ImageIcon("C:/Users/Valter Boa/Documents/NetBeansProject/veterinaria/src/Imagens/vacina.png"));
+        pImagens.add(label);
+        pImagens.setBackground(Color.white);
+    return pImagens;
+}
+
+ 
     public void Limpar() {
-        this.fNome.setText("");
-        this.fDtVal.setText("");
-        this.fPreco.setText("");
-        this.cMarca.setSelectedIndex(-1);
-        this.spQuant.setValue(0);
+        cMarca.setSelectedIndex(-1);
+        preco.setText("");
+        data.setText("");
+        //spQuant
+        cMarca.setSelectedIndex(-1);
     }
     
-     public void CadastrarVacina() {
-         //marca da vacina
-        String marca = cMarca.getSelectedItem().toString();
-        
-        //nome da vacina
-        String nome = fNome.getText();
-        
-        //data
-        String data = fDtVal.getText();
-        //data
-        Float preco = Float.parseFloat(fPreco.getText());
-        //data
-        Float quantidade = Float.parseFloat(quant.getText());
-
-        boolean sucesso;
-        try {
-            VacinaController vacina = new VacinaController();
-            sucesso = vacina.cadastrarVacina(marca,nome,data,quantidade,preco);
-            if (sucesso) {
-                JOptionPane.showMessageDialog(null, "A vacina foi cadastrado com sucesso");
-            } else {
-                JOptionPane.showMessageDialog(null, "Houve um erro ao cadastrar a vacina");
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao coletar dados da vacina" + ex);
-        }
-
-    }
-
-    public void criarJanela() {
-        frame = new JFrame("CADASTRO DE VACINA");
+        public void criarJanela() {
+        frame = new JFrame("vacinação");
         frame.setBackground(Color.white);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(730, 690);
-        //frame.add(adicionarImagens(), BorderLayout.NORTH);
-       // frame.add(adicionarComponentes(), BorderLayout.CENTER);
-       //  frame.add(adicionarBotoes(), BorderLayout.SOUTH);
        frame.add(componentes());
         ImageIcon img = new ImageIcon("C:/Users/Valter Boa/Documents/NetBeansProject/veterinaria/src/Imagens/iconVacina.png");
         frame.setIconImage(img.getImage());
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
     }
+         //Volta a colocar a imagem central no Painel do menu Principal
+    public void colocarIconMenu() {
+        Menu_Principal a = new Menu_Principal("");
+        a.iconPrincipal();
+        a.mudarCor();
+    }
     
-    public static void main(String[] args) {
-     new Cadastro_Vacina(); 
+   public static void main(String[] args) {
+     new Vacinacao(); 
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(ActionEvent e) {
         if (e.getSource() == bLimpar) {
             Limpar();
-            System.out.println("limpar");
-             Limpar();
         }
-         if(e.getSource()==bCancelar){
+        
+          if(e.getSource()==bCancelar){
        colocarIconMenu();
        }
          
-         
-           //Evento para salvar os dados da vacina na BD
-        if (e.getSource() == bSalvar) {
-            CadastrarVacina();
-            Limpar();
-        }
-}
     }
- 
+      
 
+}

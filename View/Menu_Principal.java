@@ -45,8 +45,8 @@ public class Menu_Principal implements ActionListener, MouseListener{
     private GridBagConstraints gbc = new GridBagConstraints();
     private JButton cliente, animal, servicos, produtos, historico, tema, botao;
     private static JLabel label, iCliente, iAnimal, iProduto, iServico, iHistorico, iTema , iconPrincipal;
-    private JPopupMenu popMenu, pop_Animal, pop_Vacina;
-    private JMenuItem mCadCliente, mConsCliente, mCadAnimal, mConsAnimal, mConsVacina, mCadVacina;
+    private JPopupMenu popMenu, pop_Animal, pop_Vacina, pop_Servicos;
+    private JMenuItem mCadCliente, mConsCliente, mCadAnimal, mConsAnimal, mConsVacina, mCadVacina,mConsulta, mVacinacao, mCirurgia;
     //cores
     Color cor = new Color(0.0f, 0.4f, 0.8f, 1f);//COR DO PAINEL AZUL
     Color corBranco = Color.white ;//COR DO PAINEL branco
@@ -154,11 +154,30 @@ public class Menu_Principal implements ActionListener, MouseListener{
         mCadVacina.setBackground(Color.white);
         mCadVacina.addActionListener(this);
         mCadVacina.setFont(fonte2);
+        
         //MenuItem consulta
         mConsVacina = new JMenuItem("Consultar");
         mConsVacina.setBackground(Color.white);
         mConsVacina.addActionListener(this);
         mConsVacina.setFont(fonte2);
+        
+         //MenuItem servicos
+         pop_Servicos = new JPopupMenu();
+        mConsulta = new JMenuItem("Consulta");
+        mConsulta.setBackground(Color.white);
+        mConsulta.addActionListener(this);
+        mConsulta.setFont(fonte2);
+        
+        mVacinacao = new JMenuItem("Vacinacao");
+        mVacinacao.setBackground(Color.white);
+        mVacinacao.addActionListener(this);
+        mVacinacao.setFont(fonte2);
+
+        mCirurgia = new JMenuItem("Cirurgia");
+        mCirurgia.setBackground(Color.white);
+        mCirurgia.addActionListener(this);
+        mCirurgia.setFont(fonte2);
+
 
         //// ------------------IMAGENS--------
         iProduto = new JLabel();
@@ -296,7 +315,26 @@ public class Menu_Principal implements ActionListener, MouseListener{
         mudarCor();
         servicos.setBackground(cor2);
         frame.add(painelActual, BorderLayout.CENTER);
-
+    }
+    
+      public void Vacinacao() {
+        Vacinacao sVacinacao = new Vacinacao();
+        //Remover o painel central caso ele tenha algo
+        removerPainelCentral();
+        painelActual = sVacinacao.componentes();
+        mudarCor();
+        servicos.setBackground(cor2);
+        frame.add(painelActual, BorderLayout.CENTER);
+    }
+      
+        public void Cirurgia() {
+        Cadastro_Cirurgia sCirurgia = new Cadastro_Cirurgia();
+        //Remover o painel central caso ele tenha algo
+        removerPainelCentral();
+        painelActual = sCirurgia.adicionarComponentes();
+        mudarCor();
+        servicos.setBackground(cor2);
+        frame.add(painelActual, BorderLayout.CENTER);
     }
 
     //Metodos Para cadastro, Consulta e exibir resultado da consulta do animal   
@@ -429,6 +467,20 @@ public class Menu_Principal implements ActionListener, MouseListener{
         });
 
     }
+     public void PopMenu_servicos() {
+        pop_Servicos.add(mConsulta);
+        pop_Servicos.add(mVacinacao);
+        pop_Servicos.add(mCirurgia);
+        pop_Servicos.setBackground(Color.WHITE);
+        servicos.setAlignmentX(RIGHT_ALIGNMENT);
+        servicos.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                pop_Servicos.show(e.getComponent(), 100, 0);
+            }
+        });
+
+    }
 
     public void PopMenu_Animal() {
         pop_Animal.add(mCadAnimal);
@@ -496,13 +548,32 @@ public class Menu_Principal implements ActionListener, MouseListener{
             frame.setVisible(true);
         }
 
+//****SERVICOS SERVICOS SRERVICOS-****************
 
         if (e.getSource() == servicos) {
+            PopMenu_servicos();
+            frame.setVisible(true);
+        }
+         //Menuitem Consultas
+        if (e.getSource() == mConsulta) {
             cadastro_Consulta();
             frame.setVisible(true);
-
+        }
+        //Vacinacao
+        if (e.getSource() == mVacinacao) {
+            Vacinacao();
+            frame.setVisible(true);
+        }
+         //cirurgia
+        if (e.getSource() == mCirurgia) {
+            Cirurgia();
+            frame.setVisible(true);
         }
 
+
+        
+        
+        
         //######## Eventos do botao Animal #########
         if (e.getSource() == animal) {
             PopMenu_Animal();
