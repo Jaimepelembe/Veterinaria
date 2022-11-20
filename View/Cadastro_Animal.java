@@ -486,10 +486,10 @@ public class Cadastro_Animal implements ActionListener {
     this.cClientes.setSelectedIndex(-1);
     }
     
-    public void selecionarIdCliente(int indice){
+    private void selecionarIdCliente(int indice){
     idCliente=clientes.elementAt(indice).getIdCliente();
     idVeterinaria=clientes.elementAt(indice).getIdVeterinaria();
-     info.setText("ID do cliente: "+idCliente);
+    info.setText("ID do cliente: "+idCliente);
     
    
     }

@@ -29,6 +29,11 @@ private int idAnimal,idVeterinaria;
     return new ExameDAO().selecionarAnimais();
     }
     
+ public Vector<Animal> selecionarAnimaisEspecie(String especie) throws SQLException, ClassNotFoundException, ExceptionDAO{
+    
+    return new ExameDAO().selecionarAnimaisEspecie(especie);
+    }
+    
     public int getIdAnimal() {
         return idAnimal;
     }

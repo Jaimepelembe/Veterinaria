@@ -23,35 +23,61 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ButtonGroup;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.text.MaskFormatter;
 
-public class Cadastro_Exame implements ActionListener {
+public class telaExame implements ActionListener {
 
     private JLabel lab, codAnimal, preco;
     private JButton bSalvar, bLimpar, bCancelar;
     private JComboBox cbAnimais, CbExames, CbResultados;
     private JTextField fObservacao;
     private JFrame frame;
+    private JRadioButton rbcao,rbgato;
+    private ButtonGroup botoes;
     private JPanel painel, pPrincipal, pBotoes;
     private GridBagConstraints gbc = new GridBagConstraints();
-    private int idAnimal, idVacina;
+    private int idAnimal=-1, idVacina=-1;
     private float precoExame;
     private Vector<Animal> vectorAnimais;
     private Vector<Exame> vectorExames;
     private String[] resultados = {"Positivo", "Negativo"};
 
-    public Cadastro_Exame() throws SQLException, ClassNotFoundException, ExceptionDAO {
+    public telaExame() throws SQLException, ClassNotFoundException, ExceptionDAO {
         criarJanela();
     }
 
     public void inicializar() throws SQLException, ClassNotFoundException, ExceptionDAO {
+        //Radio Button da Especie do animal e vacina
+          //Radio Button Cao
+        botoes=new ButtonGroup();
+          
+        rbcao = new JRadioButton("Canina");
+        rbcao.setBackground(Color.WHITE);
+        rbcao.addActionListener(this);
+        botoes.add(rbcao);
+        
+        
+        //Radio Button Gato
+        rbgato = new JRadioButton("Felina");
+        rbgato.setBackground(Color.WHITE);
+        rbgato.addActionListener(this);
+        botoes.add(rbgato);
+        
         //ComBoboxes
         CbExames = new JComboBox();
+        CbExames.addActionListener(this);
         cbAnimais = new JComboBox();
+        cbAnimais.addActionListener(this);
+        cbAnimais.setSelectedIndex(-1);
         CbResultados = new JComboBox(resultados);
+        
         //Labes
         codAnimal = new JLabel();
         preco = new JLabel();
@@ -59,7 +85,7 @@ public class Cadastro_Exame implements ActionListener {
         fObservacao = new JTextField();
         fObservacao.setColumns(10);
 
-        receberAnimais();
+        //recebertodosAnimais();
 
         //Botoes 
         //Salvar
@@ -97,11 +123,41 @@ public class Cadastro_Exame implements ActionListener {
         painel.setLayout(new GridBagLayout());
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        //Informacoes do animal
-        lab = new JLabel("Selecione o animal");
+        //Informacoes da especie do animal e vacina
+         //Especie
+        lab = new JLabel("Especie");
         gbc.insets = new Insets(35, 5, -27, 0);
         gbc.gridx = 0;
         gbc.gridy = 0;
+        gbc.gridwidth = 1;
+        painel.add(lab, gbc);
+        
+        //Radio Button da Especie
+        //Canina
+        gbc.insets = new Insets(35, 5, -27, 0);
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.ipadx = 60;
+        gbc.ipady = 8;
+        gbc.gridwidth = 1;
+        painel.add(rbcao, gbc);
+        
+        //Radio Button da Especie Felina
+        gbc.insets = new Insets(35, 5, -27, 0);
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        gbc.ipadx = 60;
+        gbc.ipady = 8;
+        gbc.gridwidth = 1;
+        painel.add(rbgato, gbc);
+        
+        
+        
+        //Informacoes do animal
+        lab = new JLabel("Animal");
+        gbc.insets = new Insets(35, 5, -27, 0);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
         gbc.ipadx = 60;
         gbc.ipady = 8;
         gbc.gridwidth = 1;
@@ -109,7 +165,7 @@ public class Cadastro_Exame implements ActionListener {
         //Combobox Animal
         gbc.insets = new Insets(35, 5, -27, 0);
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         gbc.ipadx = 60;
         gbc.ipady = 8;
         gbc.gridwidth = 1;
@@ -117,42 +173,42 @@ public class Cadastro_Exame implements ActionListener {
         //Label do idAnimal
         gbc.insets = new Insets(35, 5, -27, 0);
         gbc.gridx = 1;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         gbc.ipadx = 60;
         gbc.ipady = 8;
         painel.add(codAnimal, gbc);
 
         //Informacoes do exame
-        lab = new JLabel("Selecione o Exame");
+        lab = new JLabel("Exame");
         gbc.insets = new Insets(35, 5, -27, 0);
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         gbc.ipadx = 60;
         gbc.ipady = 8;
         painel.add(lab, gbc);
         //Combobox
         gbc.insets = new Insets(35, 5, -27, 0);
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         gbc.gridwidth = 1;
         painel.add(CbExames, gbc);
-        //Label preco Exame
+        //Label preco telaExame
         gbc.insets = new Insets(35, 5, -27, 0);
         gbc.gridx = 1;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         painel.add(preco, gbc);
 
         //Informacoes do resultado
-        lab = new JLabel("Selecione o Resultado");
+        lab = new JLabel("Resultado");
         gbc.insets = new Insets(35, 5, -27, 0);
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         gbc.ipadx = 50;
         painel.add(lab, gbc);
         //Combobox
         gbc.insets = new Insets(35, 5, -27, 0);
         gbc.gridx = 0;
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         gbc.gridwidth = 1;
         painel.add(CbResultados, gbc);
 
@@ -160,12 +216,12 @@ public class Cadastro_Exame implements ActionListener {
         lab = new JLabel("Observacao");
         gbc.insets = new Insets(35, 5, -27, 0);
         gbc.gridx = 0;
-        gbc.gridy = 6;
+        gbc.gridy = 7;
         painel.add(lab, gbc);
         //Combobox
         gbc.insets = new Insets(35, 5, 0, 0);
         gbc.gridx = 0;
-        gbc.gridy = 7;
+        gbc.gridy = 8;
         gbc.gridwidth = 1;
         gbc.gridheight = 1;
         gbc.ipadx = 60;
@@ -209,20 +265,33 @@ public class Cadastro_Exame implements ActionListener {
 //        
 //    }
 
-    private void receberAnimais() throws SQLException, ClassNotFoundException, ExceptionDAO {
+    private void recebertodosAnimais() throws SQLException, ClassNotFoundException, ExceptionDAO {
         vectorAnimais = new ExameController().selecionarAnimais();
         for (int i = 0; i < vectorAnimais.size(); i++) {
             this.cbAnimais.addItem(vectorAnimais.elementAt(i).getNome());
         }
         this.cbAnimais.setSelectedIndex(-1);
     }
-
+    private void receberAnimaisEspecie(String especie) throws SQLException, ClassNotFoundException, ExceptionDAO {
+        vectorAnimais = new ExameController().selecionarAnimaisEspecie(especie);
+        cbAnimais.removeAllItems();//Remover todos os itens do combobox
+        for (int i = 0; i < vectorAnimais.size(); i++) {
+            this.cbAnimais.addItem(vectorAnimais.elementAt(i).getNome());
+        }
+    }
+     private void selecionarIdAnimal(int indice){
+    idAnimal=vectorAnimais.elementAt(indice).getIdAnimal();
+    codAnimal.setText(" ID: "+idAnimal);
+    }
+     
+     
+     
     public void Limpar() {
 
     }
 
     public void criarJanela() throws SQLException, ClassNotFoundException, ExceptionDAO {
-        frame = new JFrame("CONSULTA");
+        frame = new JFrame("Exame");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(530, 550);
         frame.add(pPrincipal());
@@ -230,13 +299,51 @@ public class Cadastro_Exame implements ActionListener {
     }
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException, ExceptionDAO {
-        new Cadastro_Exame();
+        new telaExame();
     }
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == bLimpar) {
             Limpar();
         }
+        //Evento para selecionar os animais de acordo com a especie
+        //Especie canina
+        if(e.getSource()==rbcao){
+        String especie="Canina";
+            try {
+                receberAnimaisEspecie(especie);
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao receber os animais"+ e);
+            } catch (ClassNotFoundException ex) {
+               JOptionPane.showMessageDialog(null, "Classe nao encontrada ao receber os animais"+ e);
+            } catch (ExceptionDAO ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao receber os animais"+ e);
+            }
+        
+        }
+        
+         //Especie Felina
+        if(e.getSource()==rbgato){
+        String especie="Felina";
+            try {
+                receberAnimaisEspecie(especie);
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao receber os animais"+ e);
+            } catch (ClassNotFoundException ex) {
+               JOptionPane.showMessageDialog(null, "Classe nao encontrada ao receber os animais"+ e);
+            } catch (ExceptionDAO ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao receber os animais"+ e);
+            }
+        }
+        
+        //Evento para selecionar o idAnimal 
+       if(e.getSource()==cbAnimais && cbAnimais.isShowing()){ 
+       int indice=cbAnimais.getSelectedIndex();
+        if(indice>=0){
+        selecionarIdAnimal(indice);}
+           
+       } 
+        
 //  if(e.getSource()==bCancelar){
 //       colocarIconMenu();
 //       }

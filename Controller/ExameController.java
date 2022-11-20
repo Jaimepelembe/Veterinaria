@@ -19,6 +19,9 @@ public class ExameController {
 public Vector<Animal> selecionarAnimais() throws SQLException, ClassNotFoundException, ExceptionDAO{
 return new Exame().selecionarAnimais();
 }
-    
+
+public Vector<Animal> selecionarAnimaisEspecie(String especie) throws SQLException, ClassNotFoundException, ExceptionDAO{
+return new Exame().selecionarAnimaisEspecie(especie);
+}
     
 }
