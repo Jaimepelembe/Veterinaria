@@ -57,7 +57,6 @@ public class telaExame implements ActionListener {
         //Radio Button da Especie do animal e vacina
           //Radio Button Cao
         botoes=new ButtonGroup();
-          
         rbcao = new JRadioButton("Canina");
         rbcao.setBackground(Color.WHITE);
         rbcao.addActionListener(this);
