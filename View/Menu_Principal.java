@@ -27,6 +27,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
@@ -46,7 +47,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
     private JButton cliente, animal, servicos, produtos, historico, tema, botao;
     private static JLabel label, iCliente, iAnimal, iProduto, iServico, iHistorico, iTema , iconPrincipal;
     private JPopupMenu popMenu, pop_Animal, pop_Vacina, pop_Servicos;
-    private JMenuItem mCadCliente, mConsCliente, mCadAnimal, mConsAnimal, mConsVacina, mCadVacina,mConsulta, mVacinacao, mCirurgia;
+    private JMenuItem mCadCliente, mConsCliente, mCadAnimal, mConsAnimal, mConsVacina, mCadVacina,mExame, mVacinacao, mCirurgia;
     //cores
     Color cor = new Color(0.0f, 0.4f, 0.8f, 1f);//COR DO PAINEL AZUL
     Color corBranco = Color.white ;//COR DO PAINEL branco
@@ -163,10 +164,10 @@ public class Menu_Principal implements ActionListener, MouseListener{
         
          //MenuItem servicos
          pop_Servicos = new JPopupMenu();
-        mConsulta = new JMenuItem("Exames");
-        mConsulta.setBackground(Color.white);
-        mConsulta.addActionListener(this);
-        mConsulta.setFont(fonte2);
+        mExame = new JMenuItem("Exames");
+        mExame.setBackground(Color.white);
+        mExame.addActionListener(this);
+        mExame.setFont(fonte2);
         
         mVacinacao = new JMenuItem("Vacinacao");
         mVacinacao.setBackground(Color.white);
@@ -307,15 +308,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
         frame.setVisible(true);
     }
 
-    public void cadastro_Consulta() {
-        //Cadastro_Exame cConsulta = new Cadastro_Exame();
-        //Remover o painel central caso ele tenha algo
-        removerPainelCentral();
-       // painelActual = cConsulta.pPrincipal();
-        mudarCor();
-        servicos.setBackground(cor2);
-        frame.add(painelActual, BorderLayout.CENTER);
-    }
+
     
       public void Vacinacao() {
         Vacinacao sVacinacao = new Vacinacao();
@@ -336,7 +329,16 @@ public class Menu_Principal implements ActionListener, MouseListener{
         servicos.setBackground(cor2);
         frame.add(painelActual, BorderLayout.CENTER);
     }
-
+      
+        public void Exames() throws SQLException, ClassNotFoundException, ExceptionDAO {
+        telaExame exame = new telaExame();
+        //Remover o painel central caso ele tenha algo
+        removerPainelCentral();
+        painelActual = exame.pPrincipal();
+        mudarCor();
+        servicos.setBackground(cor2);
+        frame.add(painelActual, BorderLayout.CENTER);
+    }
     //Metodos Para cadastro, Consulta e exibir resultado da consulta do animal   
     //Cadastro do Animal
     public void cadastro_Animal() throws SQLException, ClassNotFoundException, ExceptionDAO {
@@ -468,7 +470,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
 
     }
      public void PopMenu_servicos() {
-        pop_Servicos.add(mConsulta);
+        pop_Servicos.add(mExame);
         pop_Servicos.add(mVacinacao);
         pop_Servicos.add(mCirurgia);
         pop_Servicos.setBackground(Color.WHITE);
@@ -529,7 +531,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e)  {
         //##### Eventos do botao cliente #########
         if (e.getSource() == cliente) {
             PopMenu_Cliente();
@@ -555,10 +557,18 @@ public class Menu_Principal implements ActionListener, MouseListener{
             frame.setVisible(true);
         }
          //Menuitem Consultas
-        if (e.getSource() == mConsulta) {
-            cadastro_Consulta();
-            frame.setVisible(true);
-        }
+        if (e.getSource() == mExame) {
+            try {
+                Exames();
+                frame.setVisible(true);
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao aceder aos Exames"+ e);
+            } catch (ClassNotFoundException ex) {
+               JOptionPane.showMessageDialog(null, "Erro:"+ e);
+            } catch (ExceptionDAO ex) {
+                JOptionPane.showMessageDialog(null, "Erro:"+ e);
+            
+        }}
         //Vacinacao
         if (e.getSource() == mVacinacao) {
             Vacinacao();
@@ -566,7 +576,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
         }
          //cirurgia
         if (e.getSource() == mCirurgia) {
-            
+            ///VER AQUI
             Cirurgia();
             frame.setVisible(true);
         }

@@ -4,6 +4,10 @@
  */
 package Model.VO;
 
+import Model.DAO.ExceptionDAO;
+import Model.DAO.Historico_ExameDAO;
+import java.sql.SQLException;
+
 /**
  *
  * @author multi
@@ -25,6 +29,10 @@ private String data, observacao,resultado;//A data refere-se a data de realizaca
         this.resultado = resultado;
     }
 
+    
+    public void CadastrarHistorico(Historico_Exame historico) throws SQLException, ClassNotFoundException, ExceptionDAO{
+   new Historico_ExameDAO().cadastrarExame(historico);
+    }
     public int getIdAnimal() {
         return idAnimal;
     }

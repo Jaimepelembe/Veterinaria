@@ -36,7 +36,7 @@ return true;
 }
 return false;
 }
-public boolean validaeID(int id){
+public boolean validaID(int id){
 if(id>0){return true;}
 return false;}
 
