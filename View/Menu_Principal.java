@@ -308,10 +308,10 @@ public class Menu_Principal implements ActionListener, MouseListener{
     }
 
     public void cadastro_Consulta() {
-        Cadastro_Exame cConsulta = new Cadastro_Exame();
+        //Cadastro_Exame cConsulta = new Cadastro_Exame();
         //Remover o painel central caso ele tenha algo
         removerPainelCentral();
-        painelActual = cConsulta.pPrincipal();
+       // painelActual = cConsulta.pPrincipal();
         mudarCor();
         servicos.setBackground(cor2);
         frame.add(painelActual, BorderLayout.CENTER);
