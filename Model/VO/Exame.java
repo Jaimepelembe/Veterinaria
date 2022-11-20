@@ -4,6 +4,11 @@
  */
 package Model.VO;
 
+import Model.DAO.ExameDAO;
+import Model.DAO.ExceptionDAO;
+import java.sql.SQLException;
+import java.util.Vector;
+
 /**
  *
  * @author multi
@@ -18,6 +23,17 @@ private int idAnimal,idVeterinaria;
     public Exame(String nome) {
         this.nome = nome;
     }
+    
+    public Vector<Animal> selecionarAnimais() throws SQLException, ClassNotFoundException, ExceptionDAO{
+    
+    return new ExameDAO().selecionarAnimais();
+    }
+    
+ public Vector<Animal> selecionarAnimaisEspecie(String especie) throws SQLException, ClassNotFoundException, ExceptionDAO{
+    
+    return new ExameDAO().selecionarAnimaisEspecie(especie);
+    }
+    
     public int getIdAnimal() {
         return idAnimal;
     }

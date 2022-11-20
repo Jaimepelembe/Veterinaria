@@ -1,0 +1,21 @@
+Proposta de crianção de Índices [ISAM]
+
+Create INDEX indicePorMorada on Clientes
+With structure = ISAM,
+KEY(morada)
+
+Create INDEX indicePorContacto on Clientes
+With structure = ISAM,
+KEY(telefone)
+
+Create INDEX indicePorCliente on Animal
+With structure = ISAM,
+KEY(idCliente)
+
+Create INDEX indicePorDatadeValidade on Vacina
+With structure = ISAM,
+KEY(data)
+
+Create INDEX indicePorMorada on Animal
+With structure = ISAM,
+KEY(cliente.morada)

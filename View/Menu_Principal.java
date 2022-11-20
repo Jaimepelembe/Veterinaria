@@ -163,7 +163,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
         
          //MenuItem servicos
          pop_Servicos = new JPopupMenu();
-        mConsulta = new JMenuItem("Consulta");
+        mConsulta = new JMenuItem("Exames");
         mConsulta.setBackground(Color.white);
         mConsulta.addActionListener(this);
         mConsulta.setFont(fonte2);
@@ -308,10 +308,10 @@ public class Menu_Principal implements ActionListener, MouseListener{
     }
 
     public void cadastro_Consulta() {
-        Cadastro_Consulta cConsulta = new Cadastro_Consulta();
+        //Cadastro_Exame cConsulta = new Cadastro_Exame();
         //Remover o painel central caso ele tenha algo
         removerPainelCentral();
-        painelActual = cConsulta.pPrincipal();
+       // painelActual = cConsulta.pPrincipal();
         mudarCor();
         servicos.setBackground(cor2);
         frame.add(painelActual, BorderLayout.CENTER);
