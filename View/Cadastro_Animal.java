@@ -485,6 +485,7 @@ public class Cadastro_Animal implements ActionListener {
     }
     this.cClientes.setSelectedIndex(-1);
     }
+    
     public void selecionarIdCliente(int indice){
     idCliente=clientes.elementAt(indice).getIdCliente();
     idVeterinaria=clientes.elementAt(indice).getIdVeterinaria();
