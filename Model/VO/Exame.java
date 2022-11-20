@@ -4,6 +4,7 @@
  */
 package Model.VO;
 
+import Controller.Historico_ExameController;
 import Model.DAO.ExameDAO;
 import Model.DAO.ExceptionDAO;
 import java.sql.SQLException;
@@ -15,7 +16,8 @@ import java.util.Vector;
  */
 public class Exame {
 private String nome;
-private int idAnimal,idVeterinaria;
+private int idAnimal,idExame;
+private float preco;
 
    public Exame() {
     }
@@ -33,7 +35,13 @@ private int idAnimal,idVeterinaria;
     
     return new ExameDAO().selecionarAnimaisEspecie(especie);
     }
-    
+   
+public Vector<Exame> selecionarExames() throws SQLException, ClassNotFoundException, ExceptionDAO{
+return new ExameDAO().selecionarExames();
+}
+
+
+
     public int getIdAnimal() {
         return idAnimal;
     }
@@ -42,12 +50,20 @@ private int idAnimal,idVeterinaria;
         this.idAnimal = idAnimal;
     }
 
-    public int getIdVeterinaria() {
-        return idVeterinaria;
+    public int getIdExame() {
+        return idExame;
     }
 
-    public void setIdVeterinaria(int idVeterinaria) {
-        this.idVeterinaria = idVeterinaria;
+    public void setIdExame(int idExame) {
+        this.idExame = idExame;
+    }
+
+    public float getPreco() {
+        return preco;
+    }
+
+    public void setPreco(float preco) {
+        this.preco = preco;
     }
 
  

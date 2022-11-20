@@ -13,21 +13,18 @@ import java.time.format.DateTimeFormatter;
  * @author multi
  */
 public class Data {
- private String data;
-
     public Data() {
-        dataActual();
+       
     }
  public String dataActual(){
      LocalDateTime date= LocalDateTime.now();
-     DateTimeFormatter dtf= DateTimeFormatter.ofPattern("dd/MM/yyyy");
+     DateTimeFormatter dtf= DateTimeFormatter.ofPattern("dd-MM-yyyy");
      
      String data=""+dtf.format(date);
-        System.out.println(data);
- return this.data;}
+ return data;}
  
     public static void main(String[] args) {
-        new Data();
+        
         
     }
 }

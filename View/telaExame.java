@@ -1,7 +1,9 @@
 package View;
 
 import Controller.AnimalController;
+import Controller.Data;
 import Controller.ExameController;
+import Controller.Historico_ExameController;
 import Model.DAO.ExceptionDAO;
 import Model.VO.Animal;
 import Model.VO.Exame;
@@ -43,14 +45,14 @@ public class telaExame implements ActionListener {
     private ButtonGroup botoes;
     private JPanel painel, pPrincipal, pBotoes;
     private GridBagConstraints gbc = new GridBagConstraints();
-    private int idAnimal=-1, idVacina=-1;
+    private int idAnimal=-1, idExame=-1;
     private float precoExame;
     private Vector<Animal> vectorAnimais;
     private Vector<Exame> vectorExames;
     private String[] resultados = {"Positivo", "Negativo"};
 
     public telaExame() throws SQLException, ClassNotFoundException, ExceptionDAO {
-        criarJanela();
+        //criarJanela();
     }
 
     public void inicializar() throws SQLException, ClassNotFoundException, ExceptionDAO {
@@ -73,10 +75,13 @@ public class telaExame implements ActionListener {
         //ComBoboxes
         CbExames = new JComboBox();
         CbExames.addActionListener(this);
+        CbExames.setSelectedIndex(-1);
+        
         cbAnimais = new JComboBox();
         cbAnimais.addActionListener(this);
         cbAnimais.setSelectedIndex(-1);
         CbResultados = new JComboBox(resultados);
+        CbResultados.setSelectedIndex(-1);
         
         //Labes
         codAnimal = new JLabel();
@@ -137,7 +142,7 @@ public class telaExame implements ActionListener {
         gbc.insets = new Insets(35, 5, -27, 0);
         gbc.gridx = 1;
         gbc.gridy = 0;
-        gbc.ipadx = 60;
+        gbc.ipadx = 20;
         gbc.ipady = 8;
         gbc.gridwidth = 1;
         painel.add(rbcao, gbc);
@@ -146,7 +151,7 @@ public class telaExame implements ActionListener {
         gbc.insets = new Insets(35, 5, -27, 0);
         gbc.gridx = 2;
         gbc.gridy = 0;
-        gbc.ipadx = 60;
+        gbc.ipadx = 20;
         gbc.ipady = 8;
         gbc.gridwidth = 1;
         painel.add(rbgato, gbc);
@@ -158,7 +163,7 @@ public class telaExame implements ActionListener {
         gbc.insets = new Insets(35, 5, -27, 0);
         gbc.gridx = 0;
         gbc.gridy = 1;
-        gbc.ipadx = 60;
+        gbc.ipadx = 20;
         gbc.ipady = 8;
         gbc.gridwidth = 1;
         painel.add(lab, gbc);
@@ -166,7 +171,7 @@ public class telaExame implements ActionListener {
         gbc.insets = new Insets(35, 5, -27, 0);
         gbc.gridx = 0;
         gbc.gridy = 2;
-        gbc.ipadx = 60;
+        gbc.ipadx = 20;
         gbc.ipady = 8;
         gbc.gridwidth = 1;
         painel.add(cbAnimais, gbc);
@@ -174,7 +179,7 @@ public class telaExame implements ActionListener {
         gbc.insets = new Insets(35, 5, -27, 0);
         gbc.gridx = 1;
         gbc.gridy = 2;
-        gbc.ipadx = 60;
+        gbc.ipadx = 20;
         gbc.ipady = 8;
         painel.add(codAnimal, gbc);
 
@@ -183,7 +188,7 @@ public class telaExame implements ActionListener {
         gbc.insets = new Insets(35, 5, -27, 0);
         gbc.gridx = 0;
         gbc.gridy = 3;
-        gbc.ipadx = 60;
+        gbc.ipadx = 20;
         gbc.ipady = 8;
         painel.add(lab, gbc);
         //Combobox
@@ -203,7 +208,7 @@ public class telaExame implements ActionListener {
         gbc.insets = new Insets(35, 5, -27, 0);
         gbc.gridx = 0;
         gbc.gridy = 5;
-        gbc.ipadx = 50;
+        gbc.ipadx = 20;
         painel.add(lab, gbc);
         //Combobox
         gbc.insets = new Insets(35, 5, -27, 0);
@@ -224,7 +229,7 @@ public class telaExame implements ActionListener {
         gbc.gridy = 8;
         gbc.gridwidth = 1;
         gbc.gridheight = 1;
-        gbc.ipadx = 60;
+        gbc.ipadx = 20;
         gbc.ipady = 10;
         painel.add(fObservacao, gbc);
 
@@ -236,15 +241,18 @@ public class telaExame implements ActionListener {
         pBotoes.setBackground(Color.white);
         pBotoes.setLayout(new GridBagLayout());
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(35, 5, 0, 0);
+        gbc.insets = new Insets(0, 0, 0, 0);
         gbc.ipady = 2;
         gbc.ipadx = 2;
         // add buttons to the panel
+        gbc.insets = new Insets(0, 0, 0, 45);
         gbc.gridy = 0;
         gbc.gridx = 1;
+     
         pBotoes.add(bSalvar, gbc);
         gbc.gridx = 2;
         pBotoes.add(bLimpar, gbc);
+         gbc.insets = new Insets(0, 0, 0, 45);
         gbc.gridx = 4;
         pBotoes.add(bCancelar, gbc);
         return pBotoes;
@@ -278,16 +286,57 @@ public class telaExame implements ActionListener {
         for (int i = 0; i < vectorAnimais.size(); i++) {
             this.cbAnimais.addItem(vectorAnimais.elementAt(i).getNome());
         }
+        //cbAnimais.setSelectedIndex(-1);
     }
      private void selecionarIdAnimal(int indice){
     idAnimal=vectorAnimais.elementAt(indice).getIdAnimal();
     codAnimal.setText(" ID: "+idAnimal);
     }
-     
-     
-     
-    public void Limpar() {
-
+   
+     private void receberExames() throws SQLException, ClassNotFoundException, ExceptionDAO{
+       vectorExames = new ExameController().selecionarExames();
+        CbExames.removeAllItems();//Remover todos os itens do combobox
+        for (int i = 0; i < vectorExames.size(); i++) {
+            this.CbExames.addItem(vectorExames.elementAt(i).getNome());
+        }
+     }
+     private void SelecionarPrecoExame(int indice){
+     precoExame=vectorExames.elementAt(indice).getPreco();
+     preco.setText(" Preco: "+ precoExame);
+     }
+    private void selecionarIdExame(int indice){
+    idExame=vectorExames.elementAt(indice).getIdExame();
+    }
+    
+   public void cadastrarHistoricoExame() throws SQLException, ClassNotFoundException, ExceptionDAO{
+       boolean sucesso;
+  Historico_ExameController historico= new Historico_ExameController();
+       Data data= new Data();
+       String date=data.dataActual();
+       String resultado=CbResultados.getSelectedItem().toString();
+       String observacao= fObservacao.getText();
+    
+      sucesso=historico.cadastrarExame(idAnimal, idExame, date, resultado, observacao);
+    if(sucesso){
+    JOptionPane.showMessageDialog(null, "O Animal foi cadastrado com sucesso");
+    }
+    else{JOptionPane.showMessageDialog(null, "Houve um erro ao cadastrar o animal");}
+    
+}
+    private void Limpar() {
+cbAnimais.setSelectedIndex(-1);
+CbExames.setSelectedIndex(-1);
+CbResultados.setSelectedIndex(-1);
+fObservacao.setText("");
+botoes.clearSelection();
+preco.setText("");
+codAnimal.setText("");
+    }
+    
+    public void colocarIconMenu() {
+        Menu_Principal a = new Menu_Principal("");
+        a.iconPrincipal();
+        a.mudarCor();
     }
 
     public void criarJanela() throws SQLException, ClassNotFoundException, ExceptionDAO {
@@ -312,6 +361,7 @@ public class telaExame implements ActionListener {
         String especie="Canina";
             try {
                 receberAnimaisEspecie(especie);
+                receberExames();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro ao receber os animais"+ e);
             } catch (ClassNotFoundException ex) {
@@ -327,6 +377,7 @@ public class telaExame implements ActionListener {
         String especie="Felina";
             try {
                 receberAnimaisEspecie(especie);
+                receberExames();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro ao receber os animais"+ e);
             } catch (ClassNotFoundException ex) {
@@ -343,9 +394,33 @@ public class telaExame implements ActionListener {
         selecionarIdAnimal(indice);}
            
        } 
-        
-//  if(e.getSource()==bCancelar){
-//       colocarIconMenu();
-//       }
+       
+       if(e.getSource()==CbExames&& CbExames.isShowing()){
+        int indice=CbExames.getSelectedIndex();
+        if(indice>=0){
+            SelecionarPrecoExame(indice);
+            selecionarIdExame(indice);
+        }   
+       } 
+       if(e.getSource()==bSalvar){
+            try {
+                cadastrarHistoricoExame();
+                Limpar();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao Salvar o historico"+ e);
+            } catch (ClassNotFoundException ex) {
+               JOptionPane.showMessageDialog(null, "Classe nao encontrada ao Salvar o historico"+ e);
+            } catch (ExceptionDAO ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao salavar o historico"+ e);
+            }
+       }
+       
+       if(e.getSource()==bLimpar){
+           Limpar();
+       }
+       
+  if(e.getSource()==bCancelar){
+       colocarIconMenu();
+       }
     }
 }
