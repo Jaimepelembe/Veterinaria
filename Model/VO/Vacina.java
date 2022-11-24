@@ -1,6 +1,7 @@
 package Model.VO;
 
 import Model.DAO.ExceptionDAO;
+import Model.DAO.Historico_ExameDAO;
 import Model.DAO.VacinaDAO;
 import java.sql.SQLException;
 
@@ -26,7 +27,7 @@ public class Vacina {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    public void cadastrarVacina(Vacina vacina) throws SQLException, ClassNotFoundException, ExceptionDAO{
+    public void cadastrarHistorico(Vacina vacina) throws SQLException, ClassNotFoundException, ExceptionDAO{
     new VacinaDAO().cadastrarVacina(vacina);
     }
 

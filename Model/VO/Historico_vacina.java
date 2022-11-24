@@ -1,5 +1,10 @@
 package Model.VO;
 
+import Model.DAO.ExceptionDAO;
+import Model.DAO.Historico_VacinaDAO;
+import java.sql.SQLException;
+import java.util.Vector;
+
 /**
  *
  * @author multi
@@ -20,6 +25,12 @@ private String data, observacao;//A data refere-se a data de realizacao ,deve se
         this.observacao = observacao;
     }
 
+    public void CadastrarHistorico(Historico_vacina historico) throws SQLException, ClassNotFoundException, ExceptionDAO{
+   //new Historico_VacinaDAO().
+    }
+    public Vector<Vacina> receberVacinas(String especie) throws ClassNotFoundException, SQLException, ExceptionDAO{
+    
+    return new Historico_VacinaDAO().selecionarVacinas(especie);}
     public int getIdAnimal() {
         return idAnimal;
     }

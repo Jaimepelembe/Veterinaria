@@ -56,7 +56,7 @@ public class Cadastro_Animal implements ActionListener {
 
     public Cadastro_Animal() throws SQLException, ClassNotFoundException, ExceptionDAO {
         inicializarComponentes();
-       // criarJanela();
+        criarJanela();
     }
 
     private void inicializarComponentes() throws SQLException, ClassNotFoundException, ExceptionDAO {

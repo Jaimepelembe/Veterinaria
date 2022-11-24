@@ -310,11 +310,11 @@ public class Menu_Principal implements ActionListener, MouseListener{
 
 
     
-      public void Vacinacao() {
-        Vacinacao sVacinacao = new Vacinacao();
+      public void Vacinacao() throws SQLException, ClassNotFoundException, ExceptionDAO {
+        telaVacinacao vacina = new telaVacinacao();
         //Remover o painel central caso ele tenha algo
         removerPainelCentral();
-        painelActual = sVacinacao.componentes();
+        painelActual = vacina.pPrincipal();
         mudarCor();
         servicos.setBackground(cor2);
         frame.add(painelActual, BorderLayout.CENTER);
@@ -359,7 +359,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
         frame.add(painelActual, BorderLayout.CENTER);
         frame.setVisible(true);
     }
-    
+    //Metodo para registar o animal de um cliente
     public static void addAnimalCliente(Container contentor){
        removerPainelCentral();
         painelActual =  contentor;
@@ -571,8 +571,17 @@ public class Menu_Principal implements ActionListener, MouseListener{
         }}
         //Vacinacao
         if (e.getSource() == mVacinacao) {
-            Vacinacao();
+            try {
+                Vacinacao();
+                frame.setVisible(true);
+            }  catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao aceder as vacinas"+ e);
+            } catch (ClassNotFoundException ex) {
+               JOptionPane.showMessageDialog(null, "Erro:"+ e);
+            } catch (ExceptionDAO ex) {
+                JOptionPane.showMessageDialog(null, "Erro:"+ e);
             frame.setVisible(true);
+        }
         }
          //cirurgia
         if (e.getSource() == mCirurgia) {
@@ -634,27 +643,31 @@ public class Menu_Principal implements ActionListener, MouseListener{
         }
     }
 
-    @Override
     public void mouseClicked(MouseEvent me) {
         mudarCor();
           iconPrincipal();
     }
 
     @Override
-    public void mousePressed(MouseEvent me) {
+    public void mousePressed(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void mouseReleased(MouseEvent me) {
+    public void mouseReleased(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void mouseEntered(MouseEvent me) {
+    public void mouseEntered(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void mouseExited(MouseEvent me) {
+    public void mouseExited(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
 
 }
 
