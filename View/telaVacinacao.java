@@ -25,6 +25,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Vector;
@@ -295,7 +296,7 @@ public class telaVacinacao implements ActionListener {
        boolean sucesso;
   Historico_VacinaController historico= new Historico_VacinaController();
        Data data= new Data();
-       String date=data.dataActual();
+       Date date=data.dataActual();
        String observacao= fObservacao.getText();
     
       sucesso=historico.cadastrarVacinacao(idAnimal, idVacina, precoVacina, date, observacao);

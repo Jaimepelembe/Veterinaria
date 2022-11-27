@@ -4,6 +4,8 @@
  */
 package Model.VO;
 
+import java.sql.Date;
+
 /**
  *
  * @author multi
@@ -11,12 +13,12 @@ package Model.VO;
 public class Historico_Cirurgia {
 private int idAnimal,idCirurgia;
 private float preco;
-private String data, observacao;//A data refere-se a data de realizacao ,deve ser gerada automaticamente
-
+private String observacao;//A data refere-se a data de realizacao ,deve ser gerada automaticamente
+private Date data;
     public Historico_Cirurgia() {
     }
 
-    public Historico_Cirurgia(int idAnimal, int idCirurgia, float preco, String data, String observacao) {
+    public Historico_Cirurgia(int idAnimal, int idCirurgia, float preco, Date data, String observacao) {
         this.idAnimal = idAnimal;
         this.idCirurgia = idCirurgia;
         this.preco = preco;
@@ -48,13 +50,15 @@ private String data, observacao;//A data refere-se a data de realizacao ,deve se
         this.preco = preco;
     }
 
-    public String getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(Date data) {
         this.data = data;
     }
+
+    
 
     public String getObservacao() {
         return observacao;

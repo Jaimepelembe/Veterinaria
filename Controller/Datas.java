@@ -4,10 +4,17 @@
  */
 package Controller;
 
+import java.sql.Date;
+
 /**
  *
  * @author multi
  */
 public interface Datas {
-public abstract String dataActual();  
+public abstract Date dataActual();  
+public abstract Date StringtoSqlDate(String data);
+public abstract String SqlDatetoString(Date data);
+//public abstract Date javaDatetoSqlDate(Date data);
+//
 }
+

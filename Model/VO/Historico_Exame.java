@@ -4,8 +4,10 @@
  */
 package Model.VO;
 
+import Controller.Historico_ExameController;
 import Model.DAO.ExceptionDAO;
 import Model.DAO.Historico_ExameDAO;
+import java.sql.Date;
 import java.sql.SQLException;
 
 /**
@@ -13,26 +15,32 @@ import java.sql.SQLException;
  * @author multi
  */
 public class Historico_Exame {
- private int idAnimal,idExame;
+ private int idAnimal,idExame,idHistorico;
 private float preco;
-private String data, observacao,resultado;//A data refere-se a data de realizacao ,deve ser gerada automaticamente
-
+private String observacao,resultado;
+private Date data; //A data refere-se a data de realizacao ,deve ser gerada automaticamente pelo sistema
     public Historico_Exame() {
     }
 
-    public Historico_Exame(int idAnimal, int idExame, float preco, String data, String observacao, String resultado) {
+    public Historico_Exame(int idAnimal, int idExame, int idHistorico, float preco, String observacao, String resultado, Date data) {
         this.idAnimal = idAnimal;
         this.idExame = idExame;
+        this.idHistorico = idHistorico;
         this.preco = preco;
-        this.data = data;
         this.observacao = observacao;
         this.resultado = resultado;
+        this.data = data;
     }
+
 
     
     public void CadastrarHistorico(Historico_Exame historico) throws SQLException, ClassNotFoundException, ExceptionDAO{
    new Historico_ExameDAO().cadastrarExame(historico);
     }
+   public int selecionaridHistorico() throws SQLException, ClassNotFoundException, ExceptionDAO{
+return new Historico_ExameDAO().idHistoricoExame() ;
+}
+    
     public int getIdAnimal() {
         return idAnimal;
     }
@@ -57,13 +65,23 @@ private String data, observacao,resultado;//A data refere-se a data de realizaca
         this.preco = preco;
     }
 
-    public String getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(Date data) {
         this.data = data;
     }
+
+    public int getIdHistorico() {
+        return idHistorico;
+    }
+
+    public void setIdHistorico(int idHistorico) {
+        this.idHistorico = idHistorico;
+    }
+
+  
 
     public String getObservacao() {
         return observacao;

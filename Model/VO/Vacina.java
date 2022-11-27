@@ -3,17 +3,19 @@ package Model.VO;
 import Model.DAO.ExceptionDAO;
 import Model.DAO.Historico_ExameDAO;
 import Model.DAO.VacinaDAO;
+import java.sql.Date;
 import java.sql.SQLException;
 
 public class Vacina {
     private int idVacina,idVeterinaria;
-    private String marca, nome, data;//data de validade
+    private String marca, nome;
+    private Date data;//data de validade
     private float quantidade, preco;// Quantidade ml , preco de aquisicao
 
     public Vacina() {
     }
 
-    public Vacina(int idVacina, int idVeterinaria, String marca, String nome, String data, float quantidade, float preco) {
+    public Vacina(int idVacina, int idVeterinaria, String marca, String nome,Date data, float quantidade, float preco) {
         this.idVacina = idVacina;
         this.idVeterinaria = idVeterinaria;
         this.marca = marca;
@@ -23,9 +25,7 @@ public class Vacina {
         this.preco = preco;
     }
 
-    public Vacina(String marca, String nome, String data, Float quantidade, Float preco) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
     
     public void cadastrarHistorico(Vacina vacina) throws SQLException, ClassNotFoundException, ExceptionDAO{
     new VacinaDAO().cadastrarVacina(vacina);
@@ -64,13 +64,15 @@ public class Vacina {
         this.nome = nome;
     }
 
-    public String getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(Date data) {
         this.data = data;
     }
+
+    
 
     public float getQuantidade() {
         return quantidade;

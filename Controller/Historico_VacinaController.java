@@ -10,6 +10,7 @@ import Model.VO.Animal;
 import Model.VO.Historico_Exame;
 import Model.VO.Historico_vacina;
 import Model.VO.Vacina;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Vector;
 
@@ -31,10 +32,10 @@ return vacinas;
 }
 
  
-public boolean cadastrarVacinacao(int idAnimal,int idVacina,float preco,String data,String observacao) throws SQLException, ClassNotFoundException, ExceptionDAO {
+public boolean cadastrarVacinacao(int idAnimal,int idVacina,float preco,Date data,String observacao) throws SQLException, ClassNotFoundException, ExceptionDAO {
     
     Validacao vv = new Validacao();
-        if (vv.validaID(idVacina)&& vv.validaID(idAnimal) && vv.validarString(data) && preco>0 &&vv.validarString(observacao)) {
+        if (vv.validaID(idVacina)&& vv.validaID(idAnimal) && data!=null && preco>0 &&vv.validarString(observacao)) {
            Historico_vacina historico=new Historico_vacina();
             historico.setIdAnimal(idAnimal);
             historico.setIdVacina(idVacina);

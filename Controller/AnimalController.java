@@ -19,7 +19,7 @@ public class AnimalController {
     }
     //Metodo que recebe dados da view e passa para o model   
 
-    public boolean cadastrarAnimal(String nome, String especie, String sexo, String raca, String pelo, float peso, String dt_nascimentO, int idCli, int idVet) throws SQLException, ClassNotFoundException, ExceptionDAO {
+    public boolean cadastrarAnimal(String nome, String especie, String sexo, String raca, String pelo, float peso, Date dt_nascimentO, int idCli, int idVet) throws SQLException, ClassNotFoundException, ExceptionDAO {
         Validacao vv = new Validacao();
         if (vv.validarString(nome) && vv.validarString(sexo) && vv.validarString(especie) && vv.validarString(raca) && vv.validarString(pelo) && vv.validarPeso(peso) && vv.validaID(idVet) && vv.validaID(idCli)) {
             Animal animal = new Animal(nome, especie, sexo, raca, pelo, peso, dt_nascimentO, idCli, idVet);
@@ -29,9 +29,9 @@ public class AnimalController {
         return false;
     }
 
-   public boolean actualizarAnimal(int id,String nome, String especie, String sexo,String raca,String cor,float peso,String data) throws SQLException, ClassNotFoundException, ExceptionDAO{
+   public boolean actualizarAnimal(int id,String nome, String especie, String sexo,String raca,String cor,float peso,Date data) throws SQLException, ClassNotFoundException, ExceptionDAO{
     Validacao vv= new Validacao();
-if(id>0 && vv.validarString(nome) && vv.validarString(especie) && vv.validarString(sexo) && vv.validarString(raca) && vv.validarString(cor) && peso>0 && vv.validarString(data)){
+if(id>0 && vv.validarString(nome) && vv.validarString(especie) && vv.validarString(sexo) && vv.validarString(raca) && vv.validarString(cor) && peso>0 && data!=null){
  Animal animal = new Animal();
  animal.setIdAnimal(id);
  animal.setNome(nome);

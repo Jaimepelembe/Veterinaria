@@ -1,6 +1,6 @@
 package View;
 
-import Controller.Datas;
+import Controller.Data;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 
 
-public class Cadastro_Cirurgia implements ActionListener, Datas {
+public class Cadastro_Cirurgia implements ActionListener {
 
     private JLabel lab,preco,data;
     private JButton bSalvar, bLimpar, bCancelar;
@@ -49,7 +49,8 @@ public class Cadastro_Cirurgia implements ActionListener, Datas {
 
         //Label da data da cirurgia
         data= new JLabel();
-        data.setText(dataActual());
+        Data dat= new Data();
+        //data.setText(dat.dataActual());
 
         //Botoes salvar,Sair e cancelar
         bSalvar = new JButton("Salvar");
@@ -160,12 +161,7 @@ public class Cadastro_Cirurgia implements ActionListener, Datas {
         cbNome.requestFocus();
     }
 
-  public String dataActual() {
-    String data="";
-    LocalDateTime date= LocalDateTime.now();
-    DateTimeFormatter dtf= DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    data=""+dtf.format(date);
-     return data;}  
+ 
     
     @Override
     public void actionPerformed(ActionEvent e) {

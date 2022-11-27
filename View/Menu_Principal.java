@@ -331,7 +331,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
     }
       
         public void Exames() throws SQLException, ClassNotFoundException, ExceptionDAO {
-        telaExame exame = new telaExame();
+            telaExame exame = new telaExame();
         //Remover o painel central caso ele tenha algo
         removerPainelCentral();
         painelActual = exame.pPrincipal();

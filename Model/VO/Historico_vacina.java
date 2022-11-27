@@ -2,6 +2,7 @@ package Model.VO;
 
 import Model.DAO.ExceptionDAO;
 import Model.DAO.Historico_VacinaDAO;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Vector;
 
@@ -12,12 +13,12 @@ import java.util.Vector;
 public class Historico_vacina {
 private int idAnimal,idVacina;
 private float preco;
-private String data, observacao;//A data refere-se a data de realizacao ,deve ser gerada automaticamente
-
+private String observacao;//A data refere-se a data de realizacao ,deve ser gerada automaticamente
+private Date data;
     public Historico_vacina() {
     }
 
-    public Historico_vacina(int idAnimal, int idVacina, float preco, String data, String observacao) {
+    public Historico_vacina(int idAnimal, int idVacina, float preco, Date data, String observacao) {
         this.idAnimal = idAnimal;
         this.idVacina = idVacina;
         this.preco = preco;
@@ -55,13 +56,15 @@ private String data, observacao;//A data refere-se a data de realizacao ,deve se
         this.preco = preco;
     }
 
-    public String getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(Date data) {
         this.data = data;
     }
+
+   
 
     public String getObservacao() {
         return observacao;

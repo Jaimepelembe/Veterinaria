@@ -31,7 +31,7 @@ public class AnimalDAO {
     String raca= animal.getRaca();
     String pelo=animal.getCor_pelo();
     float peso=animal.getPeso();
-   String  data=animal.getDt_nascimento();
+   Date  data= animal.getDt_nascimento() ;
     int idCli=animal.getIdCliente();
     int idVet=animal.getIdVeterinaria();
         
@@ -44,7 +44,7 @@ public class AnimalDAO {
     pstate.setString(4, raca);
     pstate.setString(5, pelo);
     pstate.setFloat(6, peso);
-    pstate.setString(7, data);
+    pstate.setDate(7, data);
     pstate.setInt(8, idCli);
     pstate.setInt(9, idVet);
     pstate.executeUpdate();
@@ -60,7 +60,8 @@ public class AnimalDAO {
     }
     
 public void actualizarAnimal(Animal animal) throws SQLException, ClassNotFoundException, ExceptionDAO{
-    String nome,especie,sexo,raca,cor,data;
+    String nome,especie,sexo,raca,cor;
+    Date data;
     int id;
     float peso;
     id=animal.getIdAnimal();
@@ -86,7 +87,7 @@ public void actualizarAnimal(Animal animal) throws SQLException, ClassNotFoundEx
     pstate.setString(4, raca);
     pstate.setString(5, cor);
     pstate.setFloat(6, peso);
-    pstate.setString(7, data);
+    pstate.setDate(7, data);
     pstate.setInt(8, id);
     pstate.executeUpdate();
     pstate.close();
@@ -176,7 +177,8 @@ ResultSet rs= pstate.executeQuery(sql);
 if(rs!=null){
 int  idAnimal;
 float peso;
-String nome,esp,sexo,raca,pelo,data;
+String nome,esp,sexo,raca,pelo;
+Date data;
 animais = new Vector<>();
 while(rs.next()){
 
@@ -187,7 +189,7 @@ sexo=rs.getString("sexo");
 raca=rs.getString("raca");
 pelo= rs.getString("cor_pelo");
 peso=rs.getFloat("peso");
-data=rs.getString("dt_nascimento");
+data=rs.getDate("dt_nascimento");
 Animal animal= new Animal();
 animal.setIdAnimal(idAnimal);
 animal.setNome(nome);
@@ -229,7 +231,9 @@ ResultSet rs= pstate.executeQuery(sql);
 if(rs!=null){
 int  idAnimal;
 float peso;
-String nome,esp,sexo,raca,pelo,data;
+String nome,esp,sexo,raca,pelo;
+Date data;
+
 animais = new Vector<>();
 while(rs.next()){
 
@@ -240,7 +244,7 @@ sexo=rs.getString("sexo");
 raca=rs.getString("raca");
 pelo= rs.getString("cor_pelo");
 peso=rs.getFloat("peso");
-data=rs.getString("dt_nascimento");
+data=rs.getDate("dt_nascimento");
 Animal animal= new Animal();
 animal.setIdAnimal(idAnimal);
 animal.setNome(nome);
@@ -282,7 +286,8 @@ ResultSet rs= pstate.executeQuery(sql);
 if(rs!=null){
 int  idAnimal;
 float peso;
-String nome,esp,sexo,raca,pelo,data;
+String nome,esp,sexo,raca,pelo;
+Date data;
 animais = new Vector<>();
 while(rs.next()){
 
@@ -293,7 +298,7 @@ sexo=rs.getString("sexo");
 raca=rs.getString("raca");
 pelo= rs.getString("cor_pelo");
 peso=rs.getFloat("peso");
-data=rs.getString("dt_nascimento");
+data=rs.getDate("dt_nascimento");
 Animal animal= new Animal();
 animal.setIdAnimal(idAnimal);
 animal.setNome(nome);
@@ -319,8 +324,6 @@ finally{ConnectionBD cm = new ConnectionBD();
       
   return  animais;  
 }  
-
-
 
 
         }

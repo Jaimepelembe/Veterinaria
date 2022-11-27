@@ -22,6 +22,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Vector;
@@ -45,18 +46,21 @@ public class telaExame implements ActionListener {
     private ButtonGroup botoes;
     private JPanel painel, pPrincipal, pBotoes;
     private GridBagConstraints gbc = new GridBagConstraints();
-    private int idAnimal=-1, idExame=-1;
+    private int idAnimal=-1, idExame=-1,idHistorico=-1;
     private float precoExame;
     private Vector<Animal> vectorAnimais;
     private Vector<Exame> vectorExames;
     private String[] resultados = {"Positivo", "Negativo"};
 
     public telaExame() throws SQLException, ClassNotFoundException, ExceptionDAO {
-        //criarJanela();
+        
+        inicializar();
+       // criarJanela();
     }
 
     public void inicializar() throws SQLException, ClassNotFoundException, ExceptionDAO {
-        //Radio Button da Especie do animal e vacina
+        
+    //Radio Button da Especie do animal e vacina
           //Radio Button Cao
         botoes=new ButtonGroup();
           
@@ -288,43 +292,48 @@ public class telaExame implements ActionListener {
         }
         //cbAnimais.setSelectedIndex(-1);
     }
-     private void selecionarIdAnimal(int indice){
+    private void selecionarIdAnimal(int indice){
     idAnimal=vectorAnimais.elementAt(indice).getIdAnimal();
     codAnimal.setText(" ID: "+idAnimal);
     }
-   
-     private void receberExames() throws SQLException, ClassNotFoundException, ExceptionDAO{
+    private void receberExames() throws SQLException, ClassNotFoundException, ExceptionDAO{
        vectorExames = new ExameController().selecionarExames();
         CbExames.removeAllItems();//Remover todos os itens do combobox
         for (int i = 0; i < vectorExames.size(); i++) {
             this.CbExames.addItem(vectorExames.elementAt(i).getNome());
         }
      }
-     private void SelecionarPrecoExame(int indice){
+    private void SelecionarPrecoExame(int indice){
      precoExame=vectorExames.elementAt(indice).getPreco();
      preco.setText(" Preco: "+ precoExame);
      }
     private void selecionarIdExame(int indice){
     idExame=vectorExames.elementAt(indice).getIdExame();
     }
+    private void selecionarIdHistorico() throws SQLException, ClassNotFoundException, ExceptionDAO{
+   idHistorico=new Historico_ExameController().selecionaridHistorico();
+    }
     
    public void cadastrarHistoricoExame() throws SQLException, ClassNotFoundException, ExceptionDAO{
        boolean sucesso;
-  Historico_ExameController historico= new Historico_ExameController();
+    selecionarIdHistorico();//Metodo que vai selecionar o idHistorico que esta na BD
+    Historico_ExameController historico= new Historico_ExameController();
        Data data= new Data();
-       String date=data.dataActual();
+       Date date=data.dataActual();
        String resultado=CbResultados.getSelectedItem().toString();
        String observacao= fObservacao.getText();
     
-      sucesso=historico.cadastrarExame(idAnimal, idExame, date, resultado, observacao);
+      sucesso=historico.cadastrarExame(idAnimal, idExame,idHistorico, date, resultado, observacao);
     if(sucesso){
-    JOptionPane.showMessageDialog(null, "O Animal foi cadastrado com sucesso");
+    JOptionPane.showMessageDialog(null, "O Historico do exame foi cadastrado com sucesso");
     }
-    else{JOptionPane.showMessageDialog(null, "Houve um erro ao cadastrar o animal");}
+    else{JOptionPane.showMessageDialog(null, "Houve um erro ao cadastrar o historico");}
     
 }
     private void Limpar() {
+ cbAnimais.removeAllItems();
 cbAnimais.setSelectedIndex(-1);
+CbExames.removeAllItems();
 CbExames.setSelectedIndex(-1);
 CbResultados.setSelectedIndex(-1);
 fObservacao.setText("");
@@ -411,7 +420,7 @@ codAnimal.setText("");
             } catch (ClassNotFoundException ex) {
                JOptionPane.showMessageDialog(null, "Classe nao encontrada ao Salvar o historico"+ e);
             } catch (ExceptionDAO ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao salavar o historico"+ e);
+                JOptionPane.showMessageDialog(null, "Houve um Erro ao salavar o historico"+ e);
             }
        }
        

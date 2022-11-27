@@ -11,6 +11,7 @@ import Model.VO.Exame;
 import Model.VO.Historico_vacina;
 import Model.VO.Vacina;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -146,7 +147,7 @@ finally{ConnectionBD cm = new ConnectionBD();
     int idAnimal= historico.getIdAnimal();
     int idVacina= historico.getIdVacina();
     float preco=historico.getPreco();
-    String data=historico.getData();
+    Date data=historico.getData();
     String observacao=historico.getObservacao();
     
     try{
@@ -155,7 +156,7 @@ finally{ConnectionBD cm = new ConnectionBD();
     pstate.setInt(1, idAnimal);
     pstate.setInt(2, idVacina);
     pstate.setFloat(3, preco);
-    pstate.setString(4, data);
+    pstate.setDate(4, data);
     pstate.setString(5,observacao);
     pstate.executeUpdate();
     pstate.close();
