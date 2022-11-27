@@ -1,6 +1,6 @@
 package View;
 
-import Controller.VacinaController;
+
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -319,35 +319,35 @@ pComponentes.add(adicionarImagens(), BorderLayout.NORTH);
         this.cMarca.setSelectedIndex(-1);
         this.spQuant.setValue(0);
     }
-    
-     public void CadastrarVacina() {
-         //marca da vacina
-        String marca = cMarca.getSelectedItem().toString();
-        
-        //nome da vacina
-        String nome = fNome.getText();
-        
-        //data
-        String data = fDtVal.getText();
-        //data
-        Float preco = Float.parseFloat(fPreco.getText());
-        //data
-        Float quantidade = Float.parseFloat(quant.getText());
-
-        boolean sucesso;
-        try {
-            VacinaController vacina = new VacinaController();
-            sucesso = vacina.cadastrarVacina(marca,nome,data,quantidade,preco);
-            if (sucesso) {
-                JOptionPane.showMessageDialog(null, "A vacina foi cadastrado com sucesso");
-            } else {
-                JOptionPane.showMessageDialog(null, "Houve um erro ao cadastrar a vacina");
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao coletar dados da vacina" + ex);
-        }
-
-    }
+//    
+//     public void CadastrarVacina() {
+//         //marca da vacina
+//        String marca = cMarca.getSelectedItem().toString();
+//        
+//        //nome da vacina
+//        String nome = fNome.getText();
+//        
+//        //data
+//        String data = fDtVal.getText();
+//        //data
+//        Float preco = Float.parseFloat(fPreco.getText());
+//        //data
+//        Float quantidade = Float.parseFloat(quant.getText());
+//
+//        boolean sucesso;
+//        try {
+//            VacinaController vacina = new VacinaController();
+//            sucesso = vacina.cadastrarVacina(marca,nome,data,quantidade,preco);
+//            if (sucesso) {
+//                JOptionPane.showMessageDialog(null, "A vacina foi cadastrado com sucesso");
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Houve um erro ao cadastrar a vacina");
+//            }
+//        } catch (Exception ex) {
+//            JOptionPane.showMessageDialog(null, "Erro ao coletar dados da vacina" + ex);
+//        }
+//
+//    }
 
     public void criarJanela() {
         frame = new JFrame("CADASTRO DE VACINA");
@@ -382,7 +382,7 @@ pComponentes.add(adicionarImagens(), BorderLayout.NORTH);
          
            //Evento para salvar os dados da vacina na BD
         if (e.getSource() == bSalvar) {
-            CadastrarVacina();
+//            CadastrarVacina();
             Limpar();
         }
 }
