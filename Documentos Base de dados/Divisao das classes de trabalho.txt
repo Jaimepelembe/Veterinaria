@@ -1,7 +1,0 @@
-Aplicar Trigger,procedimentos e views em cada entidade/
-
-Jaime:
-Animal, Cirurgia e Veterinaria.
-
-Valter:
-Vacina,Exame e cliente.

@@ -22,12 +22,12 @@ private int idAnimal,idCliente,idVeterinaria;
 private String nome,especie,raca,cor_pelo;
 private String sexo;
 private float peso;
-private String dt_nascimento;
+private Date dt_nascimento;
 
 public Animal() {
     }
 
-public Animal(int idAnimal, int idCliente, int idVeterinaria, String nome, String especie, String raca, String cor_pelo, float peso,String date, String sexo) {
+public Animal(int idAnimal, int idCliente, int idVeterinaria, String nome, String especie, String raca, String cor_pelo, float peso,Date date, String sexo) {
         this.idAnimal = idAnimal;
         this.idCliente = idCliente;
         this.idVeterinaria = idVeterinaria;
@@ -41,7 +41,7 @@ public Animal(int idAnimal, int idCliente, int idVeterinaria, String nome, Strin
     }
 
 //construtor para cadastrar animal BD
-    public Animal( String nome, String especie, String sexo,String raca, String cor_pelo, float peso, String dt_nascimento,int idCliente, int idVeterinaria) {
+    public Animal( String nome, String especie, String sexo,String raca, String cor_pelo, float peso, Date dt_nascimento,int idCliente, int idVeterinaria) {
         this.nome = nome;
         this.especie = especie;
         this.raca = raca;
@@ -138,13 +138,15 @@ return new AnimalDAO().pesquisarAnimalNome(nome);
         this.cor_pelo = cor_pelo;
     }
 
-    public String getDt_nascimento() {
+    public void setDt_nascimento(Date dt_nascimento) {
+        this.dt_nascimento = dt_nascimento;
+    }
+
+    public Date getDt_nascimento() {
         return dt_nascimento;
     }
 
-    public void setDt_nascimento(String dt_nascimento) {
-        this.dt_nascimento = dt_nascimento;
-    }
+  
 
     public String getSexo() {
         return sexo;

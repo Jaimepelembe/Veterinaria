@@ -19,6 +19,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -188,7 +189,7 @@ public class Tabela_Consulta_Animal extends MouseAdapter implements ActionListen
                 colunas
         ) {
             Class[] types = new Class[]{
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class,java.lang.String.class,java.lang.String.class,java.lang.Float.class,java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class,java.lang.String.class,java.lang.String.class,java.lang.Float.class,java.sql.Date.class
             };
             boolean[] canEdit = new boolean[]{
                 false, false, false, false,false, false, false
@@ -222,7 +223,7 @@ public class Tabela_Consulta_Animal extends MouseAdapter implements ActionListen
         String raca = (String) tabela.getModel().getValueAt(linha, 4);
         String pelo = (String) tabela.getModel().getValueAt(linha, 5);
        float peso = (Float) tabela.getModel().getValueAt(linha, 6);
-       String data = (String) tabela.getModel().getValueAt(linha, 7);
+       Date data = (Date) tabela.getModel().getValueAt(linha, 7);
         //Passar a informacao do animal selecionado para a tela de Consulta
         Cadastro_Animal animal = new Cadastro_Animal();
         animal.selecionarAnimal(id, nome, especie, sexo, raca, pelo, peso, data);

@@ -6,6 +6,7 @@ package Controller;
 
 import Model.DAO.ExameDAO;
 import Model.DAO.ExceptionDAO;
+import Model.DAO.Historico_ExameDAO;
 import Model.VO.Animal;
 import Model.VO.Exame;
 import java.sql.SQLException;

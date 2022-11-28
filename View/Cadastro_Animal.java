@@ -2,9 +2,11 @@ package View;
 
 import Controller.AnimalController;
 import Controller.ClienteController;
+import Controller.Data;
 import Controller.Validacao;
 import Model.DAO.ExceptionDAO;
 import Model.VO.Cliente;
+import com.raven.datechooser.DateBetween;
 import java.awt.BorderLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -32,15 +34,22 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.text.MaskFormatter;
+//Date chooser
+import com.raven.datechooser.DateChooser;
+import com.raven.datechooser.listener.DateChooserAction;
+import com.raven.datechooser.listener.DateChooserListener;
+import java.text.SimpleDateFormat;
+
 //import sun.jvm.hotspot.oops.java_lang_Class;
 
-public class Cadastro_Animal implements ActionListener {
+public class Cadastro_Animal implements ActionListener,DateChooserListener {
 
     private JLabel nome, especie, raca, cor, dtNascimento, peso, kg,codigoCliente, escolha, sexo, info;
     private JButton bActualizar,salvar, cancelar, limpar, bEliminar, bHistorico;
     private JTextField fNome;
     private Vector<Cliente> clientes;
-    private static JFormattedTextField fPeso, fDtNascimento;
+    private static JFormattedTextField fPeso;
+    private JTextField tfDtNascimento;
     private JFrame frame;
     private  JComboBox cRaca, cCor,cClientes;
     private Container pbActual;
@@ -51,12 +60,14 @@ public class Cadastro_Animal implements ActionListener {
     private String[] racas_caes = {"Chow chow", "Chiuaua","Doberman", "Husky siberiano","Pastor Alemao", "Pitbull", "Pastor Belga", "outro"};
     private String[] racas_gatos = { "Bengal","British Shorthair", "Maine Coon", "Munchkin", "Persa", "Ragdoll","Sphynx", "outro"};
     private String[] cores = {"Branco", "Cizento", "Azul", "Amarelo"};
+    private DateChooser datechoose;
+    private Date dataNascimento=null;
     private  Validacao vv= new Validacao();
     GridBagConstraints gbc = new GridBagConstraints();
 
     public Cadastro_Animal() throws SQLException, ClassNotFoundException, ExceptionDAO {
         inicializarComponentes();
-       // criarJanela();
+        //criarJanela();
     }
 
     private void inicializarComponentes() throws SQLException, ClassNotFoundException, ExceptionDAO {
@@ -137,11 +148,19 @@ public class Cadastro_Animal implements ActionListener {
         cRaca = new JComboBox();//Deve ter raca de caes ou gatos dependendo da especie selecionada
             
         //Data de nascimento
-        dtNascimento = new JLabel("Data de nascimento ");
-        dtNascimento.setForeground(Color.gray);
-        fDtNascimento = new JFormattedTextField();
-        fDtNascimento.setColumns(10);
-        formatarCampo(fDtNascimento);
+       dtNascimento = new JLabel("Data de nascimento ");
+       dtNascimento.setForeground(Color.gray);
+//        fDtNascimento = new JFormattedTextField();
+//        fDtNascimento.setColumns(10);
+//        formatarCampo(fDtNascimento);
+        
+  tfDtNascimento= new JTextField();
+  tfDtNascimento.setColumns(10);
+  tfDtNascimento.setToolTipText("Introduza a data");
+   datechoose =new DateChooser();
+   datechoose.setTextField(tfDtNascimento);
+   datechoose.addActionDateChooserListener(this);
+  
 
         //Peso
         peso = new JLabel("Peso ");
@@ -203,10 +222,10 @@ public class Cadastro_Animal implements ActionListener {
     private void formatarCampo(JTextField campoTexto) {
         try {
             MaskFormatter mascara = new MaskFormatter();
-            if (campoTexto == fDtNascimento) {
-                mascara.setMask("##-##-####");//Ano,Mes e Dia
-                mascara.install(fDtNascimento);
-            }
+//            if (campoTexto == fDtNascimento) {
+//                mascara.setMask("##-##-####");//Ano,Mes e Dia
+//                mascara.install(fDtNascimento);
+//            }
             if (campoTexto == fPeso) {
                 mascara.setMask("## ");
                 mascara.install(fPeso);
@@ -366,7 +385,7 @@ public class Cadastro_Animal implements ActionListener {
         gbc.gridx = 3;
         gbc.gridy = 9;
         gbc.gridwidth = 1;
-        pComponentes.add(fDtNascimento, gbc);
+        pComponentes.add(tfDtNascimento, gbc);
         return pComponentes;
     }
 
@@ -493,7 +512,7 @@ public class Cadastro_Animal implements ActionListener {
     
    
     }
-    public void selecionarAnimal (int idAnimal, String nome, String especie, String sexo,String raca, String cor_pelo, float peso, String dt_nascimento) {
+    public void selecionarAnimal (int idAnimal, String nome, String especie, String sexo,String raca, String cor_pelo, float peso, Date dt_nascimento) {
      this.idAnimal = idAnimal;
         fNome.setText(nome);
         //Selecionar a especie
@@ -527,7 +546,8 @@ public class Cadastro_Animal implements ActionListener {
         fPeso.setText(p);
        
        //Preencher data de nascimento
-       fDtNascimento.setText(dt_nascimento);
+       Data datas= new Data();
+       tfDtNascimento.setText(datas.SqlDatetoString(dt_nascimento));
        
         //Passar o painel do resultado da consulta para o menu 
         Menu_Principal.ResulConsultaAnimal(painelResulConsulta());
@@ -574,7 +594,8 @@ public class Cadastro_Animal implements ActionListener {
         cor=cCor.getSelectedItem().toString();
         }
         float peso=vv.StringToFloat(fPeso.getText());
-        String data=fDtNascimento.getText();
+        Data datas= new Data();
+        Date data=datas.StringtoSqlDate(tfDtNascimento.getText());
 
         boolean sucesso;
         try {
@@ -607,7 +628,7 @@ public class Cadastro_Animal implements ActionListener {
         }
     
     }
-    
+    //Metodo para selecionar determinado item do combobox
       private  void SelectcomboBox(String raca) {
         int j = cRaca.getItemCount();
         System.out.println(j);
@@ -620,8 +641,8 @@ public class Cadastro_Animal implements ActionListener {
             }
         }
     }
-
-       private  int  SelectcomboBox(String nome,JComboBox combo) {
+ //Metodo para selecionar determinado item do combobox
+    private  int  SelectcomboBox(String nome,JComboBox combo) {
         int j = combo.getItemCount();
         int indice=-1;
         System.out.println(j);
@@ -637,7 +658,7 @@ public class Cadastro_Animal implements ActionListener {
         fNome.setText("");
         this.cClientes.setSelectedIndex(-1);
         fPeso.setText("");
-        fDtNascimento.setText("");
+        tfDtNascimento.setText("");
         this.cCor.setSelectedIndex(-1);
         this.cRaca.removeAllItems();
         botoes.clearSelection();
@@ -669,7 +690,7 @@ public class Cadastro_Animal implements ActionListener {
     String raca=cRaca.getSelectedItem().toString();
     String cor= cCor.getSelectedItem().toString();
     float peso= vv.StringToFloat(fPeso.getText());    
-    String data= fDtNascimento.getText();
+   Date data= dataNascimento;
     boolean sucesso;
     try{AnimalController animal = new AnimalController();
     if(idCliente>0 && idVeterinaria>0){
@@ -735,6 +756,20 @@ public class Cadastro_Animal implements ActionListener {
    }
   
    
+    }
+
+    @Override
+    public void dateChanged(java.util.Date date, DateChooserAction action) {
+      SimpleDateFormat dtf= new  SimpleDateFormat("yyyy-MM-dd");
+      String data=dtf.format(date);
+      Date dat=Date.valueOf(data);  
+      dataNascimento=dat;
+       
+    }
+
+    @Override
+    public void dateBetweenChanged(DateBetween db, DateChooserAction action) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     
