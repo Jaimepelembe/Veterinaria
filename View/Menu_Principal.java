@@ -320,11 +320,11 @@ public class Menu_Principal implements ActionListener, MouseListener{
         frame.add(painelActual, BorderLayout.CENTER);
     }
       
-      public void Cirurgia() {
+        public void Cirurgia() throws SQLException, ClassNotFoundException, ExceptionDAO{
         Cadastro_Cirurgia sCirurgia = new Cadastro_Cirurgia();
         //Remover o painel central caso ele tenha algo
         removerPainelCentral();
-        painelActual = sCirurgia.adicionarComponentes();
+        painelActual = sCirurgia.pPrincipal();
         mudarCor();
         servicos.setBackground(cor2);
         frame.add(painelActual, BorderLayout.CENTER);
@@ -585,6 +585,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
         }
          //cirurgia
         if (e.getSource() == mCirurgia) {
+            ///VER AQUI
             Cirurgia();
             frame.setVisible(true);
         }
