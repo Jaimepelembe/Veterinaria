@@ -711,8 +711,6 @@ public class Menu_Principal implements ActionListener, MouseListener{
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        mudarCor();
-          iconPrincipal();
          }
 
     @Override
