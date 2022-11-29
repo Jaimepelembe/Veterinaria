@@ -6,143 +6,353 @@
 package View;
 
 
+import Controller.AnimalController;
+import Controller.VacinaController;
+import Controller.Validacao;
+import Model.VO.Animal;
+import Model.VO.Vacina;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Vector;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
-public class Tabela_Consulta_Vacina {
+public class Tabela_Consulta_Vacina implements ActionListener{
     
-    private JLabel marca,nomeVacina;
+    private JLabel lab;
     private JTextField fNome, fTel;
     private JFrame frame;
     private JComboBox cListaMarcas, cNomesVacinas;
     private JTable tabela;
-    private JButton bPesquisar;
-    private JPanel pPrincipal,painel;
-    GridBagConstraints gbc = new GridBagConstraints();
-     private String[] listaMarcas = { "Zoetis", "Boehringer ingelheim", "VANGUARD ", "SERUM INSTITUTE OF INDIA PVT" };
-    private String[] Vacinas_Caes = { "Polivalente (V10)", "Antirrábica", "Contra a gripe", "contra Giárdia", "Esgana",
-            "Parvovirose" };
-     String[][] data = {
-            { "Zoetis", "Antirrabica", "500", "19-02-2022"} };
- 
-        // NOMES DAS COLUNAS
-        String[] columnNames = { "MARCA", "NOME", "QUANTIDADE(ml)", "DATA DE VALIDADE"};
+//    private JButton bPesquisar;
+    private JPanel pPrincipal,painel,pTabela,pBotoes;
+    private JRadioButton rbgato,rbcao;
+    private ButtonGroup botoes;
+    private JButton bLimpar, bCancelar;
+    private GridBagConstraints gbc = new GridBagConstraints();
+    private String[] listaMarcas = { "Zoetis", "Boehringer ingelheim", "VANGUARD ", "SERUM INSTITUTE OF INDIA PVT" };
+    private String[] VacinasCaes={"Polivalente (V10) ","Antirrábica","Gripe","Giárdia","Esgana","Parvovirose "};
+    private String[] VacinasGatos={"Panleucopénia","Antirrábica ","RinoTranquete","Leucemia","Peritonite infeciosa ","Clamídia"};
+    private Validacao vv= new Validacao();
 
     public Tabela_Consulta_Vacina(){
-    criarJanela();
+    inicializarComponentes();
+    //criarJanela();
     }
 
     public void inicializarComponentes(){
-        painel = new JPanel();
+        painel = new JPanel(new GridBagLayout());
         painel.setBackground(Color.white);
-        painel.setLayout(new GridBagLayout());
+       
+        pBotoes= new JPanel(new GridBagLayout());
+        pBotoes.setBackground(Color.white);
         
         pPrincipal= new JPanel(new BorderLayout());
         
-        //Botao pesquisar
-        bPesquisar = new JButton("PESQUISAR");
-        bPesquisar.setForeground(Color.WHITE);
-        bPesquisar.setFocusPainted(false);
-        bPesquisar.setBackground(Color.blue);
+        //Informacoes da Especie
+        botoes = new ButtonGroup();
+        //Canina
+        rbcao = new JRadioButton("Canina");
+        rbcao.setBackground(Color.WHITE);
+        rbcao.addActionListener(this);
         
+        //Felina
+        rbgato = new JRadioButton("Felina");
+        rbgato.setBackground(Color.WHITE);
+        rbgato.addActionListener(this);
+        botoes.add(rbcao);
+        botoes.add(rbgato);
+        
+      
         //Combobox de marca
         cListaMarcas = new JComboBox(listaMarcas);
         cListaMarcas.setSelectedIndex(-1);
+        cListaMarcas.addActionListener(this);
         
         //Combobox nome vacinas
-        cNomesVacinas = new JComboBox(Vacinas_Caes);
+        cNomesVacinas = new JComboBox();
         cNomesVacinas.setSelectedIndex(-1);
+        cNomesVacinas.addActionListener(this);
+        
+        //Botoes
+        //Botao limpar
+        bLimpar = new JButton("Limpar");
+        bLimpar.setForeground(Color.white);
+        bLimpar.setBackground(Color.blue);
+        bLimpar.addActionListener(this);
+        bLimpar.setFocusPainted(false);
+
+        //Botao cancelar
+        bCancelar = new JButton("Cancelar");
+        bCancelar.setForeground(Color.white);
+        bCancelar.setBackground(Color.red);
+        bCancelar.addActionListener(this);
+        bCancelar.setFocusPainted(false); 
+        
     }
-    public Container adicionarcomponentes() {
-        inicializarComponentes();
+    public Container painelComponentes() {
+      
         gbc.fill = GridBagConstraints.HORIZONTAL;
-
-          // BOTAO PESQUISAR
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx = 1;
-        gbc.gridy = 5;
+        //Especie
+        //Label Especie
+        lab = new JLabel("Especie");
+        gbc.insets = new Insets(35, 15, 0, 0);
+        gbc.gridy = 0;
+        gbc.gridx = 0;
+        painel.add(lab, gbc);
+        
+        // Informacoes RadioButtons
+        gbc.insets = new Insets(35, 15, 0, 0);//Insets e Field,RadioButton, Combobox
+        gbc.gridx = 0;
+        gbc.gridy=1;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, 15, 5, 0);
-        painel.add(bPesquisar, gbc);
+        painel.add(rbcao, gbc);
 
+        gbc.insets = new Insets(35, 15,0, 0);
+        gbc.gridx = 1;
+        gbc.gridwidth = 1;
+        painel.add(rbgato, gbc);
         
        //MARCA DA VACINA
-         marca = new JLabel("MARCA");
+         lab = new JLabel("Marca");
         gbc.insets = new Insets(35, 15, 0, 0);
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         gbc.gridx = 0;
-        painel.add(marca, gbc); 
+        painel.add(lab, gbc); 
 
         // Box MARCAS VACINAS
-        gbc.gridy = 1;
-       gbc.insets = new Insets(35, 5, 0, 0);
-        gbc.ipady = 5;
-        
+        gbc.insets = new Insets(35, 5, 0, 0);
         gbc.gridx = 1;
         gbc.gridwidth = 1;
-        painel.add(cListaMarcas, gbc);
-       
+        gbc.ipady = 5;
+        painel.add(cListaMarcas, gbc); 
+        
+        
         //NOME DA VACINA
-        gbc.insets = new Insets(35, 15, 20, 30);
-        gbc.gridy = 2;
-        nomeVacina = new JLabel("Nome");
+        gbc.insets = new Insets(35, 15, 40, 0);
         gbc.gridx = 0;
-        painel.add(nomeVacina, gbc); 
+        gbc.gridy = 3;
+        lab = new JLabel("Nome");
+        painel.add(lab, gbc); 
 
-        // Box nomes
-        gbc.gridy = 2;
-       gbc.insets = new Insets(35, 5, 20, 0);
-        gbc.ipady = 5;
+        // ComBobox nomes
+        gbc.insets = new Insets(35, 5, 40, 0);
         gbc.gridx = 1;
         gbc.gridwidth = 1;
+        gbc.ipady = 5;
         painel.add(cNomesVacinas, gbc);
-        
-         //tabela
-        gbc.insets = new Insets(35, 5, 40, 50);
-        gbc.gridy = 7;
-        gbc.gridx = 1;
-        gbc.gridwidth = 4;
-        // INICIALIZANDO
-        tabela = new JTable(data, columnNames);
-        //tabela.setBounds(30, 40, 200, 300);
+ 
+        return painel;
+}  
+    
+  private Container painelTabela() {
+        Object[][] data = {};
+        String[] colunas = { "NOME", "PRECO","DATA DE VALIDADE","QUANTIDADE(ml)"};
+        pTabela = new JPanel(new BorderLayout());
+        pTabela.setBackground(Color.white);
+        pTabela.setForeground(Color.white);
+        // INICIALIZANDO a tabela
+        tabela = new JTable(data, colunas);
+        tabela.setBounds(30, 40, 200, 300);
 
-        // SCROLL PANE
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
+                data,
+                colunas
+        ) {
+            Class[] types = new Class[]{
+                java.lang.String.class,java.lang.Float.class,java.sql.Date.class, java.lang.Float.class
+            };
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types[columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        });
+
+        // Adicionar a tabela a um SCROLL PANE
         JScrollPane sp = new JScrollPane(tabela);
-        painel.add(sp, gbc);
+        sp.setForeground(Color.white);
+        sp.setBackground(Color.white);
+        pTabela.add(sp, BorderLayout.CENTER);
+        return pTabela;
+    }
+
+  
+   //Metodo para devolver o painel com os botoes Limpar e Cancelar
+private Container painelBotoes() {
+        // Botoes Cancelar e limpar
+        //Limpar
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(35, 5, 10, 40);
+        gbc.ipadx = 10;
+        gbc.ipady = 5;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        pBotoes.add(bLimpar,gbc);
+
+        //Botao cancelar
+        gbc.gridx = 1;
+        pBotoes.add(bCancelar,gbc);
+
+        return pBotoes;
+    }
+  
+ public Container PainelConsulta(){
+ pPrincipal.add(painelComponentes(),BorderLayout.PAGE_START);
+ pPrincipal.add(painelTabela(),BorderLayout.CENTER);
+ pPrincipal.add(painelBotoes(),BorderLayout.PAGE_END);
+ 
+ return pPrincipal;
+ }
+
+  //Metodo para selecionar o nome das vacinas de determinada especie
+private void selecionarNomeVacina() {
+        if (rbcao.isSelected()) {
+            this.cNomesVacinas.removeAllItems();
+            for (int i = 0; i < VacinasCaes.length; i++) {
+                this.cNomesVacinas.addItem(VacinasCaes[i]);
+
+            }
+
+        }
+        if (rbgato.isSelected()) {
+            this.cNomesVacinas.removeAllItems();
+            for (int i = 0; i < VacinasGatos.length; i++) {
+                this.cNomesVacinas.addItem(VacinasGatos[i]);
+            }
+
+        }
+
+    }
+
+private void Limpar(){
+botoes.clearSelection();
+cListaMarcas.setSelectedIndex(-1);
+cNomesVacinas.removeAllItems();
+
+}
+private void colocarIconMenu() {
+        Menu_Principal a = new Menu_Principal("");
+        a.iconPrincipal();
+        a.mudarCor();
+    }
+
+
+ private void pesquisarVacinaMarca(String mark) {
         
-        pPrincipal.add(painel,BorderLayout.PAGE_START);
-        pPrincipal.add(sp,BorderLayout.CENTER);
+        try {
+            if (vv.validarString(mark)) {
+                DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+                modelo.setRowCount(0);
+                VacinaController vacina= new VacinaController();
+                
+                Vector<Vacina> vacinas = vacina.pesquisarVacinaMarca(mark);
+                vacinas.forEach((Vacina vaci) -> {modelo.addRow(new Object[]{vaci.getNome(), vaci.getPreco(),vaci.getData(),vaci.getQuantidade()});
+                });
+                tabela.setModel(modelo);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao pesquisar o a vacina pela marca" + ex);
+        }
+    }
 
-        return pPrincipal;
+
+ private void pesquisarVacinaNome(String name) {
+        
+        try {
+            if (vv.validarString(name)) {
+                DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+                modelo.setRowCount(0);
+                VacinaController vacina= new VacinaController();
+                
+                Vector<Vacina> vacinas = vacina.pesquisarVacinaNome(name);
+                vacinas.forEach((Vacina vaci) -> {modelo.addRow(new Object[]{vaci.getNome(), vaci.getPreco(),vaci.getData(),vaci.getQuantidade()});
+                });
+                tabela.setModel(modelo);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao pesquisar o a vacina pelo nome" + ex);
+        }
+    }
+
 
     
-    
-}    public void criarJanela() {
+    public void criarJanela() {
         frame = new JFrame("CONSULTAR VACINAS");
-        frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(700, 500);
-        frame.add(adicionarcomponentes());
+        frame.add(PainelConsulta());
       //frame.add(tabela());
         frame.pack();
+        frame.setVisible(true);
 
     }
 
     public static void main(String[] args) {
-     new Tabela_Consulta_Vacina();
-     
+     new Tabela_Consulta_Vacina();  
+        
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
+        if(e.getSource()==bLimpar){
+            Limpar();
+        }
+        
+        if(e.getSource()==bCancelar){
+        colocarIconMenu();
+        }
         
         
-    }}
+        if(e.getSource()==rbcao){
+        selecionarNomeVacina();
+        cNomesVacinas.setSelectedIndex(-1);
+        
+        }
+        if(e.getSource()==rbgato){
+        selecionarNomeVacina();
+        cNomesVacinas.setSelectedIndex(-1);
+        }
+        if(e.getSource()==cListaMarcas && cListaMarcas.isShowing()){
+            
+                if(cListaMarcas.getSelectedIndex()>=0){
+            String marca=cListaMarcas.getSelectedItem().toString();
+            pesquisarVacinaMarca(marca);
+                cNomesVacinas.setSelectedIndex(-1);
+                }
+        }
+        
+        if(e.getSource()==cNomesVacinas && cNomesVacinas.isShowing()){
+            if(cNomesVacinas.getSelectedIndex()>=0){
+        String nome=cNomesVacinas.getSelectedItem().toString();
+        pesquisarVacinaNome(nome);
+            cListaMarcas.setSelectedIndex(-1);
+            }
+        }
+        
+        
+       }
+}

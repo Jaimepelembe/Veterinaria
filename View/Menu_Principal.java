@@ -321,7 +321,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
     }
       
         public void Cirurgia() throws SQLException, ClassNotFoundException, ExceptionDAO{
-        Cadastro_Cirurgia sCirurgia = new Cadastro_Cirurgia();
+        telaCirurgia sCirurgia = new telaCirurgia();
         //Remover o painel central caso ele tenha algo
         removerPainelCentral();
         painelActual = sCirurgia.pPrincipal();
@@ -372,9 +372,9 @@ public class Menu_Principal implements ActionListener, MouseListener{
     Cadastro_Vacina vacinas= new Cadastro_Vacina();
     mudarCor();
     produtos.setBackground(cor2);
-       //Remover o painel que esta no centro 
+    //Remover o painel que esta no centro 
      removerPainelCentral();
-     this.painelActual  = vacinas.painelPrincipal();
+     this.painelActual  = vacinas.painelCadastro();
      frame.add(painelActual, BorderLayout.CENTER);
      
     }
@@ -384,7 +384,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
                 mudarCor();
                 produtos.setBackground(cor2);
         removerPainelCentral();
-        painelActual = tVacina.adicionarcomponentes();
+        painelActual = tVacina.PainelConsulta();
         frame.add(painelActual, BorderLayout.CENTER);
 
     }
@@ -585,8 +585,16 @@ public class Menu_Principal implements ActionListener, MouseListener{
         }
          //cirurgia
         if (e.getSource() == mCirurgia) {
-            ///VER AQUI
-            Cirurgia();
+            try {
+                ///VER AQUI
+                Cirurgia();
+            } catch (SQLException ex) {
+                Logger.getLogger(Menu_Principal.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Menu_Principal.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ExceptionDAO ex) {
+                Logger.getLogger(Menu_Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
             frame.setVisible(true);
         }
 

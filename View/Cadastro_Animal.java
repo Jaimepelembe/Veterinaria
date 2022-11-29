@@ -2,6 +2,7 @@ package View;
 
 import Controller.AnimalController;
 import Controller.ClienteController;
+import Controller.Conversor;
 import Controller.Data;
 import Controller.Validacao;
 import Model.DAO.ExceptionDAO;
@@ -63,6 +64,7 @@ public class Cadastro_Animal implements ActionListener,DateChooserListener {
     private DateChooser datechoose;
     private Date dataNascimento=null;
     private  Validacao vv= new Validacao();
+    private Conversor cc= new Conversor();
     GridBagConstraints gbc = new GridBagConstraints();
 
     public Cadastro_Animal() throws SQLException, ClassNotFoundException, ExceptionDAO {
@@ -478,15 +480,16 @@ public class Cadastro_Animal implements ActionListener,DateChooserListener {
     }
      }
 
+  //Relatorio Cadastro de Animais
     
     
     private void criarJanela() {
         frame = new JFrame("ANIMAL");
-        frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // frame.setSize(700, 500);
         frame.add(painelCadastro());
         frame.pack();
+        frame.setVisible(true);
 
     }
 
@@ -592,7 +595,7 @@ public class Cadastro_Animal implements ActionListener,DateChooserListener {
         if(cCor.getSelectedIndex()>-1){
         cor=cCor.getSelectedItem().toString();
         }
-        float peso=vv.StringToFloat(fPeso.getText());
+        float peso=cc.StringToFloat(fPeso.getText());
         Data datas= new Data();
         Date data=datas.StringtoSqlDate(tfDtNascimento.getText());
 
@@ -688,7 +691,7 @@ public class Cadastro_Animal implements ActionListener,DateChooserListener {
     }
     String raca=cRaca.getSelectedItem().toString();
     String cor= cCor.getSelectedItem().toString();
-    float peso= vv.StringToFloat(fPeso.getText());    
+    float peso= cc.StringToFloat(fPeso.getText());    
    Date data= dataNascimento;
     boolean sucesso;
     try{AnimalController animal = new AnimalController();

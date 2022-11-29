@@ -4,7 +4,13 @@
  */
 package Model.VO;
 
+import Model.DAO.ExameDAO;
+import Model.DAO.ExceptionDAO;
+import Model.DAO.Historico_CirurgiaDAO;
 import java.sql.Date;
+import java.sql.SQLException;
+import java.util.Vector;
+
 
 /**
  *
@@ -26,6 +32,20 @@ private Date data;
         this.observacao = observacao;
     }
 
+    public void cadastrarHistorico(Historico_Cirurgia historico) throws SQLException, ClassNotFoundException, ExceptionDAO{
+    
+    new Historico_CirurgiaDAO().cadastrarHistorico(historico);
+    }
+    
+//  public Vector<Animal>selecionarAnimaisEspecie(String especie) throws SQLException, ClassNotFoundException, ExceptionDAO{
+// 
+// return new ExameDAO().selecionarAnimaisEspecie(especie);}
+  
+      
+  public Vector<Cirurgia> selecionarCirurgias() throws SQLException, ClassNotFoundException, ExceptionDAO{
+ 
+ return new Historico_CirurgiaDAO().selecionarCirurgias();}
+    
     public int getIdAnimal() {
         return idAnimal;
     }

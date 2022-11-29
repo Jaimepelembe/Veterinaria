@@ -82,6 +82,10 @@ return new AnimalDAO().pesquisarAnimalRaca(raca);
 public Vector<Animal> pesquisarAnimalNome(String nome) throws ClassNotFoundException, ExceptionDAO {
 return new AnimalDAO().pesquisarAnimalNome(nome);
         }
+
+public Vector<Animal> pesquisarAnimalRelatorio() throws ClassNotFoundException, ExceptionDAO {
+return new AnimalDAO().pesquisarAnimalRelatorio();
+        }
     public int getIdAnimal() {
         return idAnimal;
     }

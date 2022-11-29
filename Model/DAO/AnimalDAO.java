@@ -324,5 +324,52 @@ finally{ConnectionBD cm = new ConnectionBD();
   return  animais;  
 }  
 
+public Vector<Animal> pesquisarAnimalRelatorio() throws ClassNotFoundException, ExceptionDAO {
+Connection cn=null;
+PreparedStatement pstate=null;
+String sql="select animal.nome,animal.especie,animal.sexo,animal.raca,animal.dt_nascimento from animal order by especie;";
+
+Vector<Animal> animais=null;
+
+try{
+cn=new ConnectionBD().getConnection();
+pstate=cn.prepareStatement(sql);
+ResultSet rs= pstate.executeQuery(sql);
+if(rs!=null){
+int  idAnimal;
+float peso;
+String nome,esp,sexo,raca,pelo;
+Date data;
+animais = new Vector<>();
+while(rs.next()){
+nome=rs.getString("nome");
+esp=rs.getString("especie");
+sexo=rs.getString("sexo");
+raca=rs.getString("raca");
+data=rs.getDate("dt_nascimento");
+Animal animal= new Animal();
+animal.setNome(nome);
+animal.setEspecie(esp);
+animal.setSexo(sexo);
+animal.setRaca(raca);
+animal.setDt_nascimento(data);
+
+animais.add(animal);
+
+}
+
+}
+else{JOptionPane.showMessageDialog(null, "O animal Nao foi encontrado");}
+
+}
+
+catch(SQLException ex){ throw new ExceptionDAO("Erro ao buscar o animal: "+ex); }
+finally{ConnectionBD cm = new ConnectionBD();
+  cm.fecharConexao(pstate, cn);}
+      
+  return  animais;  
+}  
+
+
 
         }

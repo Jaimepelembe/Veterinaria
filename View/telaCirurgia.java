@@ -6,6 +6,10 @@ import Model.VO.Animal;
 import Model.VO.Exame;
 import java.awt.BorderLayout;
 import Controller.Data;
+import Controller.ExameController;
+import Controller.Historico_CirurgiaController;
+import Controller.Historico_ExameController;
+import Model.VO.Cirurgia;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -21,11 +25,14 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
@@ -33,33 +40,32 @@ import javax.swing.JRadioButton;
 import javax.swing.text.MaskFormatter;
 
 
-public class Cadastro_Cirurgia implements ActionListener {
+public class telaCirurgia implements ActionListener {
 
-    private JLabel lab,preco,data,codAnimal, idAnimal;
+    private JLabel lab,preco,data,codAnimal;
     private JButton bSalvar, bLimpar, bCancelar;
     //private JFormattedTextField fPreco, fData;
-    private JComboBox cbNome,cbAnimais, CbCirurgia;
-    private String[] nomes = {"Castração", "Remoção de corpos estranhos", "Remoção de pedras na bexiga", "Correção de fraturas"};
+    private JComboBox cbAnimais, CbCirurgia;
     private JFrame frame;
     private JPanel painel, pPrincipal, pBotoes;
     private GridBagConstraints gbc = new GridBagConstraints();
     private JTextField fObservacao;
     private JRadioButton rbcao,rbgato;
     private ButtonGroup botoes;
-   // private int idAnimal=-1;
+    private int idCirurgia=-1,idAnimal=-1;
     private float precoExame;
+    //private Vector<Animal> vectorAnimais;
+    private Vector<Cirurgia> vectorCirurgias;
     private Vector<Animal> vectorAnimais;
-    private Vector<Exame> vectorExames;
     private String[] resultados = {"Positivo", "Negativo"};
 
-    public Cadastro_Cirurgia() throws SQLException, ClassNotFoundException, ExceptionDAO{
-       criarJanela();
+    public telaCirurgia() throws SQLException, ClassNotFoundException, ExceptionDAO{
+        inicializar();
+        criarJanela();
     }
 
     public void inicializar() {
-        //Informacoes do nome
-        cbNome = new JComboBox(nomes);
-        cbNome.setSelectedIndex(-1);
+      
 
         //Label do preco da consulta
         preco = new JLabel("000");//Preco da consulta
@@ -97,8 +103,8 @@ public class Cadastro_Cirurgia implements ActionListener {
         //TextField observacao
         fObservacao = new JTextField();
         fObservacao.setColumns(10);
-        preco= new JLabel("PREÇO");
-        idAnimal= new JLabel("ID ANIMAL: ");
+        preco= new JLabel("Preco");
+        codAnimal= new JLabel();
         //recebertodosAnimais();
         Data dat= new Data();
         //data.setText(dat.dataActual());
@@ -134,8 +140,7 @@ public class Cadastro_Cirurgia implements ActionListener {
 
 
    
-    public Container componentes() throws SQLException, ClassNotFoundException, ExceptionDAO {
-        inicializar();
+    public Container painelComponentes() throws SQLException, ClassNotFoundException, ExceptionDAO {
         JPanel painel = new JPanel();
         painel.setBackground(Color.white);
         painel.setLayout(new GridBagLayout());
@@ -192,7 +197,7 @@ public class Cadastro_Cirurgia implements ActionListener {
         gbc.insets = new Insets(35, 5, -27, 0);
         gbc.gridx = 1;
         gbc.gridy = 2;
-        painel.add(idAnimal, gbc);
+        painel.add(codAnimal, gbc);
         //Label do idAnimal
        /* gbc.insets = new Insets(35, 5, -27, 0);
         gbc.gridx = 1;
@@ -241,7 +246,7 @@ public class Cadastro_Cirurgia implements ActionListener {
         return painel;
     }
 
-    public Container adicionarBotoes() {
+    public Container painelBotoes() {
              JPanel pBotoes = new JPanel();
         pBotoes.setBackground(Color.white);
         pBotoes.setLayout(new GridBagLayout());
@@ -262,12 +267,71 @@ public class Cadastro_Cirurgia implements ActionListener {
 
     public Container pPrincipal() throws SQLException, ClassNotFoundException, ExceptionDAO {
        JPanel pPrincipal = new JPanel(new BorderLayout());
-        pPrincipal.add(componentes(), BorderLayout.NORTH);
-        pPrincipal.add(adicionarBotoes(), BorderLayout.CENTER);
+        pPrincipal.add(painelComponentes(), BorderLayout.NORTH);
+        pPrincipal.add(painelBotoes(), BorderLayout.CENTER);
         pPrincipal.setBackground(Color.white);
 
         return pPrincipal;
     }
+    //Metodo para receber todos animais da BD pela especie
+    private void receberAnimaisEspecie(String especie) throws SQLException, ClassNotFoundException, ExceptionDAO {
+        vectorAnimais = new ExameController().selecionarAnimaisEspecie(especie);
+        cbAnimais.removeAllItems();//Remover todos os itens do combobox
+        for (int i = 0; i < vectorAnimais.size(); i++) {
+            this.cbAnimais.addItem(vectorAnimais.elementAt(i).getNome());
+        }
+        //cbAnimais.setSelectedIndex(-1);
+    }
+    
+    //Metodo para receber todas cirurgias realizadas na Veterinaria
+     private void receberCirurgias() throws SQLException, ClassNotFoundException, ExceptionDAO{
+       vectorCirurgias = new Historico_CirurgiaController().selecionarCirurgias();
+        CbCirurgia.removeAllItems();//Remover todos os itens do combobox
+        for (int i = 0; i < vectorCirurgias.size(); i++) {
+            this.CbCirurgia.addItem(vectorCirurgias.elementAt(i).getNome());
+        }
+     }
+     
+     //Metodo para selecionar o id da cirurgia a ser realizada
+    private void selecionarIdCirurgia(int indice){
+    idCirurgia=vectorCirurgias.elementAt(indice).getIdCirurgia();
+    }
+    
+    
+    private void Limpar() {
+        CbCirurgia.setSelectedIndex(-1);
+        cbAnimais.setSelectedIndex(-1);
+        fObservacao.setText("");
+        preco.setText("");
+        codAnimal.setText("");
+    
+    }
+     
+//    private void SelecionarPrecoExame(int indice){
+//     precoExame=vectorExames.elementAt(indice).getPreco();
+//     preco.setText(" Preco: "+ precoExame);
+//     }
+   
+    
+    
+//     public void cadastrarHistoricoExame() throws SQLException, ClassNotFoundException, ExceptionDAO{
+//       boolean sucesso;
+//    selecionarIdHistorico();//Metodo que vai selecionar o idHistorico que esta na BD
+//    Historico_ExameController historico= new Historico_ExameController();
+//       Data data= new Data();
+//       Date date=data.dataActual();
+//       String resultado=CbResultados.getSelectedItem().toString();
+//       String observacao= fObservacao.getText();
+//    
+//      sucesso=historico.cadastrarExame(idAnimal, idExame,idHistorico, date, resultado, observacao);
+//    if(sucesso){
+//    JOptionPane.showMessageDialog(null, "O Historico do exame foi cadastrado com sucesso");
+//    }
+//    else{JOptionPane.showMessageDialog(null, "Houve um erro ao cadastrar o historico");}
+//    
+//}
+    
+    
   public void criarJanela() throws SQLException, ClassNotFoundException, ExceptionDAO {
         frame = new JFrame("Cirurgia");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -277,16 +341,11 @@ public class Cadastro_Cirurgia implements ActionListener {
     }
 
     public static void main(String[] args)throws SQLException, ClassNotFoundException, ExceptionDAO  {
-        new Cadastro_Cirurgia();
+        new telaCirurgia();
 
     }
 
-    public void Limpar() {
-        cbNome.setSelectedIndex(-1);
-        preco.setText("");
-        data.setText("");
-        cbNome.requestFocus();
-    }
+ 
 
  
     
@@ -295,6 +354,45 @@ public class Cadastro_Cirurgia implements ActionListener {
         if (e.getSource() == bLimpar) {
             Limpar();
         }
+        if(e.getSource()==rbcao){
+        String especie="Canina";
+            try {
+                //Receber animais da BD
+                
+                receberAnimaisEspecie(especie);
+                cbAnimais.setSelectedIndex(-1);
+                
+                this.CbCirurgia.removeAllItems();//Remover e inserir a cirurgia
+                receberCirurgias();
+                CbCirurgia.setSelectedIndex(-1);
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(telaCirurgia.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(telaCirurgia.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ExceptionDAO ex) {
+                Logger.getLogger(telaCirurgia.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+           if(e.getSource()==rbgato){
+        String especie="Felina";
+            try {
+                receberAnimaisEspecie(especie);//Receber animais da BD
+                cbAnimais.setSelectedIndex(-1);
+                //Remover e inserir a cirurgia
+                this.CbCirurgia.removeAllItems();
+                receberCirurgias();
+                CbCirurgia.setSelectedIndex(-1);
+            } catch (SQLException ex) {
+                Logger.getLogger(telaCirurgia.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(telaCirurgia.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ExceptionDAO ex) {
+                Logger.getLogger(telaCirurgia.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        
     }
 
     

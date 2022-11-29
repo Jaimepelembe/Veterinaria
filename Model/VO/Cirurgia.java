@@ -10,14 +10,14 @@ package Model.VO;
  */
 public class Cirurgia {
 private String nome;
-private int idAnimal,idVeterinaria;
+private int idCirurgia,idVeterinaria;
 
     public Cirurgia() {
     }
 
-    public Cirurgia(String nome, int idAnimal, int idVeterinaria) {
+    public Cirurgia(String nome, int idCirurgia, int idVeterinaria) {
         this.nome = nome;
-        this.idAnimal = idAnimal;
+        this.idCirurgia=idCirurgia;
         this.idVeterinaria = idVeterinaria;
     }
 
@@ -29,13 +29,15 @@ private int idAnimal,idVeterinaria;
         this.nome = nome;
     }
 
-    public int getIdAnimal() {
-        return idAnimal;
+    public int getIdCirurgia() {
+        return idCirurgia;
     }
 
-    public void setIdAnimal(int idAnimal) {
-        this.idAnimal = idAnimal;
+    public void setIdCirurgia(int idCirurgia) {
+        this.idCirurgia = idCirurgia;
     }
+
+  
 
     public int getIdVeterinaria() {
         return idVeterinaria;
