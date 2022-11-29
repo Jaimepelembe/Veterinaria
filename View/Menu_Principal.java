@@ -377,7 +377,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
     produtos.setBackground(cor2);
        //Remover o painel que esta no centro 
      removerPainelCentral();
-     this.painelActual  = vacinas.componentes();
+     this.painelActual  = vacinas.painelPrincipal();
      frame.add(painelActual, BorderLayout.CENTER);
      
     }

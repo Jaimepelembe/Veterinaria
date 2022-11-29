@@ -21,7 +21,6 @@ import java.text.ParseException;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.text.MaskFormatter;
@@ -30,17 +29,19 @@ public class Cadastro_Vacina implements  ActionListener {
     private JLabel nome, marca, quant,preco, dtVal,especie ;
     private JButton bSalvar, bCancelar, bLimpar;
     private JTextField fNome, fPreco;
-    private JFormattedTextField  fDtVal;
+    private JTextField  fDtVal;
     private JFrame frame;
     private JComboBox cMarca,cNome;
-    private JRadioButton rbcao, rbgato;
+    private JRadioButton rbgato,rbcao;
     private ButtonGroup botoes;
     private JSpinner spQuant;
-     private String[] listaMarca = { "Zoetis", "Boehringer ingelheim", "VANGUARD ", "SERUM INSTITUTE OF INDIA PVT","Outro" };
+     private String[] listaMarca = { "Zoetis", "Boehringer ingelheim", "VANGUARD ", "SERUM INSTITUTE OF INDIA PVT" };
+     private String[] VacinasCaes={"Polivalente (V10) ","Antirrábica","Gripe","Giárdia","Esgana","Parvovirose "};
+     private String[] VacinasGatos={"Panleucopénia","Antirrábica ","RinoTranquete","Leucemia","Peritonite infeciosa ","Clamídia"};
     GridBagConstraints gbc = new GridBagConstraints();
 
     public Cadastro_Vacina() {
-
+    inicializarComponentes();
     criarJanela();
     }
     
@@ -55,7 +56,7 @@ public class Cadastro_Vacina implements  ActionListener {
         //Radio Button Cao
         rbcao = new JRadioButton("Canina");
         rbcao.setBackground(Color.WHITE);
-        rbcao.addActionListener(this);
+       rbcao.addActionListener(this);
         
         //Radio Button Gato
         rbgato = new JRadioButton("Felina");
@@ -72,9 +73,15 @@ public class Cadastro_Vacina implements  ActionListener {
     nome = new JLabel("Nome ");
     nome.setForeground(Color.gray);
     
-   //TextField
+   //Combobox Nome
     cNome = new JComboBox();
       cNome.setSelectedIndex(-1);
+//      
+//       for(int i=0;i<VacinasCaes.length;i++){
+//        cNome.addItem(VacinasCaes[i]);
+//        
+//        }
+      
     
     //informacoes da marca
     //Label
@@ -107,15 +114,13 @@ public class Cadastro_Vacina implements  ActionListener {
     dtVal.setForeground(Color.gray);
     
    //TextField
-    fDtVal = new JFormattedTextField();
+    fDtVal = new JTextField();
     fDtVal.setColumns(20);
-    formatarCampo(fDtVal);
-
         
         
      //Botoes 
      //Salvar
-       bSalvar = new JButton("       Salvar       ");
+       bSalvar = new JButton("Salvar");
        bSalvar.setForeground(Color.white);
        bSalvar.setBackground(Color.green);
        bSalvar.setBorderPainted(false);
@@ -140,22 +145,22 @@ public class Cadastro_Vacina implements  ActionListener {
   
     }
     
-       private  void formatarCampo(JTextField campoTexto){
-         try {
-             MaskFormatter mascara = new MaskFormatter();
-              if(campoTexto==fDtVal){
-              mascara.setMask("##/##/####");
-             mascara.install( fDtVal);
-           }
-               
-         } catch (ParseException ex) {
-             JOptionPane.showMessageDialog(null, "Erro ao formatar Campo de texto");
-         }
-    
-    }
+//       private  void formatarCampo(JTextField campoTexto){
+//         try {
+//             MaskFormatter mascara = new MaskFormatter();
+//              if(campoTexto==fDtVal){
+//              mascara.setMask("##/##/####");
+//             mascara.install( fDtVal);
+//           }
+//               
+//         } catch (ParseException ex) {
+//             JOptionPane.showMessageDialog(null, "Erro ao formatar Campo de texto");
+//         }
+//    
+//    }
        
     public Container adicionarComponentes() {
-        inicializarComponentes();
+       
         JPanel painel = new JPanel();
         painel.setBackground(Color.white);
         painel.setLayout(new GridBagLayout());
@@ -173,7 +178,7 @@ public class Cadastro_Vacina implements  ActionListener {
         painel.add(especie, gbc);
 
         // Radios
-        gbc.insets = new Insets(95, -1, -7, 0);//Insets e Field,RadioButton, Combobox
+        gbc.insets = new Insets(95, 0, 0, 0);//Insets e Field,RadioButton, Combobox
         gbc.gridx = 1;
         gbc.gridwidth = 1;
         painel.add(rbcao, gbc);
@@ -297,7 +302,7 @@ public Container adicionarImagens() {
 
     return pImagens;
 }
- public Container componentes() {
+ public Container painelPrincipal() {
 JPanel  pComponentes = new JPanel();
 pComponentes.setBackground(Color.white);
 pComponentes.add(adicionarImagens(), BorderLayout.NORTH);
@@ -319,6 +324,29 @@ pComponentes.add(adicionarImagens(), BorderLayout.NORTH);
         this.cMarca.setSelectedIndex(-1);
         this.spQuant.setValue(0);
     }
+    //Metodo para colocar o nome das vacinas de determinada especie no combobox
+    public void selecionarNomeVacina(){
+        if(rbcao.isSelected()){
+        this.cNome.removeAllItems();
+        for(int i=0;i<VacinasCaes.length;i++){
+        this.cNome.addItem(VacinasCaes[i]);
+       
+        }
+        
+    }
+    if(rbgato.isSelected()){
+        this.cNome.removeAllItems();
+        for(int i=0;i<VacinasGatos.length;i++){
+        this.cNome.addItem(VacinasGatos[i]);
+        }
+        
+    }
+    
+    
+    
+    
+    }
+    
 //    
 //     public void CadastrarVacina() {
 //         //marca da vacina
@@ -354,14 +382,11 @@ pComponentes.add(adicionarImagens(), BorderLayout.NORTH);
         frame.setBackground(Color.white);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(730, 690);
-        //frame.add(adicionarImagens(), BorderLayout.NORTH);
-       // frame.add(adicionarComponentes(), BorderLayout.CENTER);
-       //  frame.add(adicionarBotoes(), BorderLayout.SOUTH);
-       frame.add(componentes());
+       frame.add(painelPrincipal());
         ImageIcon img = new ImageIcon("C:/Users/Valter Boa/Documents/NetBeansProject/veterinaria/src/Imagens/iconVacina.png");
-        frame.setIconImage(img.getImage());
-        frame.setVisible(true);
+        //frame.setIconImage(img.getImage());
         frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
     
     public static void main(String[] args) {
@@ -372,19 +397,30 @@ pComponentes.add(adicionarImagens(), BorderLayout.NORTH);
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == bLimpar) {
             Limpar();
-            System.out.println("limpar");
-             Limpar();
         }
          if(e.getSource()==bCancelar){
        colocarIconMenu();
        }
-         
          
            //Evento para salvar os dados da vacina na BD
         if (e.getSource() == bSalvar) {
 //            CadastrarVacina();
             Limpar();
         }
+        
+        //Evento para selecionar a especie do animal
+        if(e.getSource()==rbcao){
+            System.out.println("Ola mundo");
+            selecionarNomeVacina();
+        }
+        
+        if(e.getSource()==rbgato){
+            selecionarNomeVacina();
+        }
+        
+         System.out.println("Ola mundo 2");
+        
+        
 }
     }
  

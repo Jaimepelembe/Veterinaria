@@ -121,7 +121,6 @@ public class Cadastro_Animal implements ActionListener,DateChooserListener {
         botoes.add(rbgato);
 
        //Sexo do animal
-       
         sexo = new JLabel("Sexo");
         sexo.setForeground(Color.gray);
        //Masculino
