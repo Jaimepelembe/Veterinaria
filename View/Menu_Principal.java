@@ -37,10 +37,10 @@ import javax.swing.JPopupMenu;
  */
 public class Menu_Principal implements ActionListener, MouseListener{
 
-    private static JFrame frame;
+    private static JFrame frame,frame2;
     private static Container cadastro_cliente, cadastro_consul;
 
-    private static Container painelActual;
+    private static Container painelActual, inicio, p;
 
    
     private GridBagConstraints gbc = new GridBagConstraints();
@@ -59,7 +59,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
 
     public Menu_Principal() {
         inicializarComponentes();
-        criarJanela();
+        //new TelaLogin();
     }
 
      public Menu_Principal(String vazio) {
@@ -68,6 +68,9 @@ public class Menu_Principal implements ActionListener, MouseListener{
     }
 
     public void inicializarComponentes() {
+        
+        //painel login 
+        
         // BUTAO CLIENTE
         cliente = new JButton("Clientes ");
         cliente.setBackground(cor);
@@ -493,17 +496,14 @@ public class Menu_Principal implements ActionListener, MouseListener{
             public void mouseClicked(MouseEvent e) {
                 pop_Animal.show(e.getComponent(), 100, 0);
             }
-        });
-
-    }
-
+        });}
+    
     public void criarJanela() {
         ImageIcon img = new ImageIcon("src/Imagens/Menu/menu.jpg");
         frame = new JFrame();
         frame.setLayout(new BorderLayout());
         frame.setBackground(Color.white);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         frame.setSize(880, 750);
         frame.setIconImage(img.getImage());
         frame.setLocationRelativeTo(null);
@@ -516,9 +516,14 @@ public class Menu_Principal implements ActionListener, MouseListener{
        //Icon principal
        iconPrincipal();
        frame.setVisible(true);
-       
 
     }
+    //*****************remover painel de  login e colocar o do sitema
+    /*public void removerPainelLogin(){
+    frame2.setVisible(false);
+    criarJanela();
+    
+    }*/
 
     public static void removerPainelCentral() {
         if (painelActual != null) {
@@ -599,6 +604,9 @@ public class Menu_Principal implements ActionListener, MouseListener{
             PopMenu_Animal();
             frame.setVisible(true);
         }
+        
+        
+
 
         //Pop Menu
         //Menuitem Cadastrar ANIMAL
