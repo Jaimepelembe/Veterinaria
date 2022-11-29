@@ -122,7 +122,7 @@ public class Cadastro_Vacina implements  ActionListener {
         
      //Botoes 
      //Salvar
-       bSalvar = new JButton("Salvar");
+       bSalvar = new JButton("      Salvar     ");
        bSalvar.setForeground(Color.white);
        bSalvar.setBackground(corSalvar);
        bSalvar.setBorderPainted(false);
@@ -269,13 +269,13 @@ public class Cadastro_Vacina implements  ActionListener {
 
     }
 public Container adicionarBotoes() {
-      
+        
         inicializarComponentes();
         JPanel pBotoes = new JPanel();
         pBotoes.setBackground(Color.white);
        pBotoes.setLayout(new GridBagLayout());
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(1, -5, 50, 15);
+        gbc.insets = new Insets(0, 0, 50, 5);
         // add buttons to the panel
          gbc.ipady = 4;
         gbc.gridy=0;
