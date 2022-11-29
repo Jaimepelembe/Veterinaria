@@ -37,6 +37,8 @@ private JFrame frame;
 private JPanel painel,Pauxiliar;
 private JButton bVoltar;
 private GridBagConstraints gbc = new GridBagConstraints();
+Color corSalvar = new Color(0.05f, 0.72f, 0.08f, 1.0f);
+    Color corLimpar = new Color(0.05f, 0.31f, 0.72f, 1.0f);
 
     public Historico_Animal() {
         criarJanela();
@@ -66,7 +68,7 @@ private GridBagConstraints gbc = new GridBagConstraints();
     //Botao voltar
       bVoltar = new JButton("Voltar");
       bVoltar.setForeground(Color.white);
-      bVoltar.setBackground(Color.green);
+      bVoltar.setBackground(corLimpar);
     }
     
     public Container adicionarComponentes(){

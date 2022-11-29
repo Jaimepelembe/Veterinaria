@@ -49,9 +49,9 @@ public class Menu_Principal implements ActionListener, MouseListener{
     private JPopupMenu popMenu, pop_Animal, pop_Vacina, pop_Servicos;
     private JMenuItem mCadCliente, mConsCliente, mCadAnimal, mConsAnimal, mConsVacina, mCadVacina,mExame, mVacinacao, mCirurgia;
     //cores
-    Color cor = new Color(0.0f, 0.4f, 0.8f, 1f);//COR DO PAINEL AZUL
+    Color cor = new Color(0.03f, 0.33f, 0.58f, 1.0f);//COR DO PAINEL AZUL
     Color corBranco = Color.white ;//COR DO PAINEL branco
-    Color cor2 = new Color(0.0f, 0.2f, 0.8f, 1f); //COR SECUNDARIA
+    Color cor2 = new Color(0.07f, 0.43f, 0.73f, 1.0f); //COR SECUNDARIA
 
     //fontes
     Font fonte = new Font("Helvetica", Font.TRUETYPE_FONT, 20);
@@ -59,6 +59,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
 
     public Menu_Principal() {
         inicializarComponentes();
+        criarJanela();
         //new TelaLogin();
     }
 
@@ -212,9 +213,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
     public Container lateral() {
         JPanel pLateral = new JPanel();
         pLateral.setBackground(cor);
-
         pLateral.setBounds(0, 0, 0, 0);
-
         pLateral.setLayout(new GridBagLayout());
 
         // IMAGEM ANIMAL
@@ -454,8 +453,10 @@ public class Menu_Principal implements ActionListener, MouseListener{
     }
     //MUDAR TEMA
     public void mudarTema(){
-    cor = Color.orange;
-    cor2 = Color.orange;
+        System.out.println("hafdahdahd");
+    
+      //  cor = new Color(0.12f, 0.40f, 0.42f, 1.0f);
+    cor2 = new Color(0.19f, 0.47f, 0.17f, 1.0f);
     }
     
     public void PopMenu_Cliente() {
@@ -647,7 +648,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
             frame.setVisible(true);
         }
           if (e.getSource() == tema) {
-            //mudarTema();
+           mudarTema();
             frame.setVisible(true);
         }
     }

@@ -27,6 +27,8 @@ import javax.swing.text.MaskFormatter;
 
 public class Cadastro_Vacina implements  ActionListener {
     private JLabel nome, marca, quant,preco, dtVal,especie ;
+    Color corSalvar = new Color(0.05f, 0.72f, 0.08f, 1.0f);
+    Color corLimpar = new Color(0.05f, 0.31f, 0.72f, 1.0f);
     private JButton bSalvar, bCancelar, bLimpar;
     private JTextField fNome, fPreco;
     private JTextField  fDtVal;
@@ -122,15 +124,15 @@ public class Cadastro_Vacina implements  ActionListener {
      //Salvar
        bSalvar = new JButton("Salvar");
        bSalvar.setForeground(Color.white);
-       bSalvar.setBackground(Color.green);
+       bSalvar.setBackground(corSalvar);
        bSalvar.setBorderPainted(false);
        bSalvar.addActionListener(this);
        bSalvar.setFocusPainted(false);
        
-      //Eliminar
+      //limpar
        bLimpar = new JButton("Limpar");
        bLimpar.setForeground(Color.white);
-       bLimpar.setBackground(Color.blue);
+       bLimpar.setBackground(corLimpar);
        bLimpar.setBorderPainted(false);
        bLimpar.addActionListener(this);
        bLimpar.setFocusPainted(false);

@@ -51,7 +51,8 @@ public class Cadastro_Cirurgia implements ActionListener {
     private Vector<Animal> vectorAnimais;
     private Vector<Exame> vectorExames;
     private String[] resultados = {"Positivo", "Negativo"};
-
+    Color corSalvar = new Color(0.05f, 0.72f, 0.08f, 1.0f);
+    Color corLimpar = new Color(0.05f, 0.31f, 0.72f, 1.0f);
     public Cadastro_Cirurgia() throws SQLException, ClassNotFoundException, ExceptionDAO{
        criarJanela();
     }
@@ -107,7 +108,8 @@ public class Cadastro_Cirurgia implements ActionListener {
         //Salvar
         bSalvar = new JButton("Salvar");
         bSalvar.setForeground(Color.white);
-        bSalvar.setBackground(Color.green);
+        bSalvar.setBackground(corSalvar);
+        
         bSalvar.setBorderPainted(false);
         bSalvar.setFocusPainted(false);
         bSalvar.addActionListener(this);
@@ -115,7 +117,7 @@ public class Cadastro_Cirurgia implements ActionListener {
         //Eliminar
         bLimpar = new JButton("Limpar");
         bLimpar.setForeground(Color.white);
-        bLimpar.setBackground(Color.blue);
+        bLimpar.setBackground(corLimpar);
         bLimpar.setBorderPainted(false);
         bLimpar.addActionListener(this);
         bLimpar.setFocusPainted(false);

@@ -29,7 +29,8 @@ public class Resultado_Cliente {
     private JFrame frame;
     private JComboBox cDistrito;
     GridBagConstraints gbc = new GridBagConstraints();
-
+Color corSalvar = new Color(0.05f, 0.72f, 0.08f, 1.0f);
+    Color corLimpar = new Color(0.05f, 0.31f, 0.72f, 1.0f);
     public Resultado_Cliente() {
         criarJanela();
     }
@@ -63,12 +64,12 @@ public class Resultado_Cliente {
      //Salvar
        bSalvar = new JButton("Salvar");
        bSalvar.setForeground(Color.white);
-       bSalvar.setBackground(Color.green);
+       bSalvar.setBackground(corSalvar);
        
        //Adicionar Animal
        bAnimal= new JButton("Adicionar Animal");
        bAnimal.setForeground(Color.white);
-       bAnimal.setBackground(Color.blue);
+       bAnimal.setBackground(corLimpar);
        
       //Eliminar
        bEliminar = new JButton("Eliminar");

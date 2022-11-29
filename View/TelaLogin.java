@@ -104,8 +104,7 @@ public class TelaLogin {
         if(fSenha.getText().equalsIgnoreCase(nSenha)){
             frame.setVisible(false);
            Menu_Principal menu = new Menu_Principal();
-           
-            menu.criarJanela();
+           menu.criarJanela();
         }
           else{
             fSenha.setText(null);

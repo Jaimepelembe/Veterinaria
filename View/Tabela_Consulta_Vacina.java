@@ -32,6 +32,8 @@ public class Tabela_Consulta_Vacina {
     private JPanel pPrincipal,painel;
     GridBagConstraints gbc = new GridBagConstraints();
      private String[] listaMarcas = { "Zoetis", "Boehringer ingelheim", "VANGUARD ", "SERUM INSTITUTE OF INDIA PVT" };
+     Color corSalvar = new Color(0.05f, 0.72f, 0.08f, 1.0f);
+    Color corLimpar = new Color(0.05f, 0.31f, 0.72f, 1.0f);
     private String[] Vacinas_Caes = { "Polivalente (V10)", "Antirrábica", "Contra a gripe", "contra Giárdia", "Esgana",
             "Parvovirose" };
      String[][] data = {
@@ -55,7 +57,7 @@ public class Tabela_Consulta_Vacina {
         bPesquisar = new JButton("PESQUISAR");
         bPesquisar.setForeground(Color.WHITE);
         bPesquisar.setFocusPainted(false);
-        bPesquisar.setBackground(Color.blue);
+        bPesquisar.setBackground(corLimpar);
         
         //Combobox de marca
         cListaMarcas = new JComboBox(listaMarcas);
