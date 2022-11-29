@@ -73,7 +73,6 @@ public void actualizarAnimal(Animal animal) throws SQLException, ClassNotFoundEx
     peso=animal.getPeso();
     data=animal.getDt_nascimento();
    
-    
     String sql="update animal set nome= ?,especie= ?,sexo= ?, raca=?,cor_pelo=?,peso=?,dt_nascimento=? where idAnimal=?";
     PreparedStatement pstate=null;
     Connection con=null;
