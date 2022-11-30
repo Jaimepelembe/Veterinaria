@@ -286,12 +286,12 @@ public class Menu_Principal implements ActionListener, MouseListener{
         // historico
         gbc.gridx = 1;
         gbc.gridy = 6;
-        pLateral.add(historico, gbc);
+        //pLateral.add(historico, gbc);
         // icon historico
         gbc.insets = new Insets(30, 14, 0, -58);
         gbc.gridx = 0;
         gbc.gridy = 6;
-        pLateral.add(iHistorico, gbc);
+       // pLateral.add(iHistorico, gbc);
 
         gbc.insets = new Insets(30, 5, 0, 0);
         // configuracoes
