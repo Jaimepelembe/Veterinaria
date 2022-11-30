@@ -50,6 +50,8 @@ public class telaExame implements ActionListener {
     private float precoExame;
     private Vector<Animal> vectorAnimais;
     private Vector<Exame> vectorExames;
+    Color corSalvar = new Color(0.05f, 0.72f, 0.08f, 1.0f);
+    Color corLimpar = new Color(0.05f, 0.31f, 0.72f, 1.0f);
     private String[] resultados = {"Positivo", "Negativo"};
 
     public telaExame() throws SQLException, ClassNotFoundException, ExceptionDAO {
@@ -99,15 +101,15 @@ public class telaExame implements ActionListener {
         //Salvar
         bSalvar = new JButton("Salvar");
         bSalvar.setForeground(Color.white);
-        bSalvar.setBackground(Color.green);
+        bSalvar.setBackground(corSalvar);
         bSalvar.setBorderPainted(false);
         bSalvar.setFocusPainted(false);
         bSalvar.addActionListener(this);
 
-        //Eliminar
+        //limpar
         bLimpar = new JButton("Limpar");
         bLimpar.setForeground(Color.white);
-        bLimpar.setBackground(Color.blue);
+        bLimpar.setBackground(corLimpar);
         bLimpar.setBorderPainted(false);
         bLimpar.addActionListener(this);
         bLimpar.setFocusPainted(false);

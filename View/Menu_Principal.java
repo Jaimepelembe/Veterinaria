@@ -37,10 +37,10 @@ import javax.swing.JPopupMenu;
  */
 public class Menu_Principal implements ActionListener, MouseListener{
 
-    private static JFrame frame;
+    private static JFrame frame,frame2;
     private static Container cadastro_cliente, cadastro_consul;
 
-    private static Container painelActual;
+    private static Container painelActual, inicio, p;
 
    
     private GridBagConstraints gbc = new GridBagConstraints();
@@ -49,9 +49,9 @@ public class Menu_Principal implements ActionListener, MouseListener{
     private JPopupMenu popMenu, pop_Animal, pop_Vacina, pop_Servicos;
     private JMenuItem mCadCliente, mConsCliente, mCadAnimal, mConsAnimal, mConsVacina, mCadVacina,mExame, mVacinacao, mCirurgia;
     //cores
-    Color cor = new Color(0.0f, 0.4f, 0.8f, 1f);//COR DO PAINEL AZUL
+    Color cor = new Color(0.03f, 0.33f, 0.58f, 1.0f);//COR DO PAINEL AZUL
     Color corBranco = Color.white ;//COR DO PAINEL branco
-    Color cor2 = new Color(0.0f, 0.2f, 0.8f, 1f); //COR SECUNDARIA
+    Color cor2 = new Color(0.07f, 0.43f, 0.73f, 1.0f); //COR SECUNDARIA
 
     //fontes
     Font fonte = new Font("Helvetica", Font.TRUETYPE_FONT, 20);
@@ -60,6 +60,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
     public Menu_Principal() {
         inicializarComponentes();
         criarJanela();
+        //new TelaLogin();
     }
 
      public Menu_Principal(String vazio) {
@@ -68,6 +69,9 @@ public class Menu_Principal implements ActionListener, MouseListener{
     }
 
     public void inicializarComponentes() {
+        
+        //painel login 
+        
         // BUTAO CLIENTE
         cliente = new JButton("Clientes ");
         cliente.setBackground(cor);
@@ -209,9 +213,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
     public Container lateral() {
         JPanel pLateral = new JPanel();
         pLateral.setBackground(cor);
-
         pLateral.setBounds(0, 0, 0, 0);
-
         pLateral.setLayout(new GridBagLayout());
 
         // IMAGEM ANIMAL
@@ -451,8 +453,10 @@ public class Menu_Principal implements ActionListener, MouseListener{
     }
     //MUDAR TEMA
     public void mudarTema(){
-    cor = Color.orange;
-    cor2 = Color.orange;
+        System.out.println("hafdahdahd");
+    
+      //  cor = new Color(0.12f, 0.40f, 0.42f, 1.0f);
+    cor2 = new Color(0.19f, 0.47f, 0.17f, 1.0f);
     }
     
     public void PopMenu_Cliente() {
@@ -493,17 +497,14 @@ public class Menu_Principal implements ActionListener, MouseListener{
             public void mouseClicked(MouseEvent e) {
                 pop_Animal.show(e.getComponent(), 100, 0);
             }
-        });
-
-    }
-
+        });}
+    
     public void criarJanela() {
         ImageIcon img = new ImageIcon("src/Imagens/Menu/menu.jpg");
         frame = new JFrame();
         frame.setLayout(new BorderLayout());
         frame.setBackground(Color.white);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         frame.setSize(880, 750);
         frame.setIconImage(img.getImage());
         frame.setLocationRelativeTo(null);
@@ -516,9 +517,14 @@ public class Menu_Principal implements ActionListener, MouseListener{
        //Icon principal
        iconPrincipal();
        frame.setVisible(true);
-       
 
     }
+    //*****************remover painel de  login e colocar o do sitema
+    /*public void removerPainelLogin(){
+    frame2.setVisible(false);
+    criarJanela();
+    
+    }*/
 
     public static void removerPainelCentral() {
         if (painelActual != null) {
@@ -607,6 +613,9 @@ public class Menu_Principal implements ActionListener, MouseListener{
             PopMenu_Animal();
             frame.setVisible(true);
         }
+        
+        
+
 
         //Pop Menu
         //Menuitem Cadastrar ANIMAL
@@ -647,7 +656,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
             frame.setVisible(true);
         }
           if (e.getSource() == tema) {
-            //mudarTema();
+           mudarTema();
             frame.setVisible(true);
         }
     }

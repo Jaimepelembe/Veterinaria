@@ -51,7 +51,8 @@ public class Tabela_Consulta_Animal extends MouseAdapter implements ActionListen
     GridBagConstraints gbc = new GridBagConstraints();
     private String[] racas_caes = {"Chow chow", "Chiuaua", "Doberman", "Husky siberiano", "Pastor Alemao", "Pitbull", "Pastor Belga", "outro"};
     private String[] racas_gatos = {"Bengal", "British Shorthair", "Maine Coon", "Munchkin", "Persa", "Ragdoll", "Sphynx", "outro"};
-
+Color corSalvar = new Color(0.05f, 0.72f, 0.08f, 1.0f);
+    Color corLimpar = new Color(0.05f, 0.31f, 0.72f, 1.0f);
     public Tabela_Consulta_Animal() {
         inicializar();
         //criarJanela();
@@ -90,7 +91,7 @@ public class Tabela_Consulta_Animal extends MouseAdapter implements ActionListen
         //Botao pesquisar
         bPesquisar = new JButton("PESQUISAR");
         bPesquisar.setForeground(Color.WHITE);
-        bPesquisar.setBackground(Color.blue);
+        bPesquisar.setBackground(corLimpar);
         bPesquisar.setFocusPainted(false);
         bPesquisar.addActionListener(this);
 

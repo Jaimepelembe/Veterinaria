@@ -31,7 +31,8 @@ public class Resultado_Vacina {
             "Parvovirose" };
     private String[] Vacinas_Gatos = { "Panleucopénia felina", "Antirrábica", "RinoTranquete" };
     private JPanel pPrincipal;   
-  
+  Color corSalvar = new Color(0.05f, 0.72f, 0.08f, 1.0f);
+    Color corLimpar = new Color(0.05f, 0.31f, 0.72f, 1.0f);
     private JFrame janela;
     private JSpinner spQuantidade;
     GridBagConstraints gbc = new GridBagConstraints();   
@@ -71,7 +72,7 @@ public class Resultado_Vacina {
      //Salvar
        bSalvar = new JButton("Salvar");
        bSalvar.setForeground(Color.white);
-       bSalvar.setBackground(Color.green);
+       bSalvar.setBackground(corSalvar);
        
       //Eliminar
        bEliminar = new JButton("Eliminar");

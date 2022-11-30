@@ -43,6 +43,8 @@ public class Tabela_Consulta_Cliente extends MouseAdapter implements ActionListe
     private GridBagConstraints gbc = new GridBagConstraints();
     private String[] distritos = {"Matola", "Marracuene", "Manhiça", "Magude", "Moamba", "Boane", "Namaacha",
         "Matutuine"};
+    Color corSalvar = new Color(0.05f, 0.72f, 0.08f, 1.0f);
+    Color corLimpar = new Color(0.05f, 0.31f, 0.72f, 1.0f);
     Validacao vv = new Validacao();
 
     public Tabela_Consulta_Cliente() {
@@ -74,7 +76,7 @@ public class Tabela_Consulta_Cliente extends MouseAdapter implements ActionListe
         //Pesquisar
         bPesquisar = new JButton("PESQUISAR");
         bPesquisar.setForeground(Color.WHITE);
-        bPesquisar.setBackground(Color.blue);
+        bPesquisar.setBackground(corLimpar);
         bPesquisar.addActionListener(this);
         bPesquisar.setFocusPainted(false);
 

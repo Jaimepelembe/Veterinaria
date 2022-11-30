@@ -20,7 +20,8 @@ import java.awt.event.ActionListener;public class Cadastro_Veterianara  implemen
     private JButton bSalvar, bLimpar, bCancelar;
     private JTextField fNome, fLocalizacao;
     private JFrame frame;private JPanel painel,pBotoes,pPrincipal;
-    
+    Color corSalvar = new Color(0.05f, 0.72f, 0.08f, 1.0f);
+    Color corLimpar = new Color(0.05f, 0.31f, 0.72f, 1.0f);
     private GridBagConstraints gbc = new GridBagConstraints();
 
     public Cadastro_Veterianara() {
@@ -39,12 +40,12 @@ import java.awt.event.ActionListener;public class Cadastro_Veterianara  implemen
     //Botao salvar
      bSalvar = new JButton("Salvar");
      bSalvar.setForeground(Color.white);
-    bSalvar.setBackground(Color.green);
+    bSalvar.setBackground(corSalvar);
     
     //Limpar
     bLimpar = new JButton("Limpar");
     bLimpar.setForeground(Color.white);
-    bLimpar.setBackground(Color.blue);
+    bLimpar.setBackground(corLimpar);
     bLimpar.addActionListener(this);
     
     //Cancelar

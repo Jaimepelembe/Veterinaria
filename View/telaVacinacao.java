@@ -54,7 +54,8 @@ public class telaVacinacao implements ActionListener {
     private String especie="";
     private Vector<Animal> vectorAnimais;
     private Vector<Vacina> vectorVacinas;
-
+Color corSalvar = new Color(0.05f, 0.72f, 0.08f, 1.0f);
+    Color corLimpar = new Color(0.05f, 0.31f, 0.72f, 1.0f);
 
     public telaVacinacao() throws SQLException, ClassNotFoundException, ExceptionDAO {
         //criarJanela();
@@ -100,15 +101,15 @@ public class telaVacinacao implements ActionListener {
         //Salvar
         bSalvar = new JButton("Salvar");
         bSalvar.setForeground(Color.white);
-        bSalvar.setBackground(Color.green);
+        bSalvar.setBackground(corSalvar);
         bSalvar.setBorderPainted(false);
         bSalvar.setFocusPainted(false);
         bSalvar.addActionListener(this);
 
-        //Eliminar
+        //Limpar
         bLimpar = new JButton("Limpar");
         bLimpar.setForeground(Color.white);
-        bLimpar.setBackground(Color.blue);
+        bLimpar.setBackground(corLimpar);
         bLimpar.setBorderPainted(false);
         bLimpar.addActionListener(this);
         bLimpar.setFocusPainted(false);

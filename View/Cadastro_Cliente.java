@@ -39,7 +39,8 @@ public class Cadastro_Cliente implements ActionListener {
             "Matutuine"};
     private static JComboBox cDistrito = new JComboBox(distritos);
     private JPanel pAuxiliar, pbActual, pPrincipal;
-    
+    Color corSalvar = new Color(0.05f, 0.72f, 0.08f, 1.0f);
+    Color corLimpar = new Color(0.05f, 0.31f, 0.72f, 1.0f);
     GridBagConstraints gbc = new GridBagConstraints();
 
     public Cadastro_Cliente() {
@@ -82,7 +83,7 @@ public class Cadastro_Cliente implements ActionListener {
         //Salvar
         bSalvar = new JButton("       Salvar       ");
         bSalvar.setForeground(Color.white);
-        bSalvar.setBackground(Color.green);
+        bSalvar.setBackground(corSalvar);
         bSalvar.setBorderPainted(false);
         bSalvar.setFocusPainted(false);
         bSalvar.addActionListener(this);
@@ -90,7 +91,7 @@ public class Cadastro_Cliente implements ActionListener {
         //Eliminar
         bLimpar = new JButton("Limpar");
         bLimpar.setForeground(Color.white);
-        bLimpar.setBackground(Color.blue);
+        bLimpar.setBackground(corLimpar);
         bLimpar.setBorderPainted(false);
         bLimpar.addActionListener(this);
         bLimpar.setFocusPainted(false);
@@ -107,7 +108,7 @@ public class Cadastro_Cliente implements ActionListener {
         //Actualizar
         bActualizar = new JButton("Update");
         bActualizar.setForeground(Color.white);
-        bActualizar.setBackground(Color.darkGray);
+        bActualizar.setBackground(corSalvar);
         bActualizar.addActionListener(this);
 
         //Botao Eliminar

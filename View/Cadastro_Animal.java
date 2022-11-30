@@ -66,6 +66,8 @@ public class Cadastro_Animal implements ActionListener,DateChooserListener {
     private  Validacao vv= new Validacao();
     private Conversor cc= new Conversor();
     GridBagConstraints gbc = new GridBagConstraints();
+    Color corSalvar = new Color(0.05f, 0.72f, 0.08f, 1.0f);
+    Color corLimpar = new Color(0.05f, 0.31f, 0.72f, 1.0f);
 
     public Cadastro_Animal() throws SQLException, ClassNotFoundException, ExceptionDAO {
         inicializarComponentes();
@@ -184,7 +186,7 @@ public class Cadastro_Animal implements ActionListener,DateChooserListener {
         //Botao salvar
         salvar = new JButton("Salvar");
         salvar.setForeground(Color.white);
-        salvar.setBackground(Color.green);
+        salvar.setBackground(corSalvar);
         salvar.addActionListener(this);
         salvar.setFocusPainted(false);
         
@@ -193,7 +195,7 @@ public class Cadastro_Animal implements ActionListener,DateChooserListener {
         //Botao limpar
         limpar = new JButton("Limpar");
         limpar.setForeground(Color.white);
-        limpar.setBackground(Color.blue);
+        limpar.setBackground(corLimpar);
         limpar.addActionListener(this);
         limpar.setFocusPainted(false);
 

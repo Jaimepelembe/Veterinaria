@@ -32,6 +32,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
+
 /**
  *
  * @author multi
@@ -60,9 +61,32 @@ public class Cadastro_Vacina implements ActionListener,DateChooserListener{
  
  public Cadastro_Vacina() {
       inicializarComponentes();
-      //criarJanela();
+      //criarJanela();}
+ }
         
-    }
+
+//public class Cadastro_Vacina implements  ActionListener {
+//    private JLabel nome, marca, quant,preco, dtVal,especie ;
+//    Color corSalvar = new Color(0.05f, 0.72f, 0.08f, 1.0f);
+//    Color corLimpar = new Color(0.05f, 0.31f, 0.72f, 1.0f);
+//    private JButton bSalvar, bCancelar, bLimpar;
+//    private JTextField fNome, fPreco;
+//    private JTextField  fDtVal;
+//    private JFrame frame;
+//    private JComboBox cMarca,cNome;
+//    private JRadioButton rbgato,rbcao;
+//    private ButtonGroup botoes;
+//    private JSpinner spQuant;
+//     private String[] listaMarca = { "Zoetis", "Boehringer ingelheim", "VANGUARD ", "SERUM INSTITUTE OF INDIA PVT" };
+//     private String[] VacinasCaes={"Polivalente (V10) ","Antirrábica","Gripe","Giárdia","Esgana","Parvovirose "};
+//     private String[] VacinasGatos={"Panleucopénia","Antirrábica ","RinoTranquete","Leucemia","Peritonite infeciosa ","Clamídia"};
+//    GridBagConstraints gbc = new GridBagConstraints();
+//
+//    public Cadastro_Vacina() {
+//    inicializarComponentes();
+//    criarJanela();
+//
+//    }
  
 private void inicializarComponentes(){
     //Paineis
@@ -119,6 +143,7 @@ private void inicializarComponentes(){
         
         
 
+
         //Botao limpar
         bLimpar = new JButton("Limpar");
         bLimpar.setForeground(Color.white);
@@ -127,13 +152,83 @@ private void inicializarComponentes(){
         bLimpar.setFocusPainted(false);
 
         //Botao cancelar
-        bCancelar = new JButton("Cancelar");
-        bCancelar.setForeground(Color.white);
-        bCancelar.setBackground(Color.red);
-        bCancelar.addActionListener(this);
-        bCancelar.setFocusPainted(false);
+
+}
+    //Informacoes do nome
+//    //Label
+//    nome = new JLabel("Nome ");
+//    nome.setForeground(Color.gray);
+//    
+//   //Combobox Nome
+//    cNome = new JComboBox();
+//      cNome.setSelectedIndex(-1);
+//      
+//       for(int i=0;i<VacinasCaes.length;i++){
+//        cNome.addItem(VacinasCaes[i]);
+//        
+//        }
+      
     
-    }
+    //informacoes da marca
+//    //Label
+//    marca = new JLabel("Marca");
+//      cMarca = new JComboBox(listaMarca);
+//      cMarca.setSelectedIndex(-1);
+//     //BOX
+//     marca.setForeground(Color.gray);
+//     
+//     //Informacoes QUANTIDADE
+//     //Label
+//     quant = new JLabel("Quantidade");
+//     quant.setForeground(Color.gray);
+//     
+//     //SPINNER QUANTIDADE
+//     spQuant = new JSpinner();
+//     
+//      //Informacoes do preco
+//    //Label
+//    preco = new JLabel("Preco (MZN) ");
+//    preco.setForeground(Color.gray);
+//    
+//   //TextField
+//    fPreco = new JTextField(5);
+//    fPreco.setColumns(20);
+//     
+//   //INFORMACOES SOBRE DATA 
+//     //Label
+//    dtVal = new JLabel("Data de Validade ");
+//    dtVal.setForeground(Color.gray);
+//    
+//   //TextField
+//    fDtVal = new JTextField();
+//    fDtVal.setColumns(20);
+//        
+//        
+//     //Botoes 
+//     //Salvar
+//       bSalvar = new JButton("Salvar");
+//       bSalvar.setForeground(Color.white);
+//       bSalvar.setBackground(corSalvar);
+//       bSalvar.setBorderPainted(false);
+//       bSalvar.addActionListener(this);
+//       bSalvar.setFocusPainted(false);
+//       
+//      //limpar
+//       bLimpar = new JButton("Limpar");
+//       bLimpar.setForeground(Color.white);
+//       bLimpar.setBackground(corLimpar);
+//       bLimpar.setBorderPainted(false);
+//       bLimpar.addActionListener(this);
+//       bLimpar.setFocusPainted(false);
+//       
+//       //Cancelar
+//        bCancelar = new JButton("Cancelar");
+//        bCancelar.setForeground(Color.white);
+//        bCancelar.setBackground(Color.red);
+//        bCancelar.addActionListener(this);
+//        bCancelar.setFocusPainted(false);
+//    
+//    }
  
     //Adicionar os componentes ao painel
 private Container painelComponentes() {
