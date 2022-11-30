@@ -59,7 +59,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
 
     public Menu_Principal() {
         inicializarComponentes();
-        //criarJanela();
+        criarJanela();
         //new TelaLogin();
     }
 

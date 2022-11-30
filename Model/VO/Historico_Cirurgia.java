@@ -45,6 +45,11 @@ private Date data;
   public Vector<Cirurgia> selecionarCirurgias() throws SQLException, ClassNotFoundException, ExceptionDAO{
  
  return new Historico_CirurgiaDAO().selecionarCirurgias();}
+  
+        
+  public Vector<Animal> selecionarAnimais(String especie) throws SQLException, ClassNotFoundException, ExceptionDAO{
+ 
+ return new Historico_CirurgiaDAO().selecionarAnimais(especie);}
     
     public int getIdAnimal() {
         return idAnimal;

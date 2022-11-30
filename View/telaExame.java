@@ -342,8 +342,9 @@ botoes.clearSelection();
 preco.setText("");
 codAnimal.setText("");
     }
-    
-    public void colocarIconMenu() {
+ 
+  //Metodo para voltar ao icon principal da tela  
+ public void colocarIconMenu() {
         Menu_Principal a = new Menu_Principal("");
         a.iconPrincipal();
         a.mudarCor();

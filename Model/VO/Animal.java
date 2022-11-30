@@ -41,7 +41,7 @@ public Animal(int idAnimal, int idCliente, int idVeterinaria, String nome, Strin
     }
 
 //construtor para cadastrar animal BD
-    public Animal( String nome, String especie, String sexo,String raca, String cor_pelo, float peso, Date dt_nascimento,int idCliente, int idVeterinaria) {
+public Animal( String nome, String especie, String sexo,String raca, String cor_pelo, float peso, Date dt_nascimento,int idCliente, int idVeterinaria) {
         this.nome = nome;
         this.especie = especie;
         this.raca = raca;
@@ -83,9 +83,9 @@ public Vector<Animal> pesquisarAnimalNome(String nome) throws ClassNotFoundExcep
 return new AnimalDAO().pesquisarAnimalNome(nome);
         }
 
-public Vector<Animal> pesquisarAnimalRelatorio() throws ClassNotFoundException, ExceptionDAO {
-return new AnimalDAO().pesquisarAnimalRelatorio();
-        }
+//public Vector<Animal> pesquisarAnimalRelatorio() throws ClassNotFoundException, ExceptionDAO {
+//return new AnimalDAO().pesquisarAnimalRelatorio();
+//        }
     public int getIdAnimal() {
         return idAnimal;
     }

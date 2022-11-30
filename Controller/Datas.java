@@ -14,6 +14,7 @@ public interface Datas {
 public abstract Date dataActual();  
 public abstract Date StringtoSqlDate(String data);
 public abstract String SqlDatetoString(Date data);
+public abstract int calcularIdade(Date dataNasci);
 //public abstract Date javaDatetoSqlDate(Date data);
 //
 }

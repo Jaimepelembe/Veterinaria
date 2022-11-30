@@ -54,7 +54,7 @@ public class Tabela_Consulta_Vacina implements ActionListener {
 
     public Tabela_Consulta_Vacina() {
         inicializarComponentes();
-        // criarJanela();
+         //criarJanela();
     }
 
     public void inicializarComponentes() {

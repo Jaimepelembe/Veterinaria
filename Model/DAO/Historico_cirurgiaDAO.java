@@ -4,6 +4,7 @@
  */
 package Model.DAO;
 
+import Model.VO.Animal;
 import Model.VO.Cirurgia;
 import Model.VO.Exame;
 import Model.VO.Historico_Cirurgia;
@@ -91,6 +92,49 @@ finally{ConnectionBD cm = new ConnectionBD();
   return cirurgias;  
 } 
 
+public Vector<Animal> selecionarAnimais(String especie) throws SQLException, ClassNotFoundException, ExceptionDAO{
+Connection cn=null;
+PreparedStatement pstate=null;
+String sql="select animal.nome,animal.idAnimal,animal.peso,animal.dt_nascimento from animal where especie='"+especie+"';";
+
+Vector<Animal> animais=null;
+
+try{
+cn=new ConnectionBD().getConnection();
+pstate=cn.prepareStatement(sql);
+ResultSet rs= pstate.executeQuery(sql);
+if(rs!=null){
+int  idAnimal;
+float peso;
+Date data;
+String nome;
+animais = new Vector<>();
+while(rs.next()){
+nome= rs.getString("nome");
+idAnimal=rs.getInt("idAnimal");
+peso=rs.getFloat("peso");
+data=rs.getDate("dt_nascimento");
+
+Animal animal= new Animal();
+animal.setNome(nome);
+animal.setIdAnimal(idAnimal);
+animal.setPeso(peso);
+animal.setDt_nascimento(data);
+animais.add(animal);
+
+}
+}
+else{JOptionPane.showMessageDialog(null, "Não foi encontrado nenhum animal");}
+
+
+    
+}
+catch(SQLException ex){ throw new ExceptionDAO("Erro ao buscar o animal: "+ex); }
+finally{ConnectionBD cm = new ConnectionBD();
+  cm.fecharConexao(pstate, cn);}
+      
+  return animais;  
+} 
     
     
 }

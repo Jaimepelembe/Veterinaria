@@ -5,6 +5,7 @@
 package Controller;
 
 import java.sql.Date;
+import java.time.Instant;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,26 +25,7 @@ public class Data implements  Datas{
  return data;}
  
     public static void main(String[] args) {
-    
-//          String str="2022-11-29";
-//       Date  data=(Date.valueOf(str)) ;
-//       
-//         LocalDate date= data.toLocalDate();
-//     DateTimeFormatter dtf= DateTimeFormatter.ofPattern("dd-MM-yyyy");//Converter para padrao do usuario  dd-MM-YYYY
-//     
-//     String datastr=""+dtf.format(date); 
-//        System.out.println("Data no padrao user:"+datastr);
-       
-       //data.
-           // String data="29-12-2025";
-   // data=data.substring(6, 10)+"-"+data.substring(3, 5)+"-"+data.substring(0,2); 
-//        System.out.println(StringtoSqlDate(data));
-        
-//      String str="2022-11-29";
-//         Date  data=(Date.valueOf(str)) ;
-//         //System.out.println(data.toString());
-//         System.out.println(data);    
-//        
+      
     }
 
     @Override
@@ -60,6 +42,13 @@ public class Data implements  Datas{
      String datastr=""+dtf.format(date); 
     
    return datastr;}
+
+    @Override
+    public int calcularIdade(Date dataNasci) {
+        LocalDate dataActual=LocalDate.now();
+        int idade= dataActual.getYear()- dataNasci.toLocalDate().getYear();
+        
+    return idade;}
     
 
 }

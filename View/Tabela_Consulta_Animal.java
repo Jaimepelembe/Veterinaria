@@ -10,6 +10,7 @@ import Controller.ClienteController;
 import Model.DAO.ExceptionDAO;
 import Model.VO.Animal;
 import Model.VO.Cliente;
+import com.itextpdf.text.DocumentException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -19,6 +20,8 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Vector;
@@ -45,9 +48,10 @@ public class Tabela_Consulta_Animal extends MouseAdapter implements ActionListen
     private JFrame frame;
     private JComboBox cCores, cRacas;
     private JTable tabela;
-    private JButton bPesquisar;
+    private JButton bPesquisar, bRelatorio;
     private ButtonGroup botoes;
     private JRadioButton rbcao, rbgato;
+    private Vector<Animal> animais;
     GridBagConstraints gbc = new GridBagConstraints();
     private String[] racas_caes = {"Chow chow", "Chiuaua", "Doberman", "Husky siberiano", "Pastor Alemao", "Pitbull", "Pastor Belga", "outro"};
     private String[] racas_gatos = {"Bengal", "British Shorthair", "Maine Coon", "Munchkin", "Persa", "Ragdoll", "Sphynx", "outro"};
@@ -55,7 +59,7 @@ Color corSalvar = new Color(0.05f, 0.72f, 0.08f, 1.0f);
     Color corLimpar = new Color(0.05f, 0.31f, 0.72f, 1.0f);
     public Tabela_Consulta_Animal() {
         inicializar();
-        //criarJanela();
+        criarJanela();
     }
 
     public void inicializar() {
@@ -94,6 +98,14 @@ Color corSalvar = new Color(0.05f, 0.72f, 0.08f, 1.0f);
         bPesquisar.setBackground(corLimpar);
         bPesquisar.setFocusPainted(false);
         bPesquisar.addActionListener(this);
+        
+        //Botao de relatorio
+        bRelatorio= new JButton("Relatorio");
+        bRelatorio.setForeground(Color.WHITE);
+        bRelatorio.setBackground(Color.DARK_GRAY);
+        bRelatorio.setFocusPainted(false);
+        bRelatorio.addActionListener(this);
+        
 
     }
 
@@ -139,7 +151,7 @@ Color corSalvar = new Color(0.05f, 0.72f, 0.08f, 1.0f);
 
         // nome
         gbc.gridwidth = 0;
-        gbc.insets = new Insets(35, 15, 0, 0);
+        gbc.insets = new Insets(35, 15, 40, 0);
         gbc.ipadx = 20;
         gbc.ipady = 5;
         gbc.gridx = 0;
@@ -147,7 +159,7 @@ Color corSalvar = new Color(0.05f, 0.72f, 0.08f, 1.0f);
         painel.add(nome, gbc);
 
         // Field nome
-        gbc.insets = new Insets(35, 15, 0, 0);
+        gbc.insets = new Insets(35, 15, 40, 0);
         gbc.ipady = 10;
         gbc.gridx = 1;
         gbc.gridy = 2;
@@ -160,6 +172,16 @@ Color corSalvar = new Color(0.05f, 0.72f, 0.08f, 1.0f);
         gbc.gridy = 2;
         gbc.gridwidth = 1;
         painel.add(bPesquisar, gbc);
+        
+        //Botao de relatorio
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(35, 15, 40, 0);
+        gbc.gridx = 3;
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        painel.add(bRelatorio, gbc);
+        
+        
         return painel;
 
     }
@@ -260,7 +282,7 @@ Color corSalvar = new Color(0.05f, 0.72f, 0.08f, 1.0f);
                 DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
                 modelo.setRowCount(0);
                 AnimalController animal = new AnimalController();
-                Vector<Animal> animais = animal.pesquisarAnimalEspecie(especie);
+                animais = animal.pesquisarAnimalEspecie(especie);
                 animais.forEach((Animal ani) -> {modelo.addRow(new Object[]{ani.getIdAnimal(), ani.getNome(),ani.getEspecie(),ani.getSexo(),ani.getRaca(),ani.getCor_pelo(),ani.getPeso(),ani.getDt_nascimento()});
                 });
                 tabela.setModel(modelo);
@@ -278,7 +300,7 @@ Color corSalvar = new Color(0.05f, 0.72f, 0.08f, 1.0f);
                 DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
                 modelo.setRowCount(0);
                 AnimalController animal = new AnimalController();
-                Vector<Animal> animais = animal.pesquisarAnimalRaca(raca);
+                animais = animal.pesquisarAnimalRaca(raca);
                 animais.forEach((Animal ani) -> {modelo.addRow(new Object[]{ani.getIdAnimal(), ani.getNome(),ani.getEspecie(),ani.getSexo(),ani.getRaca(),ani.getCor_pelo(),ani.getPeso(),ani.getDt_nascimento()});
                 });
                 tabela.setModel(modelo);
@@ -297,7 +319,7 @@ Color corSalvar = new Color(0.05f, 0.72f, 0.08f, 1.0f);
                 DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
                 modelo.setRowCount(0);
                 AnimalController animal = new AnimalController();
-                Vector<Animal> animais = animal.pesquisarAnimalNome(name);
+                animais = animal.pesquisarAnimalNome(name);
                 animais.forEach((Animal ani) -> {modelo.addRow(new Object[]{ani.getIdAnimal(), ani.getNome(),ani.getEspecie(),ani.getSexo(),ani.getRaca(),ani.getCor_pelo(),ani.getPeso(),ani.getDt_nascimento()});
                 });
                 tabela.setModel(modelo);
@@ -307,6 +329,10 @@ Color corSalvar = new Color(0.05f, 0.72f, 0.08f, 1.0f);
         }
     }
    
+    private void gerarRelatorio() throws DocumentException, IOException, FileNotFoundException, ClassNotFoundException, ExceptionDAO{
+    new AnimalController().gerarRelatorio(animais);
+    
+    }
     public void criarJanela() {
         frame = new JFrame("CONSULTAR ANIMAL");
 
@@ -374,6 +400,19 @@ Color corSalvar = new Color(0.05f, 0.72f, 0.08f, 1.0f);
          cRacas.setSelectedIndex(-1);
          String nome=fNome.getText();
          pesquisarAnimalNome(nome);
+     }
+     if(e.getSource()==bRelatorio){
+          try {
+              gerarRelatorio();
+          } catch (DocumentException ex) {
+              JOptionPane.showMessageDialog(null, "Erro ao gerar relatorio os dados do animal"+ ex);
+          } catch (IOException ex) {
+              JOptionPane.showMessageDialog(null, "Erro ao gerar relatorio os dados do animal"+ ex);
+          } catch (ClassNotFoundException ex) {
+              JOptionPane.showMessageDialog(null, "Erro ao gerar relatorio os dados do animal"+ ex);
+          } catch (ExceptionDAO ex) {
+              JOptionPane.showMessageDialog(null, "Erro ao gerar relatorio os dados do animal"+ ex);
+          }
      }
      
     }
