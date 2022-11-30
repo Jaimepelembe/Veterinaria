@@ -19,11 +19,12 @@ public class TelaLogin {
     private static JFrame frame;
     private static JPanel painel;
     private static Container painelLogin;
-    private GridBagConstraints gbc = new GridBagConstraints();
-     Color cor = new Color(0.0f, 0.4f, 0.8f, 1f);//COR DO AZUL
-    Color cor2 = new Color(0.0f, 0.2f, 0.8f, 1f); //COR SECUNDARIA
+    private GridBagConstraints gbc = new GridBagConstraints(); //cores
+    Color cor = new Color(0.03f, 0.33f, 0.58f, 1.0f);//COR DO PAINEL AZUL
+    Color corBranco = Color.white ;//COR DO PAINEL branco
+    Color cor2 = new Color(0.07f, 0.43f, 0.73f, 1.0f); //COR SECUNDARIA
      //fontes
-    Font fonte = new Font("Helvetica", Font.TRUETYPE_FONT, 15);
+    Font fonte = new Font("Helvetica", Font.TRUETYPE_FONT, 14);
     Font fonte2 = new Font("Helvetica", Font.TRUETYPE_FONT, 14);
     public TelaLogin(){
         
@@ -37,7 +38,7 @@ public class TelaLogin {
     senha.setForeground(Color.white);
     tenteNovamente = new JLabel("   preencha o campo acima  ");
     tenteNovamente.setForeground(Color.yellow);
-    bEntrar = new JButton("  ENTRAR  ");
+    bEntrar = new JButton("     ENTRAR      ");
       bEntrar.setBackground(cor2);
         bEntrar.setForeground(Color.WHITE);
         bEntrar.setBorderPainted(false);
@@ -89,11 +90,14 @@ public class TelaLogin {
     return painel;
     }
        public void criarJanela() {
+           
         frame = new JFrame();
+        ImageIcon img = new ImageIcon("src/Imagens/Menu/menuIcon.png");
         frame.setBackground(Color.white);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(painelLogin());
         frame.setSize(880, 750);
+        frame.setIconImage(img.getImage());
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
         frame.setVisible(true);
@@ -116,15 +120,15 @@ public class TelaLogin {
         }
 
     public static void main(String[] args){
-    new TelaLoading();
+   new TelaLoading();
     new TelaLogin();
     
     }
-    
      ActionListener al = new ActionListener() {
            public void actionPerformed(ActionEvent e)  {
        repetirSenha();
-       }};
+       }
+     };
            
      
         

@@ -14,8 +14,10 @@ import java.awt.event.*;
 public class TelaLoading{
 
     private GridBagConstraints gbc = new GridBagConstraints();
-     Color cor = new Color(0.0f, 0.4f, 0.8f, 1f);//COR DO AZUL
-    Color cor2 = new Color(0.0f, 0.2f, 0.8f, 1f); //COR SECUNDARIA
+     //cores
+    Color cor = new Color(0.03f, 0.33f, 0.58f, 1.0f);//COR DO PAINEL AZUL
+    Color corBranco = Color.white ;//COR DO PAINEL branco
+    Color cor2 = new Color(0.07f, 0.43f, 0.73f, 1.0f); //COR SECUNDARIA
     // create a frame
 	private static JFrame f;
 	private static JProgressBar b;
@@ -68,6 +70,8 @@ public class TelaLoading{
         public void criarJanela(){
 		// criar a frame
 		f = new JFrame("loading");
+                ImageIcon img = new ImageIcon("src/Imagens/Menu/menuIcon.png");
+                f.setIconImage(img.getImage());
                 f.setLayout(new BorderLayout());
                 f.setBackground(Color.white);
 		// add panel

@@ -46,20 +46,20 @@ public class Menu_Principal implements ActionListener, MouseListener{
     private GridBagConstraints gbc = new GridBagConstraints();
     private JButton cliente, animal, servicos, produtos, historico, tema, botao;
     private static JLabel label, iCliente, iAnimal, iProduto, iServico, iHistorico, iTema , iconPrincipal;
-    private JPopupMenu popMenu, pop_Animal, pop_Vacina, pop_Servicos;
-    private JMenuItem mCadCliente, mConsCliente, mCadAnimal, mConsAnimal, mConsVacina, mCadVacina,mExame, mVacinacao, mCirurgia;
+    private JPopupMenu popMenu, pop_Animal, pop_Vacina, pop_Servicos, pop_Tema;
+    private JMenuItem mCadCliente, mConsCliente, mCadAnimal, mConsAnimal, mConsVacina, mCadVacina,mExame, mVacinacao, mCirurgia, tema1, tema2;
     //cores
     Color cor = new Color(0.03f, 0.33f, 0.58f, 1.0f);//COR DO PAINEL AZUL
     Color corBranco = Color.white ;//COR DO PAINEL branco
     Color cor2 = new Color(0.07f, 0.43f, 0.73f, 1.0f); //COR SECUNDARIA
-
+     String caminho;
     //fontes
     Font fonte = new Font("Helvetica", Font.TRUETYPE_FONT, 20);
     Font fonte2 = new Font("arial", Font.TRUETYPE_FONT, 15);
 
     public Menu_Principal() {
         inicializarComponentes();
-        criarJanela();
+        //criarJanela();
         //new TelaLogin();
     }
 
@@ -182,6 +182,18 @@ public class Menu_Principal implements ActionListener, MouseListener{
         mCirurgia.setBackground(Color.white);
         mCirurgia.addActionListener(this);
         mCirurgia.setFont(fonte2);
+        
+        //Menu temas
+         pop_Tema = new JPopupMenu();
+        tema1 = new JMenuItem("Tema Gato");
+        tema1.setBackground(Color.white);
+        tema1.addActionListener(this);
+        tema1.setFont(fonte2);
+        
+        tema2 = new JMenuItem("Tema Cão");
+        tema2.setBackground(Color.white);
+        tema2.addActionListener(this);
+        tema2.setFont(fonte2);
 
 
         //// ------------------IMAGENS--------
@@ -200,6 +212,9 @@ public class Menu_Principal implements ActionListener, MouseListener{
         iHistorico.setIcon(new ImageIcon("src/Imagens/Menu/historico.png"));
         iTema.setIcon(new ImageIcon("src/Imagens/Menu/tema.png"));
         label.addMouseListener(this);
+        
+        //caminho imagemprincipal
+   caminho  = "src/Imagens/Menu/pexels.jpg";
        
     }
 
@@ -445,20 +460,28 @@ public class Menu_Principal implements ActionListener, MouseListener{
         produtos.setBackground(cor);
         historico.setBackground(cor);
     }
+    //tema de cao
+     public void mudar_cor1() {
+        
+             caminho = "src/Imagens/Menu/pexels.jpg";
+         label.setIcon(new ImageIcon("src/Imagens/Menu/logo.png")); 
+    }
+     //tema de gato
+      public void mudar_cor2() {
+             caminho = "src/Imagens/Menu/pexels2.jpg";
+          label.setIcon(new ImageIcon("src/Imagens/Menu/logo2.png"));
+    }
     public  void iconPrincipal(){
        removerPainelCentral();
-       painelActual=new JLabel(new ImageIcon("src/Imagens/Menu/pexels.jpg"));
+       mudarTema();
        this.frame.add(painelActual,BorderLayout.CENTER);
        this.frame.setVisible(true);
     }
     //MUDAR TEMA
     public void mudarTema(){
         System.out.println("hafdahdahd");
-    
-      //  cor = new Color(0.12f, 0.40f, 0.42f, 1.0f);
-    cor2 = new Color(0.19f, 0.47f, 0.17f, 1.0f);
+       painelActual=new JLabel(new ImageIcon(caminho));
     }
-    
     public void PopMenu_Cliente() {
         popMenu.add(mCadCliente);
         popMenu.add(mConsCliente);
@@ -487,6 +510,19 @@ public class Menu_Principal implements ActionListener, MouseListener{
         });
 
     }
+        public void PopMenu_Tema() {
+        pop_Tema.add(tema1);
+        pop_Tema.add(tema2);
+        pop_Tema.setBackground(Color.WHITE);
+        tema.setAlignmentX(RIGHT_ALIGNMENT);
+        tema.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                pop_Tema.show(e.getComponent(), 100, 0);
+            }
+        });
+
+    }
 
     public void PopMenu_Animal() {
         pop_Animal.add(mCadAnimal);
@@ -500,7 +536,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
         });}
     
     public void criarJanela() {
-        ImageIcon img = new ImageIcon("src/Imagens/Menu/menu.jpg");
+        ImageIcon img = new ImageIcon("src/Imagens/Menu/menuIcon.png");
         frame = new JFrame();
         frame.setLayout(new BorderLayout());
         frame.setBackground(Color.white);
@@ -637,6 +673,17 @@ public class Menu_Principal implements ActionListener, MouseListener{
             Tabela_animal();
             frame.setVisible(true);
         }
+        
+         //Menuitem tema1
+        if (e.getSource() == tema1) {
+            mudar_cor2();
+            frame.setVisible(true);
+        }
+         //Menuitem tema 2
+        if (e.getSource() == tema2) {
+            mudar_cor1();
+            frame.setVisible(true);
+        }
 
         
       //######## Eventos do botao VACINAS ######### produtos= vacinas
@@ -656,7 +703,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
             frame.setVisible(true);
         }
           if (e.getSource() == tema) {
-           mudarTema();
+           PopMenu_Tema();
             frame.setVisible(true);
         }
     }
