@@ -56,7 +56,6 @@ public boolean cadastrarHistorico(int idAnimal,int idCirurgia,Date data,String o
      
  int idade=new Data().calcularIdade(animal.getDt_nascimento());
  float peso=animal.getPeso();
- float porc=0;
  
  //Veriricar a porcentagem que o animal vai pagar
  //o preco base e 1600mts
