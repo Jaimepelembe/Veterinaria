@@ -63,7 +63,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
         //new TelaLogin();
     }
 
-     public Menu_Principal(String vazio) {
+    public Menu_Principal(String vazio) {
         inicializarComponentes();
        
     }
@@ -324,39 +324,28 @@ public class Menu_Principal implements ActionListener, MouseListener{
         frame.add(painelActual, BorderLayout.CENTER);
         frame.setVisible(true);
     }
-
-
     
-      public void Vacinacao() throws SQLException, ClassNotFoundException, ExceptionDAO {
-        telaVacinacao vacina = new telaVacinacao();
-        //Remover o painel central caso ele tenha algo
+      //Metodos Para cadastro, Consulta e exibir resultado da consulta do animal   
+ 
+      //Painel que exibe a informacao do animal selecionado na busca a BD
+    public void Resul_consultaAnimal() throws SQLException, ClassNotFoundException, ExceptionDAO {
+        Cadastro_Animal animais = new Cadastro_Animal();
+        //Remover o painel que esta no centro
         removerPainelCentral();
-        painelActual = vacina.pPrincipal();
-        mudarCor();
-        servicos.setBackground(cor2);
+        painelActual = animais.painelResulConsulta();
         frame.add(painelActual, BorderLayout.CENTER);
     }
-      
-        public void Cirurgia() throws SQLException, ClassNotFoundException, ExceptionDAO{
-        telaCirurgia sCirurgia = new telaCirurgia();
-        //Remover o painel central caso ele tenha algo
-        removerPainelCentral();
-        painelActual = sCirurgia.pPrincipal();
+
+    public void Tabela_animal() {
+        Tabela_Consulta_Animal tAnimal = new Tabela_Consulta_Animal();
         mudarCor();
-        servicos.setBackground(cor2);
-        frame.add(painelActual, BorderLayout.CENTER);
-    }
-      
-        public void Exames() throws SQLException, ClassNotFoundException, ExceptionDAO {
-            telaExame exame = new telaExame();
-        //Remover o painel central caso ele tenha algo
+        animal.setBackground(cor2);
+        
         removerPainelCentral();
-        painelActual = exame.pPrincipal();
-        mudarCor();
-        servicos.setBackground(cor2);
+        painelActual = tAnimal.pPrincipal();
         frame.add(painelActual, BorderLayout.CENTER);
+
     }
-    //Metodos Para cadastro, Consulta e exibir resultado da consulta do animal   
     //Cadastro do Animal
     public void cadastro_Animal() throws SQLException, ClassNotFoundException, ExceptionDAO {
         Cadastro_Animal animais = new Cadastro_Animal();
@@ -376,6 +365,17 @@ public class Menu_Principal implements ActionListener, MouseListener{
         frame.add(painelActual, BorderLayout.CENTER);
         frame.setVisible(true);
     }
+    public void PopMenu_Animal() {
+        pop_Animal.add(mCadAnimal);
+        pop_Animal.add(mConsAnimal);
+        pop_Animal.setBackground(Color.WHITE);
+        animal.setAlignmentX(RIGHT_ALIGNMENT);
+        animal.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                pop_Animal.show(e.getComponent(), 100, 0);
+            }
+        });}
+    
     //Metodo para registar o animal de um cliente
     public static void addAnimalCliente(Container contentor){
        removerPainelCentral();
@@ -383,7 +383,37 @@ public class Menu_Principal implements ActionListener, MouseListener{
         frame.add(painelActual, BorderLayout.CENTER);
         frame.setVisible(true);
     }
-
+    
+    //Servicos de Oferecidos
+    public void Vacinacao() throws SQLException, ClassNotFoundException, ExceptionDAO {
+        telaVacinacao vacina = new telaVacinacao();
+        //Remover o painel central caso ele tenha algo
+        removerPainelCentral();
+        painelActual = vacina.pPrincipal();
+        mudarCor();
+        servicos.setBackground(cor2);
+        frame.add(painelActual, BorderLayout.CENTER);
+    }
+      
+    public void Cirurgia() throws SQLException, ClassNotFoundException, ExceptionDAO{
+        telaCirurgia sCirurgia = new telaCirurgia();
+        //Remover o painel central caso ele tenha algo
+        removerPainelCentral();
+        painelActual = sCirurgia.pPrincipal();
+        mudarCor();
+        servicos.setBackground(cor2);
+        frame.add(painelActual, BorderLayout.CENTER);
+    }
+      
+    public void Exames() throws SQLException, ClassNotFoundException, ExceptionDAO {
+            telaExame exame = new telaExame();
+        //Remover o painel central caso ele tenha algo
+        removerPainelCentral();
+        painelActual = exame.pPrincipal();
+        mudarCor();
+        servicos.setBackground(cor2);
+        frame.add(painelActual, BorderLayout.CENTER);
+    }
     
     public void cadastro_Vacina(){
     Cadastro_Vacina vacinas= new Cadastro_Vacina();
@@ -395,7 +425,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
      frame.add(painelActual, BorderLayout.CENTER);
      
     }
-        public void Tabela_vacina() {
+    public void Tabela_vacina() {
 
         Tabela_Consulta_Vacina tVacina = new Tabela_Consulta_Vacina();
                 mudarCor();
@@ -405,7 +435,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
         frame.add(painelActual, BorderLayout.CENTER);
 
     }
-         public void PopMenu_Vacina() {
+    public void PopMenu_Vacina() {
         pop_Vacina.add(mCadVacina);
         pop_Vacina.add(mConsVacina);
         pop_Vacina.setBackground(Color.WHITE);
@@ -415,28 +445,6 @@ public class Menu_Principal implements ActionListener, MouseListener{
                 pop_Vacina.show(e.getComponent(), 100, 0);
             }
         });
-
-    }
-
-    
-
-    //Painel que exibe a informacao do animal selecionado na busca a BD
-    public void Resul_consultaAnimal() throws SQLException, ClassNotFoundException, ExceptionDAO {
-        Cadastro_Animal animais = new Cadastro_Animal();
-        //Remover o painel que esta no centro
-        removerPainelCentral();
-        painelActual = animais.painelResulConsulta();
-        frame.add(painelActual, BorderLayout.CENTER);
-    }
-
-    public void Tabela_animal() {
-        Tabela_Consulta_Animal tAnimal = new Tabela_Consulta_Animal();
-        mudarCor();
-        animal.setBackground(cor2);
-        
-        removerPainelCentral();
-        painelActual = tAnimal.pPrincipal();
-        frame.add(painelActual, BorderLayout.CENTER);
 
     }
 
@@ -461,13 +469,13 @@ public class Menu_Principal implements ActionListener, MouseListener{
         historico.setBackground(cor);
     }
     //tema de cao
-     public void mudar_cor1() {
+    public void mudar_cor1() {
         
              caminho = "src/Imagens/Menu/pexels.jpg";
          label.setIcon(new ImageIcon("src/Imagens/Menu/logo.png")); 
     }
      //tema de gato
-      public void mudar_cor2() {
+    public void mudar_cor2() {
              caminho = "src/Imagens/Menu/pexels2.jpg";
           label.setIcon(new ImageIcon("src/Imagens/Menu/logo2.png"));
     }
@@ -479,9 +487,10 @@ public class Menu_Principal implements ActionListener, MouseListener{
     }
     //MUDAR TEMA
     public void mudarTema(){
-        System.out.println("hafdahdahd");
        painelActual=new JLabel(new ImageIcon(caminho));
     }
+    
+    //Pops Menu
     public void PopMenu_Cliente() {
         popMenu.add(mCadCliente);
         popMenu.add(mConsCliente);
@@ -496,7 +505,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
         });
 
     }
-     public void PopMenu_servicos() {
+    public void PopMenu_servicos() {
         pop_Servicos.add(mExame);
         pop_Servicos.add(mVacinacao);
         pop_Servicos.add(mCirurgia);
@@ -510,7 +519,7 @@ public class Menu_Principal implements ActionListener, MouseListener{
         });
 
     }
-        public void PopMenu_Tema() {
+    public void PopMenu_Tema() {
         pop_Tema.add(tema1);
         pop_Tema.add(tema2);
         pop_Tema.setBackground(Color.WHITE);
@@ -523,17 +532,6 @@ public class Menu_Principal implements ActionListener, MouseListener{
         });
 
     }
-
-    public void PopMenu_Animal() {
-        pop_Animal.add(mCadAnimal);
-        pop_Animal.add(mConsAnimal);
-        pop_Animal.setBackground(Color.WHITE);
-        animal.setAlignmentX(RIGHT_ALIGNMENT);
-        animal.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                pop_Animal.show(e.getComponent(), 100, 0);
-            }
-        });}
     
     public void criarJanela() {
         ImageIcon img = new ImageIcon("src/Imagens/Menu/menuIcon.png");
@@ -638,20 +636,13 @@ public class Menu_Principal implements ActionListener, MouseListener{
                 Logger.getLogger(Menu_Principal.class.getName()).log(Level.SEVERE, null, ex);
             }
             frame.setVisible(true);
-        }
-
-
-        
-        
+        } 
         
         //######## Eventos do botao Animal #########
         if (e.getSource() == animal) {
             PopMenu_Animal();
             frame.setVisible(true);
         }
-        
-        
-
 
         //Pop Menu
         //Menuitem Cadastrar ANIMAL

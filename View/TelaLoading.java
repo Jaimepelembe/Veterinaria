@@ -62,10 +62,10 @@ public class TelaLoading{
         
         return painel;}
 
-	/*public static void main(String[]args)
+	public static void main(String[]args)
 	{ new TelaLoading();
-         new TelaLogin();    
-	}*/
+            
+	}
         
         public void criarJanela(){
 		// criar a frame
@@ -91,7 +91,7 @@ public class TelaLoading{
 		try {
 			while (i <= 100) {
 				// fill the menu bar
-				b.setValue(i + 1);
+				b.setValue(i + 13);
 
 				// delay the thread
 				Thread.sleep(1000);

@@ -27,8 +27,7 @@ public class TelaLogin {
     Font fonte = new Font("Helvetica", Font.TRUETYPE_FONT, 14);
     Font fonte2 = new Font("Helvetica", Font.TRUETYPE_FONT, 14);
     public TelaLogin(){
-        
-        inicializar();
+    inicializar();
     criarJanela();
     }
     
@@ -52,12 +51,11 @@ public class TelaLogin {
       
     
     //imagem de login
-            icon = new JLabel();
+        icon = new JLabel();
         icon.setIcon(new ImageIcon("src/Imagens/Menu/logo.png"));
     
     }
    public Container painelLogin(){
-   inicializar();
    painel = new JPanel();
    painel.setBackground(cor);
     
@@ -82,7 +80,7 @@ public class TelaLogin {
         gbc.gridy = 3;
         painel.add(tenteNovamente, gbc);
         
-        //butao entrar
+        //botao entrar
         gbc.insets = new Insets(25, 5, 30, 0);
         gbc.gridy = 4;
         painel.add(bEntrar, gbc);
@@ -107,8 +105,10 @@ public class TelaLogin {
           String nSenha = "vet";
         if(fSenha.getText().equalsIgnoreCase(nSenha)){
             frame.setVisible(false);
+            //frame.removeAll();;
            Menu_Principal menu = new Menu_Principal();
-           menu.criarJanela();
+           //menu.criarJanela();
+           
         }
           else{
             fSenha.setText(null);
